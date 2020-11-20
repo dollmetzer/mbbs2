@@ -1,0 +1,44 @@
+<ul class="navbar-nav mr-auto">
+    <li class="nav-item{% if nav_top == 'home' %} active{% endif %}">
+        <a class="nav-link" href="{{ path('index_index') }}"><i class="fas fa-home"></i>&nbsp;Start</a>
+    </li>
+    {% if app.user %}
+        <li class="nav-item{% if nav_top == 'statemachine_items' %} active{% endif %}">
+            <a class="nav-link" href="#"><i class="fas fa-boxes"></i>&nbsp;Items</a>
+        </li>
+        <li class="nav-item{% if nav_top == 'statemachine_workflow' %} active{% endif %}">
+            <a class="nav-link" href="{{ path('workflow_list') }}"><i class="fas fa-sitemap"></i>&nbsp;Workflow</a>
+        </li>
+
+
+        <li class="nav-item{% if nav_top == 'admin_user' %} active{% endif %}">
+            <a class="nav-link" href="{{ path('admin_user_list') }}"><i class="fas fa-users"></i>&nbsp;Nutzer</a>
+        </li>
+        <li class="nav-item{% if nav_top == 'admin_role' %} active{% endif %}">
+            <a class="nav-link" href="{{ path('admin_role_list') }}"><i class="fas fa-user-tag"></i>&nbsp;Rollen</a>
+        </li>
+
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('account_logout') }}"><i class="fas fa-sign-out-alt"></i>&nbsp;Abmelden</a>
+        </li>
+        <li class="nav-item{% if nav_top == 'profile_show' %} active{% endif %}">
+            <a class="nav-link" href="{{ path('account_profile') }}"><i class="far fa-id-card"></i>&nbsp;Profil</a>
+        </li>
+        <li class="nav-item{% if nav_top == 'account_impersonate' %} active{% endif %}">
+            <a class="nav-link" href="{{ path('account_impersonate') }}"><i class="fas fa-user-tag"></i>&nbsp;Als Benutzer...</a>
+        </li>
+    {% else %}
+        <li class="nav-item{% if nav_top == 'account_login' %} active{% endif %}">
+            <a class="nav-link" href="{{ path('account_login') }}"><i class="fas fa-sign-in-alt"></i>&nbsp;Anmelden</a>
+        </li>
+        <li class="nav-item{% if nav_top == 'account_register' %} active{% endif %}">
+            <a class="nav-link" href="{{ path('account_register') }}"><i class="fas fa-file-signature"></i>&nbsp;Registrieren</a>
+        </li>
+    {% endif %}
+    <!--
+    <li class="nav-item">
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+    </li>
+    -->
+</ul>
