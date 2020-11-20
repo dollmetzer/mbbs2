@@ -42,3 +42,8 @@ Make the following directories writeable for the web server:
 * ~/var/
 
 Set up the database (...tbd...)
+
+    bin/console doctrine:database:create
+    bin/console doctrine:schema:create
+    bin/console doctrine:fixtures:load
+    
