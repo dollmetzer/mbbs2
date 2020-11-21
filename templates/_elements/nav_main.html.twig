@@ -3,14 +3,6 @@
         <a class="nav-link" href="{{ path('index_index') }}"><i class="fas fa-home"></i>&nbsp;Start</a>
     </li>
     {% if app.user %}
-        <li class="nav-item{% if nav_top == 'statemachine_items' %} active{% endif %}">
-            <a class="nav-link" href="#"><i class="fas fa-boxes"></i>&nbsp;Items</a>
-        </li>
-        <li class="nav-item{% if nav_top == 'statemachine_workflow' %} active{% endif %}">
-            <a class="nav-link" href="{{ path('workflow_list') }}"><i class="fas fa-sitemap"></i>&nbsp;Workflow</a>
-        </li>
-
-
         <li class="nav-item{% if nav_top == 'admin_user' %} active{% endif %}">
             <a class="nav-link" href="{{ path('admin_user_list') }}"><i class="fas fa-users"></i>&nbsp;Nutzer</a>
         </li>
@@ -20,10 +12,7 @@
 
 
         <li class="nav-item">
-            <a class="nav-link" href="{{ path('account_logout') }}"><i class="fas fa-sign-out-alt"></i>&nbsp;Abmelden</a>
-        </li>
-        <li class="nav-item{% if nav_top == 'profile_show' %} active{% endif %}">
-            <a class="nav-link" href="{{ path('account_profile') }}"><i class="far fa-id-card"></i>&nbsp;Profil</a>
+            <a class="nav-link" href="{{ path('account_logout') }}"><i class="fas fa-sign-out-alt"></i>&nbsp;Abmelden [{{ app.user.handle }}]</a>
         </li>
         <li class="nav-item{% if nav_top == 'account_impersonate' %} active{% endif %}">
             <a class="nav-link" href="{{ path('account_impersonate') }}"><i class="fas fa-user-tag"></i>&nbsp;Als Benutzer...</a>
