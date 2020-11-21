@@ -1,5 +1,5 @@
 # IDE settings
-.idea/
+/.idea/
 
 # Email Spool Folder
 
@@ -8,10 +8,7 @@
 !var/log/.gitkeep
 
 # Vendor Components
-vendor/
-
-# PHPUnit
-phpunit.xml
+/vendor/
 
 # Embedded web-server pid file
 /.web-server-pid
