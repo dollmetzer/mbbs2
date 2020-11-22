@@ -19,25 +19,31 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
+        // ROLE
         $roleAdmin = new Role();
         $roleAdmin->setIsProtected(true);
         $roleAdmin->setName('ROLE_ADMIN');
+        $roleAdmin->setTimestamps();
         $manager->persist($roleAdmin);
 
         $roleModerator = new Role();
         $roleModerator->setName('ROLE_MODERATOR');
+        $roleModerator->setTimestamps();
         $manager->persist($roleModerator);
 
         $roleOrga = new Role();
         $roleOrga->setName('ROLE_ORGA');
+        $roleOrga->setTimestamps();
         $manager->persist($roleOrga);
 
+        // User
         $user = new User();
         $user->setHandle('admin');
         $user->setPassword($this->passwordEncoder->encodePassword(
             $user,
             'Admin2020!'
         ));
+        $user->setTimestamps();
         $user->addRole($roleAdmin);
         $manager->persist($user);
 

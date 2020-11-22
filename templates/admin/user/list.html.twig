@@ -1,0 +1,44 @@
+{% set nav_top = 'admin_user' %}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Nutzerverwaltung</h1>
+
+    <table class="table table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">&nbsp;</th>
+            <th scope="col">Name</th>
+            <th scope="col">Rollen</th>
+            <th scope="col">Created</th>
+            <th scope="col">Updated</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+        <tr>
+            <td>
+                <a href="{{ path('admin_user_show', {id : user.id}) }}" class="btn btn-outline-dark"><i class="fa-fw far fa-eye"></i></a>
+                <a href="{{ path('admin_user_edit', {id : user.id}) }}" class="btn btn-outline-dark"><i class="fa-fw far fa-edit"></i></a>
+                <a href="{{ path('admin_user_delete', {id : user.id}) }}" class="btn btn-outline-dark"><i class="fa-fw far fa-trash-alt"></i></a>
+            </td>
+            <td>{{ user.username }}</td>
+            <td>{% for role in user.roles %}
+                {{ role }}
+                {% endfor %}</td>
+            <td>{{ user.createdOn|format_datetime('medium', 'short', locale='de') }}</td>
+            <td>{{ user.updatedOn|format_datetime('medium', 'short', locale='de') }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="5">
+                <a href="{{ path("admin_user_create") }}" class="btn btn-outline-dark">Neuen Nutzer anlegen</a>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+
+{% endblock %}
+

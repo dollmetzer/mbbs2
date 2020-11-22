@@ -17,6 +17,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
+    use Timestampable;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")

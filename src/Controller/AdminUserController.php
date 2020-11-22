@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -9,11 +10,56 @@ use Symfony\Component\HttpFoundation\Response;
 class AdminUserController extends AbstractController
 {
     /**
-     * @Route("admin/user/list", name="admin_user_list")
+     * @Route("/admin/user/list", name="admin_user_list")
      * @return Response
      */
-    public function listAction(): Response
+    public function userListAction(): Response
     {
-        return $this->render('admin/user/list');
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $users = $repository->findAll();
+        return $this->render('admin/user/list.html.twig', ['users' => $users]);
+    }
+
+    /**
+     * @Route("/admin/user/show/{id}", name="admin_user_show")
+     * @param int $id
+     * @return Response
+     */
+    public function userShowAction(int $id): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $user = $repository->find($id);
+        return $this->render('admin/user/show.html.twig', ['user' => $user]);
+    }
+
+    /**
+     * @Route("/admin/user/edit/{id}", name="admin_user_edit")
+     * @param int $id
+     * @return Response
+     */
+    public function userEditAction(int $id): Response
+    {
+        die('not yet implemented');
+    }
+
+    /**
+     * @Route("/admin/user/delete/{id}", name="admin_user_delete")
+     * @param int $id
+     */
+    public function userDeleteAction(int $id)
+    {
+        die('not yet implemented');
+    }
+
+    /**
+     * @Route("admin/user/create", name="admin_user_create")
+     */
+    public function userCreateAction()
+    {
+        die('not yet implemented');
     }
 }

@@ -1,0 +1,33 @@
+{% set nav_top = 'admin_user' %}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Nutzerverwaltung</h1>
+
+    <table class="table table-striped">
+        <tr>
+            <td><strong>Name</strong></td>
+            <td>{{ user.username }}</td>
+        </tr>
+        <tr>
+            <td><strong>Rollen</strong></td>
+            <td>{% for role in user.roles %}
+                    {{ role }}
+                {% endfor %}</td>
+        </tr>
+        <tr>
+            <td><strong>Created</strong></td>
+            <td>{{ user.createdOn|format_datetime('medium', 'short', locale='de') }}</td>
+        </tr>
+        <tr>
+            <td><strong>Updated</strong></td>
+            <td>{{ user.updatedOn|format_datetime('medium', 'short', locale='de') }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><a href="{{ path("admin_user_edit", {id : user.id}) }}" class="btn btn-outline-dark">bearbeiten</a></td>
+        </tr>
+    </table>
+
+    {{ dump(user) }}
+{% endblock %}
+

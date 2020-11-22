@@ -1,0 +1,42 @@
+{% set nav_top = 'admin_role' %}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Rollenverwaltung</h1>
+
+    <table class="table table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">&nbsp;</th>
+            <th scope="col">Name</th>
+            <th scope="col"># Nutzer</th>
+            <th scope="col">Created</th>
+            <th scope="col">Updates</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for role in roles %}
+            <tr>
+                <td>
+                    <a href="{{ path('admin_role_show', {id : role.id}) }}" class="btn btn-outline-dark"><i class="fa-fw far fa-eye"></i></a>
+                    <a href="{{ path('admin_role_edit', {id : role.id}) }}" class="btn btn-outline-dark"><i class="fa-fw far fa-edit"></i></a>
+                    <a href="{{ path('admin_role_delete', {id : role.id}) }}" class="btn btn-outline-dark"><i class="fa-fw far fa-trash-alt"></i></a>
+                </td>
+                <td>{{ role.name }}</td>
+                <td>{{ role.users|length }}</td>
+                <td>{{ role.createdOn|format_datetime('medium', 'short', locale='de') }}</td>
+                <td>{{ role.updatedOn|format_datetime('medium', 'short', locale='de') }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <a href="#" class="btn btn-outline-dark">Neue Rolle anlegen</a>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+{% endblock %}
+
