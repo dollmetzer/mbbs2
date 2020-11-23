@@ -1,9 +1,18 @@
 <?php
-
+/**
+ * M B B S 2   -   B u l l e t i n   B o a r d   S y s t e m
+ * ---------------------------------------------------------
+ * A small BBS package for mobile use
+ *
+ * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
+ * @copyright (c) 2014-2020, Dirk Ollmetzer
+ * @license GNU GENERAL PUBLIC LICENSE Version 3
+ */
 
 namespace App\Controller;
 
 use App\Entity\Role;
+use App\Form\Type\AdminRoleType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -65,6 +74,13 @@ class AdminRoleController extends AbstractController
      */
     public function roleCreateAction()
     {
-        die('not yet implemented');
+        $role = new Role();
+
+        $form = $this->createForm(AdminRoleType::class, $role);
+
+        return $this->render('admin/role/new.html.twig', [
+            'form' => $form->createView()
+        ]);
+
     }
 }
