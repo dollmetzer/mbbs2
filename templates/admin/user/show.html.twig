@@ -4,6 +4,7 @@
 {% block body %}
     <h1>Nutzerverwaltung</h1>
 
+    {% if user %}
     <table class="table table-striped">
         <tr>
             <td><strong>Name</strong></td>
@@ -27,7 +28,9 @@
             <td colspan="2"><a href="{{ path("admin_user_edit", {id : user.id}) }}" class="btn btn-outline-dark">bearbeiten</a></td>
         </tr>
     </table>
-
-    {{ dump(user) }}
+    {% else %}
+        <div class="alert alert-danger" role="alert">
+            Der gesuchte Nutzer existiert nicht
+        </div>
+    {% endif %}
 {% endblock %}
-

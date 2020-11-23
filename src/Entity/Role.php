@@ -37,7 +37,7 @@ class Role
     private $isProtected=false;
 
     /**
-     * @ManyToMany(targetEntity="User", inversedBy="roles")
+     * @ManyToMany(targetEntity="User", mappedBy="roles")
      * @JoinTable(name="user_2_role")
      * @var ArrayCollection|User[]
      */

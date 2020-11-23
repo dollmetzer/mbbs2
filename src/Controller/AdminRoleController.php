@@ -30,7 +30,7 @@ class AdminRoleController extends AbstractController
     }
 
     /**
-     * @Route("/admin/role/edit/{id}", name="admin_role_show")
+     * @Route("/admin/role/show/{id}", name="admin_role_show")
      * @param int $id
      */
     public function roleShowAction(int $id)
