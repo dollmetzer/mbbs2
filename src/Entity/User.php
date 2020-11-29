@@ -20,6 +20,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  *
  * Encode a password manually:
  *   php bin/console security:encode-password
@@ -32,11 +33,13 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
+     * @var integer
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=32, unique=true)
+     * @var string
      */
     private $handle;
 
@@ -44,9 +47,9 @@ class User implements UserInterface
      * Many users have many roles
      * @ManyToMany(targetEntity="Role", inversedBy="users")
      * @JoinTable(name="user_2_role")
-     * @var ArrayCollection|Role[]
+     * @var ArrayCollection<Role, Role>
      */
-    private $roles = [];
+    private $roles;
 
     /**
      * @var string The hashed password
@@ -135,15 +138,16 @@ class User implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getSalt()
+    public function getSalt(): ?string
     {
         // not needed when using the "bcrypt" algorithm in security.yaml
+        return null;
     }
 
     /**
      * @see UserInterface
      */
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;

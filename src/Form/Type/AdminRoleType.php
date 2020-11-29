@@ -11,16 +11,37 @@
 
 namespace App\Form\Type;
 
-use App\Entity\Role;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
 
 class AdminRoleType extends AbstractType
 {
-    public function configureOptions(OptionsResolver $resolver): void
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $resolver->setDefaults([
-            'data_class' => Role::class,
-        ]);
+        $builder
+            ->add(
+                'name',
+                TextType::class,
+                [
+                    'attr' => [
+                        'maxlength' => 32
+                    ]
+                ]
+            )
+            ->add(
+                'isProtected',
+                CheckboxType::class,
+                [
+                    'required' => false
+                ]
+            )
+            ->add(
+                'save',
+                SubmitType::class
+            )
+        ;
     }
 }

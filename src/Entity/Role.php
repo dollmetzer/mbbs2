@@ -19,6 +19,7 @@ use Doctrine\ORM\Mapping\ManyToMany;
 
 /**
  * @ORM\Entity()
+ * @ORM\HasLifecycleCallbacks()
  */
 class Role
 {
@@ -47,7 +48,7 @@ class Role
     /**
      * @ManyToMany(targetEntity="User", mappedBy="roles")
      * @JoinTable(name="user_2_role")
-     * @var ArrayCollection|User[]
+     * @var ArrayCollection<User, User>
      */
     private $users;
 
@@ -96,7 +97,7 @@ class Role
     }
 
     /**
-     * @see UserInterface
+     * @return ArrayCollection<User, User>
      */
     public function getUsers()
     {
@@ -121,5 +122,4 @@ class Role
         }
         return $this;
     }
-
 }

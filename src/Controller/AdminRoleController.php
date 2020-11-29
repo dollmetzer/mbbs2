@@ -15,6 +15,8 @@ use App\Entity\Role;
 use App\Form\Type\AdminRoleType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -42,7 +44,7 @@ class AdminRoleController extends AbstractController
      * @Route("/admin/role/show/{id}", name="admin_role_show")
      * @param int $id
      */
-    public function roleShowAction(int $id)
+    public function roleShowAction(int $id): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
@@ -54,10 +56,15 @@ class AdminRoleController extends AbstractController
     /**
      * @Route("/admin/role/edit/{id}", name="admin_role_edit")
      * @param int $id
+     * @param Request $request
+     * @return Response
      */
-    public function roleEditAction(int $id)
+    public function roleEditAction(int $id, Request $request)
     {
-        die('not yet implemented');
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $repository = $this->getDoctrine()->getRepository(Role::class);
+        $role = $repository->find($id);
+        return $this->roleFormProcess($role, $request);
     }
 
     /**
@@ -71,16 +78,52 @@ class AdminRoleController extends AbstractController
 
     /**
      * @Route("admin/role/create", name="admin_role_create")
+     * @param Request $request
+     * @return Response
      */
-    public function roleCreateAction()
+    public function roleCreateAction(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $role = new Role();
+        return $this->roleFormProcess($role, $request);
 
+        /*
         $form = $this->createForm(AdminRoleType::class, $role);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $role = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($role);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('admin_role_list');
+        }
 
         return $this->render('admin/role/new.html.twig', [
             'form' => $form->createView()
         ]);
+*/
+    }
 
+    private function roleFormProcess(Role $role, Request $request): Response
+    {
+        $form = $this->createForm(AdminRoleType::class, $role);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $role = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($role);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('admin_role_list');
+        }
+
+        return $this->render('admin/role/new.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }

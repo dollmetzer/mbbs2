@@ -28,6 +28,9 @@ trait Timestampable
      */
     private $updatedOn;
 
+    /**
+     * @ORM\PreFlush
+     */
     public function setTimestamps(): void
     {
         if (null === $this->createdOn) {

@@ -1,6 +1,6 @@
 Progress
 ========
-* 2020-11-29 Added check script, mess detector, PHPStan and PHPUnitfor code quality
+* 2020-11-29 Added check script, mess detector, PHPStan and PHPUnit for code quality. Added LifecycleCallbacks
 * 2020-11-23 Admin User and Role show pages. Started Admin User and Role create
 * 2020-11-22 3 static pages, Admin Pages for Users and Roles Lists. Entities now timestampable
 * 2020-11-21 Login/Logout finished, changed Fixtures, to have an Admin User for the start

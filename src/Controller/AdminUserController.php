@@ -60,7 +60,7 @@ class AdminUserController extends AbstractController
      * @Route("/admin/user/delete/{id}", name="admin_user_delete")
      * @param int $id
      */
-    public function userDeleteAction(int $id)
+    public function userDeleteAction(int $id): Response
     {
         die('not yet implemented');
     }
@@ -68,7 +68,7 @@ class AdminUserController extends AbstractController
     /**
      * @Route("admin/user/create", name="admin_user_create")
      */
-    public function userCreateAction()
+    public function userCreateAction(): Response
     {
         $user = new User();
         $form = $this->createForm(AdminUserType::class, $user);
