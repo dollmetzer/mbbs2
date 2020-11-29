@@ -3,17 +3,16 @@
 
 # Email Spool Folder
 
+# Cache
+/var/cache/*
+!var/cache/.gitkeep
+
 # Logs (Symfony4)
 /var/log/*
 !var/log/.gitkeep
 
 # Vendor Components
 /vendor/
-
-# Embedded web-server pid file
-/.web-server-pid
-/.env.local
-/.env.test
 
 ###> symfony/framework-bundle ###
 .env.local
@@ -23,4 +22,3 @@
 .phpunit
 .phpunit.result.cache
 /phpunit.xml
-###< symfony/phpunit-bridge ###
