@@ -1,5 +1,13 @@
 <?php
-
+/**
+ * M B B S 2   -   B u l l e t i n   B o a r d   S y s t e m
+ * ---------------------------------------------------------
+ * A small BBS package for mobile use
+ *
+ * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
+ * @copyright (c) 2014-2020, Dirk Ollmetzer
+ * @license GNU GENERAL PUBLIC LICENSE Version 3
+ */
 
 namespace App\Entity;
 
@@ -37,7 +45,7 @@ class Role
     private $isProtected=false;
 
     /**
-     * @ManyToMany(targetEntity="User", inversedBy="roles")
+     * @ManyToMany(targetEntity="User", mappedBy="roles")
      * @JoinTable(name="user_2_role")
      * @var ArrayCollection|User[]
      */
