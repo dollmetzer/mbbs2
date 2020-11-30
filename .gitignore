@@ -22,3 +22,4 @@
 .phpunit
 .phpunit.result.cache
 /phpunit.xml
+/bin/.phpunit/

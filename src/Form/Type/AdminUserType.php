@@ -13,14 +13,49 @@ namespace App\Form\Type;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
 
 class AdminUserType extends AbstractType
 {
-    public function configureOptions(OptionsResolver $resolver): void
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $resolver->setDefaults([
-            'data_class' => User::class,
-        ]);
+        /** @var User $entity */
+        $entity = $options['data'];
+        if(!$entity->getId() && !$entity->getPassword()) {
+            $passwordRequired = true;
+        } else {
+            $passwordRequired = false;
+        }
+
+        $builder->add(
+            'handle',
+        TextType::class,
+            [
+                'attr' => [
+                    'minlength' => 4,
+                    'maxlength' => 32
+                ]
+            ]
+        )->add(
+            'password',
+            PasswordType::class,
+            [
+                'required' => $passwordRequired,
+                'attr' => [
+                    'minlength' => 4,
+                    'maxlength' => 32
+                ]
+            ]
+        )->add(
+            'save',
+            SubmitType::class
+        );
     }
 }
