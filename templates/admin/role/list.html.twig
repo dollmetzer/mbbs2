@@ -20,7 +20,7 @@
                 <td>
                     <a href="{{ path('admin_role_show', {id : role.id}) }}" class="btn btn-outline-dark"><i class="fa-fw far fa-eye"></i></a>
                     <a href="{{ path('admin_role_edit', {id : role.id}) }}" class="btn btn-outline-dark"><i class="fa-fw far fa-edit"></i></a>
-                    <a href="{{ path('admin_role_delete', {id : role.id}) }}" class="btn btn-outline-dark"><i class="fa-fw far fa-trash-alt"></i></a>
+                    <a data-href="{{ path('admin_role_delete', {id : role.id}) }}" class="btn btn-outline-dark" data-toggle="modal" data-target="#confirm-delete"><i class="fa-fw far fa-trash-alt"></i></a>
                 </td>
                 <td>{{ role.name }}</td>
                 <td>{{ role.users|length }}</td>
@@ -37,6 +37,8 @@
             </tr>
         </tfoot>
     </table>
+
+    {% include '_elements/modal_delete_confirmation.html.twig' %}
 
 {% endblock %}
 

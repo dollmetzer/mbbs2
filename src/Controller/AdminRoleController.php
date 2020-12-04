@@ -13,6 +13,8 @@ namespace App\Controller;
 
 use App\Entity\Role;
 use App\Form\Type\AdminRoleType;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\ORMException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,13 +29,21 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminRoleController extends AbstractController
 {
     /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
+    /**
      * @Route("/admin/role/list", name="admin_role_list")
      * @return Response
      */
     public function roleListAction(): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
         $repository = $this->getDoctrine()->getRepository(Role::class);
         $roles = $repository->findAll();
         return $this->render('admin/role/list.html.twig', ['roles' => $roles]);
@@ -46,8 +56,6 @@ class AdminRoleController extends AbstractController
      */
     public function roleShowAction(int $id): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
         $repository = $this->getDoctrine()->getRepository(Role::class);
         $role = $repository->find($id);
         return $this->render('admin/role/show.html.twig', ['role' => $role]);
@@ -61,8 +69,6 @@ class AdminRoleController extends AbstractController
      */
     public function roleEditAction(int $id, Request $request)
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
         $repository = $this->getDoctrine()->getRepository(Role::class);
         $role = $repository->find($id);
         return $this->roleFormProcess($role, $request);
@@ -75,8 +81,15 @@ class AdminRoleController extends AbstractController
      */
     public function roleDeleteAction(int $id): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
+        $repository = $this->getDoctrine()->getRepository(Role::class);
+        $role = $repository->find($id);
+        if (null !== $role) {
+            $this->entityManager->remove($role);
+            $this->entityManager->flush();
+            $this->addFlash('success', 'Die Rolle wurde gelöscht.');
+        } else {
+            $this->addFlash('error', 'Die Rolle existiert nicht.');
+        }
         return $this->redirectToRoute('admin_role_list');
     }
 
@@ -87,8 +100,6 @@ class AdminRoleController extends AbstractController
      */
     public function roleCreateAction(Request $request): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
         $role = new Role();
         return $this->roleFormProcess($role, $request);
     }

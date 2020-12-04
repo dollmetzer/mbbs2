@@ -11,6 +11,10 @@
             <td>{{ user.username }}</td>
         </tr>
         <tr>
+            <td><strong>Active</strong></td>
+            <td>{{ user.isActive }}</td>
+        </tr>
+        <tr>
             <td><strong>Rollen</strong></td>
             <td>{% for role in user.roles %}
                     {{ role }}

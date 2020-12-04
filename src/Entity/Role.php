@@ -104,6 +104,10 @@ class Role
         return $this->users;
     }
 
+    /**
+     * @param User $user
+     * @return $this
+     */
     public function addUser(User $user): self
     {
         foreach($this->users->getValues() as $associated) {
@@ -113,6 +117,10 @@ class Role
         return $this;
     }
 
+    /**
+     * @param User $user
+     * @return $this
+     */
     public function removeUser(User $user): self
     {
         foreach($this->users->getValues() as $associated) {

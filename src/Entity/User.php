@@ -38,10 +38,22 @@ class User implements UserInterface
     private $id;
 
     /**
+     * @ORM\Column(type="boolean", options={"default":"1"})
+     * @var bool
+     */
+    private $isActive;
+
+    /**
      * @ORM\Column(type="string", length=32, unique=true)
      * @var string
      */
     private $handle;
+
+    /**
+     * @var string The hashed password
+     * @ORM\Column(type="string")
+     */
+    private $password;
 
     /**
      * Many users have many roles
@@ -51,27 +63,47 @@ class User implements UserInterface
      */
     private $roles;
 
-    /**
-     * @var string The hashed password
-     * @ORM\Column(type="string")
-     */
-    private $password;
-
     public function __construct()
     {
         $this->roles = new ArrayCollection();
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * @param bool $isActive
+     */
+    public function setIsActive(bool $isActive): void
+    {
+        $this->isActive = $isActive;
+    }
+
+    /**
+     * @return string|null
+     */
     public function getHandle(): ?string
     {
         return $this->handle;
     }
 
+    /**
+     * @param string $handle
+     * @return $this
+     */
     public function setHandle(string $handle): self
     {
         $this->handle = $handle;
@@ -101,6 +133,10 @@ class User implements UserInterface
         return $roles;
     }
 
+    /**
+     * @param Role $role
+     * @return $this
+     */
     public function addRole(Role $role): self
     {
         foreach($this->roles->getValues() as $associated) {
@@ -110,6 +146,10 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param Role $role
+     * @return $this
+     */
     public function removeRole(Role $role): self
     {
         foreach($this->roles->getValues() as $associated) {
@@ -128,6 +168,10 @@ class User implements UserInterface
         return (string) $this->password;
     }
 
+    /**
+     * @param string|null $password
+     * @return $this
+     */
     public function setPassword(?string $password): self
     {
         $this->password = $password;

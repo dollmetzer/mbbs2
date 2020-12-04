@@ -1,5 +1,6 @@
 Progress
 ========
+* 2020-12-04 Added delete confimation modal for user and role. Changed Access Control by Roles
 * 2020-11-30 Admin Role and User create and edit finished. Removed all Code Style notifications
 * 2020-11-29 Added check script, mess detector, PHPStan and PHPUnit for code quality. Added LifecycleCallbacks
 * 2020-11-23 Admin User and Role show pages. Started Admin User and Role create

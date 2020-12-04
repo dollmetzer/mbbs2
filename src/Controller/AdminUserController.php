@@ -13,22 +13,35 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\Type\AdminUserType;
+use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+/**
+ * Class AdminUserController
+ * @IsGranted("ROLE_ADMIN")
+ * @package App\Controller
+ */
 class AdminUserController extends AbstractController
 {
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+
     /**
      * @var UserPasswordEncoderInterface
      */
     private $passwordEncoder;
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManager)
     {
         $this->passwordEncoder = $passwordEncoder;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -37,8 +50,6 @@ class AdminUserController extends AbstractController
      */
     public function userListAction(): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
         $repository = $this->getDoctrine()->getRepository(User::class);
         $users = $repository->findAll();
         return $this->render('admin/user/list.html.twig', ['users' => $users]);
@@ -51,8 +62,6 @@ class AdminUserController extends AbstractController
      */
     public function userShowAction(int $id): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
         $repository = $this->getDoctrine()->getRepository(User::class);
         $user = $repository->find($id);
         return $this->render('admin/user/show.html.twig', ['user' => $user]);
@@ -65,8 +74,6 @@ class AdminUserController extends AbstractController
      */
     public function userEditAction(int $id, Request $request): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
         $repository = $this->getDoctrine()->getRepository(User::class);
         $user = $repository->find($id);
         return $this->userFormProcess($user, $request);
@@ -79,9 +86,16 @@ class AdminUserController extends AbstractController
      */
     public function userDeleteAction(int $id): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
-        die('not yet implemented');
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $user = $repository->find($id);
+        if (null !== $user) {
+            $this->entityManager->remove($user);
+            $this->entityManager->flush();
+            $this->addFlash('success', 'Der Nutzer wurde gelöscht.');
+        } else {
+            $this->addFlash('error', 'Die Nutzer existiert nicht.');
+        }
+        return $this->redirectToRoute('admin_user_list');
     }
 
     /**
@@ -91,8 +105,6 @@ class AdminUserController extends AbstractController
      */
     public function userCreateAction(Request $request): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
         $user = new User();
         return $this->userFormProcess($user, $request);
     }
@@ -122,7 +134,6 @@ class AdminUserController extends AbstractController
             $entityManager->flush();
 
             return $this->redirectToRoute('admin_user_list');
-
         }
 
         return $this->render('admin/user/form.html.twig', [
