@@ -48,6 +48,11 @@ class AppFixtures extends Fixture
         $roleOrga->setTimestamps();
         $manager->persist($roleOrga);
 
+        $roleOrga = new Role();
+        $roleOrga->setName('ROLE_IMPERSONATOR');
+        $roleOrga->setTimestamps();
+        $manager->persist($roleOrga);
+
         // User
         $user = new User();
         $user->setHandle('admin');
