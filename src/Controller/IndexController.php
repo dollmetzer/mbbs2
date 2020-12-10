@@ -15,6 +15,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class IndexController
+ *
+ * @package App\Controller
+ */
 class IndexController extends AbstractController
 {
     /**

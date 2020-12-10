@@ -17,6 +17,11 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
+/**
+ * Class AdminRoleType
+ *
+ * @package App\Form\Type
+ */
 class AdminRoleType extends AbstractType
 {
     /**

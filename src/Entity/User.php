@@ -19,11 +19,14 @@ use Doctrine\ORM\Mapping\ManyToMany;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity(repositoryClass=UserRepository::class)
- * @ORM\HasLifecycleCallbacks()
+ * Class User
  *
  * Encode a password manually:
  *   php bin/console security:encode-password
+ *
+ * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\HasLifecycleCallbacks()
+ * @package App\Entity
  */
 class User implements UserInterface
 {
@@ -56,7 +59,6 @@ class User implements UserInterface
     private $password;
 
     /**
-     * Many users have many roles
      * @ManyToMany(targetEntity="Role", inversedBy="users")
      * @JoinTable(name="user_2_role")
      * @var ArrayCollection<Role, Role>
@@ -154,7 +156,7 @@ class User implements UserInterface
     {
         foreach($this->roles->getValues() as $associated) {
             if ($associated === $role) {
-                $this->roles->remove($role);
+                $this->roles->removeElement($role);
             }
         }
         return $this;

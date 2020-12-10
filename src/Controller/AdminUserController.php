@@ -11,6 +11,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Role;
 use App\Entity\User;
 use App\Form\Type\AdminUserType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,6 +24,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Class AdminUserController
+ *
  * @IsGranted("ROLE_ADMIN")
  * @package App\Controller
  */
@@ -38,8 +40,15 @@ class AdminUserController extends AbstractController
      */
     private $passwordEncoder;
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManager)
-    {
+    /**
+     * AdminUserController constructor.
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param EntityManagerInterface $entityManager
+     */
+    public function __construct(
+        UserPasswordEncoderInterface $passwordEncoder,
+        EntityManagerInterface $entityManager
+    ) {
         $this->passwordEncoder = $passwordEncoder;
         $this->entityManager = $entityManager;
     }
@@ -114,7 +123,7 @@ class AdminUserController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    private function userFormProcess(User $user, Request $request)
+    private function userFormProcess(User $user, Request $request): Response
     {
         $form = $this->createForm(AdminUserType::class, $user);
         $oldPassword = $user->getPassword();
@@ -136,8 +145,65 @@ class AdminUserController extends AbstractController
             return $this->redirectToRoute('admin_user_list');
         }
 
+        $repository = $this->getDoctrine()->getRepository(Role::class);
+        $allRoles = $repository->findAll();
+
         return $this->render('admin/user/form.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $user,
+            'allRoles' => $allRoles
         ]);
+    }
+
+    /**
+     * @Route("/admin/user/addrole/{id}/{roleId}", name="admin_user_addrole")
+     * @param int $id
+     * @param int $roleId
+     * @return Response
+     */
+    public function addRole(int $id, int $roleId): Response
+    {
+        $userRepo = $this->getDoctrine()->getRepository(User::class);
+        $user = $userRepo->find($id);
+
+        $roleRepo = $this->getDoctrine()->getRepository(Role::class);
+        $role = $roleRepo->find($roleId);
+
+        if ((null !== $user) && (null !== $role)) {
+            $user->addRole($role);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+        } else {
+            $this->addFlash('error', 'Die Rolle konnte dem Nutzer nicht zugeordnet werden.');
+        }
+
+        return $this->redirectToRoute('admin_user_edit', ['id' =>$id]);
+    }
+
+    /**
+     * @Route("/admin/user/deleterole/{id}/{roleId}", name="admin_user_deleterole")
+     * @param int $id
+     * @param int $roleId
+     * @return Response
+     */
+    public function deleteRole(int $id, int $roleId): Response
+    {
+        $userRepo = $this->getDoctrine()->getRepository(User::class);
+        $user = $userRepo->find($id);
+
+        $roleRepo = $this->getDoctrine()->getRepository(Role::class);
+        $role = $roleRepo->find($roleId);
+
+        if ((null !== $user) && (null !== $role)) {
+            $user->removeRole($role);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+        } else {
+            $this->addFlash('error', 'Die Rolle konnte dem Nutzer nicht zugeordnet werden.');
+        }
+
+        return $this->redirectToRoute('admin_user_edit', ['id' =>$id]);
     }
 }

@@ -14,6 +14,11 @@ namespace App\Entity;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Trait Timestampable
+ *
+ * @package App\Entity
+ */
 trait Timestampable
 {
     /**

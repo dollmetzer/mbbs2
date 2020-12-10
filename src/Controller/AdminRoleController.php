@@ -14,7 +14,6 @@ namespace App\Controller;
 use App\Entity\Role;
 use App\Form\Type\AdminRoleType;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\ORMException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,6 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class AdminRoleController
+ *
  * @IsGranted("ROLE_ADMIN")
  * @package App\Controller
  */
@@ -33,6 +33,11 @@ class AdminRoleController extends AbstractController
      */
     private $entityManager;
 
+    /**
+     * AdminRoleController constructor.
+     *
+     * @param EntityManagerInterface $entityManager
+     */
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;

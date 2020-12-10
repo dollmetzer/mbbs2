@@ -17,6 +17,11 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+/**
+ * Class AppFixtures
+ *
+ * @package App\DataFixtures
+ */
 class AppFixtures extends Fixture
 {
     /**
@@ -24,11 +29,19 @@ class AppFixtures extends Fixture
      */
     private $passwordEncoder;
 
+    /**
+     * AppFixtures constructor.
+     *
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     */
     public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     {
         $this->passwordEncoder = $passwordEncoder;
     }
 
+    /**
+     * @param ObjectManager $manager
+     */
     public function load(ObjectManager $manager): void
     {
         // ROLE
@@ -38,20 +51,20 @@ class AppFixtures extends Fixture
         $roleAdmin->setTimestamps();
         $manager->persist($roleAdmin);
 
-        $roleModerator = new Role();
-        $roleModerator->setName('ROLE_MODERATOR');
-        $roleModerator->setTimestamps();
-        $manager->persist($roleModerator);
+        $roleOrga = new Role();
+        $roleOrga->setName('ROLE_IMPERSONATOR');
+        $roleOrga->setTimestamps();
+        $manager->persist($roleOrga);
 
         $roleOrga = new Role();
         $roleOrga->setName('ROLE_ORGA');
         $roleOrga->setTimestamps();
         $manager->persist($roleOrga);
 
-        $roleOrga = new Role();
-        $roleOrga->setName('ROLE_IMPERSONATOR');
-        $roleOrga->setTimestamps();
-        $manager->persist($roleOrga);
+        $roleModerator = new Role();
+        $roleModerator->setName('ROLE_MODERATOR');
+        $roleModerator->setTimestamps();
+        $manager->persist($roleModerator);
 
         // User
         $user = new User();
@@ -62,6 +75,7 @@ class AppFixtures extends Fixture
         ));
         $user->setTimestamps();
         $user->addRole($roleAdmin);
+        $user->setIsActive(true);
         $manager->persist($user);
 
         $manager->flush();

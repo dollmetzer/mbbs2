@@ -18,8 +18,11 @@ use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
 
 /**
+ * Class Role
+ *
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
+ * @package App\Entity
  */
 class Role
 {

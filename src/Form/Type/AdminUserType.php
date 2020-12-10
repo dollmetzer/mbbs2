@@ -19,6 +19,11 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
+/**
+ * Class AdminUserType
+ *
+ * @package App\Form\Type
+ */
 class AdminUserType extends AbstractType
 {
     /**
@@ -56,7 +61,11 @@ class AdminUserType extends AbstractType
             ]
         )->add(
             'isActive',
-            CheckboxType::class
+            CheckboxType::class,
+            [
+                'data' => true,
+                'required' => false
+            ]
         )->add(
             'save',
             SubmitType::class
