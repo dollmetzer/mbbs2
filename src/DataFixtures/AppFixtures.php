@@ -52,7 +52,8 @@ class AppFixtures extends Fixture
         $manager->persist($roleAdmin);
 
         $roleOrga = new Role();
-        $roleOrga->setName('ROLE_IMPERSONATOR');
+        $roleAdmin->setIsProtected(true);
+        $roleOrga->setName('ROLE_ALLOWED_TO_SWITCH');
         $roleOrga->setTimestamps();
         $manager->persist($roleOrga);
 

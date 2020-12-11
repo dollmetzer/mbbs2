@@ -12,9 +12,16 @@
         <li class="nav-item">
             <a class="nav-link" href="{{ path('account_logout') }}"><i class="fas fa-sign-out-alt"></i>&nbsp;Abmelden [{{ app.user.handle }}]</a>
         </li>
+        {% if is_granted('ROLE_ALLOWED_TO_SWITCH') and not is_granted('IS_IMPERSONATOR') %}
         <li class="nav-item{% if nav_top == 'account_impersonate' %} active{% endif %}">
-            <a class="nav-link" href="{{ path('account_impersonate') }}"><i class="fas fa-user-tag"></i>&nbsp;Als Benutzer...</a>
+            <a class="nav-link" href="{{ path('account_impersonate') }}"><i class="fas fa-people-arrows"></i>&nbsp;Benutzerübernahme</a>
         </li>
+        {% endif %}
+        {% if is_granted('IS_IMPERSONATOR') %}
+        <li class="nav-item{% if nav_top == 'account_impersonate' %} active{% endif %}">
+            <a class="nav-link" href="{{ path('index_index', {_switch_user:'_exit'}) }}"><i class="fas fa-user-tag"></i>&nbsp;Benutzerübernahme beenden</a>
+        </li>
+        {% endif %}
     {% else %}
         <li class="nav-item{% if nav_top == 'account_login' %} active{% endif %}">
             <a class="nav-link" href="{{ path('account_login') }}"><i class="fas fa-sign-in-alt"></i>&nbsp;Anmelden</a>

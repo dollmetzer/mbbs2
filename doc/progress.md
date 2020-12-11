@@ -1,5 +1,6 @@
 Progress
 ========
+* 2020-12-10 Added impersonation
 * 2020-12-09 Admin: attach/detach roles to/from user
 * 2020-12-04 Added delete confimation modal for user and role. Changed Access Control by Roles
 * 2020-11-30 Admin Role and User create and edit finished. Removed all Code Style notifications

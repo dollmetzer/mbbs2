@@ -11,6 +11,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -67,8 +68,13 @@ class AccountController extends AbstractController
     /**
      * @Route("/account/impersonate", name="account_impersonate")
      */
-    public function impersonateAction(): void
+    public function impersonateformAction(): Response
     {
-        die('Not implemented yet');
+        $this->denyAccessUnlessGranted('ROLE_ALLOWED_TO_SWITCH');
+
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $users = $repository->findAll();
+
+        return $this->render('security/impersonate.html.twig', ['users' => $users]);
     }
 }
