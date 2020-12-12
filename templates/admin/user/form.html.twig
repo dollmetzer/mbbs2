@@ -6,6 +6,7 @@
 
     {{ form(form) }}
 
+    {% if showRoleSelector %}
     <table class="table">
         <tr>
             <th>Rollen</th>
@@ -47,4 +48,5 @@
             document.location.href = url;
         });
     </script>
+    {% endif %}
 {% endblock %}

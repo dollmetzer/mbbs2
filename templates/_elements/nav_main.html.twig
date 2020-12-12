@@ -1,11 +1,12 @@
 <ul class="navbar-nav mr-auto">
     {% if app.user %}
         {% if is_granted('ROLE_ADMIN') %}
-        <li class="nav-item{% if nav_top == 'admin_user' %} active{% endif %}">
-            <a class="nav-link" href="{{ path('admin_user_list') }}"><i class="fas fa-users"></i>&nbsp;Nutzer</a>
-        </li>
-        <li class="nav-item{% if nav_top == 'admin_role' %} active{% endif %}">
-            <a class="nav-link" href="{{ path('admin_role_list') }}"><i class="fas fa-user-tag"></i>&nbsp;Rollen</a>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-toggle-target="menu-item-admin" aria-expanded="false">Verwaltung</a>
+            <ul class="dropdown-menu" id="menu-item-admin" aria-labelledby="dropdown01">
+                <li><a class="dropdown-item" href="{{ path('admin_user_list') }}"><i class="fas fa-users"></i>&nbsp;Nutzer</a></li>
+                <li><a class="dropdown-item" href="{{ path('admin_role_list') }}"><i class="fas fa-user-tag"></i>&nbsp;Rollen</a></li>
+            </ul>
         </li>
         {% endif %}
 
@@ -30,9 +31,14 @@
             <a class="nav-link" href="{{ path('account_register') }}"><i class="fas fa-file-signature"></i>&nbsp;Registrieren</a>
         </li>
     {% endif %}
-    <!--
-    <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-    </li>
-    -->
 </ul>
+<script>
+    $('.dropdown-toggle').click(function(obj){
+        target = $(this).data("toggleTarget");
+        if ($('#' + target).css('display') == 'block') {
+            $('#' + target).css('display', 'none');
+        } else {
+            $('#' + target).css('display', 'block');
+        }
+    });
+</script>

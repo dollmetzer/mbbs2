@@ -1,5 +1,7 @@
 Progress
 ========
+* 2020-12-12 Searchform for users 
+* 2020-12-11 Improved UI (menu drop-down, user administration)
 * 2020-12-10 Added impersonation
 * 2020-12-09 Admin: attach/detach roles to/from user
 * 2020-12-04 Added delete confimation modal for user and role. Changed Access Control by Roles

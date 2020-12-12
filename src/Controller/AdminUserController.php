@@ -59,9 +59,16 @@ class AdminUserController extends AbstractController
      */
     public function userListAction(): Response
     {
+        $searchFormUrl = $this->generateUrl('admin_user_search');
         $repository = $this->getDoctrine()->getRepository(User::class);
         $users = $repository->findAll();
-        return $this->render('admin/user/list.html.twig', ['users' => $users]);
+        return $this->render(
+            'admin/user/list.html.twig',
+            [
+                'users' => $users,
+                'searchFormUrl' => $searchFormUrl
+            ]
+        );
     }
 
     /**
@@ -85,7 +92,7 @@ class AdminUserController extends AbstractController
     {
         $repository = $this->getDoctrine()->getRepository(User::class);
         $user = $repository->find($id);
-        return $this->userFormProcess($user, $request);
+        return $this->userFormProcess($user, $request, true);
     }
 
     /**
@@ -115,7 +122,32 @@ class AdminUserController extends AbstractController
     public function userCreateAction(Request $request): Response
     {
         $user = new User();
-        return $this->userFormProcess($user, $request);
+        return $this->userFormProcess($user, $request, false);
+    }
+
+    /**
+     * @Route("admin/user/search", name="admin_user_search")
+     */
+    public function userSearchAction(Request $request)
+    {
+        $searchFormUrl = $this->generateUrl('admin_user_search');
+        $searchterm = strip_tags($request->get('searchterm'));
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $users = $repository->findBy(['handle' => $searchterm]);
+
+        return $this->render(
+            'admin/user/list.html.twig',
+            [
+                'users' => $users,
+                'searchFormUrl' => $searchFormUrl,
+                'searchterm' => $searchterm
+            ]
+        );
+
+
+
+        var_dump($users);
+        die('Not implemented yet: You searched for ' . $searchterm);
     }
 
     /**
@@ -123,7 +155,7 @@ class AdminUserController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    private function userFormProcess(User $user, Request $request): Response
+    private function userFormProcess(User $user, Request $request, bool $showRoleSelector): Response
     {
         $form = $this->createForm(AdminUserType::class, $user);
         $oldPassword = $user->getPassword();
@@ -151,7 +183,8 @@ class AdminUserController extends AbstractController
         return $this->render('admin/user/form.html.twig', [
             'form' => $form->createView(),
             'user' => $user,
-            'allRoles' => $allRoles
+            'allRoles' => $allRoles,
+            'showRoleSelector' => $showRoleSelector
         ]);
     }
 
