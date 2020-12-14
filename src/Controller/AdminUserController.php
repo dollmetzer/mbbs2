@@ -127,8 +127,10 @@ class AdminUserController extends AbstractController
 
     /**
      * @Route("admin/user/search", name="admin_user_search")
+     * @param Request $request
+     * @return Response
      */
-    public function userSearchAction(Request $request)
+    public function userSearchAction(Request $request): Response
     {
         $searchFormUrl = $this->generateUrl('admin_user_search');
         $searchterm = strip_tags($request->get('searchterm'));
@@ -143,11 +145,6 @@ class AdminUserController extends AbstractController
                 'searchterm' => $searchterm
             ]
         );
-
-
-
-        var_dump($users);
-        die('Not implemented yet: You searched for ' . $searchterm);
     }
 
     /**

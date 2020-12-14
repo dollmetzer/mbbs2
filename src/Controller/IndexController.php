@@ -60,10 +60,11 @@ class IndexController extends AbstractController
      * @Route("/lang/{lang}", name="index_set_language")
      *
      * @param Request $request
-     * @param $lang
+     * @param TranslatorInterface $translator
+     * @param string $lang
      * @return Response
      */
-    public function setlangAction(Request $request, TranslatorInterface $translator, $lang): Response
+    public function setlangAction(Request $request, TranslatorInterface $translator, string $lang): Response
     {
         $allowedLanguages = ['en','de'];
         $lang = substr(strtolower($lang), 0, 2);
