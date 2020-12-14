@@ -1,8 +1,10 @@
 {% set nav_top = 'admin_user' %}
 {% extends 'base.html.twig' %}
 
+{% block title %}{% trans %}admin.title.users{% endtrans %}{% endblock %}
+
 {% block body %}
-    <h1>Nutzerverwaltung</h1>
+    <h1>{% trans %}admin.title.users{% endtrans %}</h1>
 
     {% if user %}
     <table class="table table-striped">

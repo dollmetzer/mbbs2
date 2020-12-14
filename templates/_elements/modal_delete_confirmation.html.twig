@@ -2,14 +2,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                Sind Sie sicher?
+                {% trans %}base.modal.areyousure{% endtrans %}
             </div>
             <div class="modal-body">
-                Wollen Sie den Datensatz wirklich löschen?
+                {% trans %}base.modal.delete{% endtrans %}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-danger btn-ok">Delete</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}base.btn.cancel{% endtrans %}</button>
+                <a class="btn btn-danger btn-ok">{% trans %}base.btn.delete{% endtrans %}</a>
             </div>
         </div>
     </div>

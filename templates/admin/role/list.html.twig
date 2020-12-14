@@ -1,8 +1,10 @@
 {% set nav_top = 'admin_role' %}
 {% extends 'base.html.twig' %}
 
+{% block title %}{% trans %}admin.title.roles{% endtrans %}{% endblock %}
+
 {% block body %}
-    <h1>Rollenverwaltung</h1>
+    <h1>{% trans %}admin.title.roles{% endtrans %}</h1>
 
     <table class="table table-hover">
         <thead class="thead-dark">
@@ -18,9 +20,9 @@
         {% for role in roles %}
             <tr>
                 <td>
-                    <a href="{{ path('admin_role_show', {id : role.id}) }}" class="btn btn-outline-dark"><i class="fa-fw far fa-eye"></i></a>
-                    <a href="{{ path('admin_role_edit', {id : role.id}) }}" class="btn btn-outline-dark"><i class="fa-fw far fa-edit"></i></a>
-                    <a data-href="{{ path('admin_role_delete', {id : role.id}) }}" class="btn btn-outline-dark" data-toggle="modal" data-target="#confirm-delete"><i class="fa-fw far fa-trash-alt"></i></a>
+                    <a href="{{ path('admin_role_show', {id : role.id}) }}" class="btn btn-outline-dark" title="{% trans %}base.btn.view{% endtrans %}"><i class="fa-fw far fa-eye"></i></a>
+                    <a href="{{ path('admin_role_edit', {id : role.id}) }}" class="btn btn-outline-dark" title="{% trans %}base.btn.edit{% endtrans %}"><i class="fa-fw far fa-edit"></i></a>
+                    <a data-href="{{ path('admin_role_delete', {id : role.id}) }}" class="btn btn-outline-dark" title="{% trans %}base.btn.delete{% endtrans %}" data-toggle="modal" data-target="#confirm-delete"><i class="fa-fw far fa-trash-alt"></i></a>
                 </td>
                 <td>{{ role.name }}</td>
                 <td>{{ role.users|length }}</td>
@@ -32,7 +34,7 @@
         <tfoot>
             <tr>
                 <td colspan="5">
-                    <a href="{{ path("admin_role_create") }}" class="btn btn-outline-dark">Neue Rolle anlegen</a>
+                    <a href="{{ path("admin_role_create") }}" class="btn btn-outline-dark" title="{% trans %}base.btn.create{% endtrans %}">{% trans %}admin.btn.newrole{% endtrans %}</a>
                 </td>
             </tr>
         </tfoot>

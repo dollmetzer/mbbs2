@@ -1,0 +1,50 @@
+admin:
+  btn:
+    newuser: Create new user
+    newrole: Create new role
+  title:
+    roles: Role Administration
+    users: User Administration
+base:
+  btn:
+    cancel: Cancel
+    delete: Delete
+    edit: Edit
+    view: View
+    create: Create
+    search: Search
+  message:
+    unsupportedlanguage: The selected language is not supported.
+  link:
+    imprint: Imprint
+    privacy: Privacy
+    terms: Terms
+    administration: Administration
+    admin:
+      users: Users
+      roles: Roles
+    account:
+      register: Register
+      login: Login
+      logout: Logout
+      impersonation:
+        start: Impersonation
+        end: End Impersonation
+  modal:
+    areyousure: Are you sure?
+    delete: You really want to delete the data?
+  title:
+    imprint: Imprint
+    privacy: Privacy
+    terms: Terms
+security:
+  btn:
+    impersonate: Impersonate
+  form:
+    username: Username
+    password: Password
+    signin: Sign in
+  message:
+  title:
+    login: Login
+    impersonate: Impersonate

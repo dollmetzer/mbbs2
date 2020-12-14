@@ -1,0 +1,50 @@
+admin:
+  btn:
+    newuser: Neuen Nutzer anlegen
+    newrole: Neue Rolle anlegen
+  title:
+    roles: Rollenverwaltung
+    users: Nutzerverwaltung
+base:
+  btn:
+    cancel: Abbruch
+    delete: Löschen
+    edit: Bearbeiten
+    view: Ansehen
+    create: Neu
+    search: Suche
+  message:
+    unsupportedlanguage: Die gewählte Sprache wird nicht unterstützt.
+  link:
+    imprint: Impressum
+    privacy: Datenschutz
+    terms: AGB
+    administration: Verwaltung
+    admin:
+      users: Nutzer
+      roles: Rollen
+    account:
+      register: Registrieren
+      login: Anmelden
+      logout: Abmelden
+      impersonation:
+        start: Benutzerübernahme
+        end: Benutzerübernahme beenden
+  modal:
+    areyousure: Sind Sie sicher?
+    delete: Wollen Sie wirklich den Datensatz löschen?
+  title:
+    imprint: Imprint
+    privacy: Privacy
+    terms: Terms
+security:
+  btn:
+    impersonate: Übernehmen
+  form:
+    username: Nutzername
+    password: Passwort
+    signin: Anmelden
+  message:
+  title:
+    login: Anmelden
+    impersonate: Benutzerübernahme

@@ -38,8 +38,8 @@
             {% include '_elements/nav_main.html.twig' %}
             {% if searchFormUrl is defined %}
             <form action="{{ searchFormUrl }}" class="form-inline mt-2 mt-md-0" method="POST">
-                <input name="searchterm" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" {% if searchterm is defined %}value="{{ searchterm }}"{% endif %}>
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <input name="searchterm" class="form-control mr-sm-2" type="text" placeholder="{% trans %}base.btn.search{% endtrans %}" aria-label="Search" {% if searchterm is defined %}value="{{ searchterm }}"{% endif %}>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">{% trans %}base.btn.search{% endtrans %}</button>
             </form>
             {% endif %}
         </div>
@@ -65,9 +65,9 @@
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><a class="nav-link" href="{{ path('index_terms') }}">AGB</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ path('index_privacy') }}">Datenschutz</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ path('index_imprint') }}">Impressum</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ path('index_terms') }}">{% trans %}base.link.terms{% endtrans %}</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ path('index_privacy') }}">{% trans %}base.link.privacy{% endtrans %}</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ path('index_imprint') }}">{% trans %}base.link.imprint{% endtrans %}</a></li>
         </ul>
     </nav>
 </div>

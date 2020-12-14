@@ -1,8 +1,10 @@
 {% set nav_top = 'admin_role' %}
 {% extends 'base.html.twig' %}
 
+{% block title %}{% trans %}admin.title.roles{% endtrans %}{% endblock %}
+
 {% block body %}
-<h1>Rollenverwaltung</h1>
+<h1>{% trans %}admin.title.roles{% endtrans %}</h1>
 
     {{ form(form) }}
 
