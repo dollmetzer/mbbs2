@@ -9,34 +9,34 @@
     {% if user %}
     <table class="table table-striped">
         <tr>
-            <td><strong>Name</strong></td>
+            <td><strong>{% trans %}admin.form.name{% endtrans %}</strong></td>
             <td>{{ user.username }}</td>
         </tr>
         <tr>
-            <td><strong>Active</strong></td>
+            <td><strong>{% trans %}admin.form.active{% endtrans %}</strong></td>
             <td>{{ user.isActive }}</td>
         </tr>
         <tr>
-            <td><strong>Rollen</strong></td>
+            <td><strong>{% trans %}admin.form.roles{% endtrans %}</strong></td>
             <td>{% for role in user.roles %}
                     {{ role }}
                 {% endfor %}</td>
         </tr>
         <tr>
-            <td><strong>Created</strong></td>
+            <td><strong>{% trans %}admin.form.created{% endtrans %}</strong></td>
             <td>{{ user.createdOn|format_datetime('medium', 'short', locale='de') }}</td>
         </tr>
         <tr>
-            <td><strong>Updated</strong></td>
+            <td><strong>{% trans %}admin.form.updated{% endtrans %}</strong></td>
             <td>{{ user.updatedOn|format_datetime('medium', 'short', locale='de') }}</td>
         </tr>
         <tr>
-            <td colspan="2"><a href="{{ path("admin_user_edit", {id : user.id}) }}" class="btn btn-outline-dark">bearbeiten</a></td>
+            <td colspan="2"><a href="{{ path("admin_user_edit", {id : user.id}) }}" class="btn btn-outline-dark">{% trans %}base.btn.edit{% endtrans %}</a></td>
         </tr>
     </table>
     {% else %}
         <div class="alert alert-danger" role="alert">
-            Der gesuchte Nutzer existiert nicht
+            {% trans %}admin.message.unknownuser{% endtrans %}
         </div>
     {% endif %}
 {% endblock %}

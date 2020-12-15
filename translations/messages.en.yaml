@@ -2,6 +2,16 @@ admin:
   btn:
     newuser: Create new user
     newrole: Create new role
+  form:
+    name: Name
+    roles: Roles
+    users: "# of Users"
+    protected: Protected
+    created: Created
+    updated: Updated
+  message:
+    unknownrole: The role doesn't exists.
+    unknownuser: The user doesn't exists.
   title:
     roles: Role Administration
     users: User Administration
@@ -13,6 +23,8 @@ base:
     view: View
     create: Create
     search: Search
+    yes: yes
+    no: no
   message:
     unsupportedlanguage: The selected language is not supported.
   link:

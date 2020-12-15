@@ -2,6 +2,16 @@ admin:
   btn:
     newuser: Neuen Nutzer anlegen
     newrole: Neue Rolle anlegen
+  form:
+    name: Name
+    roles: Rollen
+    users: Anzahl Nutzer
+    protected: Geschützt
+    created: Angelegt
+    updated: Geändert
+  message:
+    unknownrole: Die gesuchte Rolle existiert nicht.
+    unknownuser: Der gesuchte Nutzer existiert nicht.
   title:
     roles: Rollenverwaltung
     users: Nutzerverwaltung
@@ -13,6 +23,8 @@ base:
     view: Ansehen
     create: Neu
     search: Suche
+    yes: Ja
+    no: Nein
   message:
     unsupportedlanguage: Die gewählte Sprache wird nicht unterstützt.
   link:
