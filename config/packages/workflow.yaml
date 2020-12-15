@@ -1,0 +1,35 @@
+framework:
+    workflows:
+        foto_publishing:
+            type: 'state_machine'
+            audit_trail:
+                enabled: true
+            supports:
+                - App\Entity\Item
+            initial_marking: avise
+            places:
+                - avise
+                - vorbereitung
+                - foto
+                - retusche
+                - qa
+                - published
+            transitions:
+                anlieferung:
+                    from: avise
+                    to: vorbereitung
+                styling:
+                    from: vorbereitung
+                    to: foto
+                fotografiert:
+                    from: foto
+                    to: retusche
+                retuschiert:
+                    from: retusche
+                    to: qa
+                publish:
+                    from: qa
+                    to: published
+                reject:
+                    from: qa
+                    to: foto
