@@ -4,6 +4,8 @@ framework:
             type: 'state_machine'
             audit_trail:
                 enabled: true
+            marking_store:
+                type: method
             supports:
                 - App\Entity\Item
             initial_marking: avise

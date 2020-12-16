@@ -37,6 +37,17 @@ base:
     imprint: Imprint
     privacy: Privacy
     terms: Terms
+item:
+  form:
+    name: Name
+    active: Active
+    state: State
+    created: Created
+    updated: Updated
+  link:
+    list: Items
+  title:
+    list: Items
 security:
   btn:
     impersonate: Impersonate

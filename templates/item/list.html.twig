@@ -1,0 +1,35 @@
+{% set nav_top = 'item' %}
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}item.title.list{% endtrans %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans %}item.title.list{% endtrans %}</h1>
+
+    <table class="table table-hover">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">&nbsp;</th>
+        <th scope="col">{% trans %}item.form.name{% endtrans %}</th>
+        <th scope="col">{% trans %}item.form.state{% endtrans %}</th>
+        <th scope="col">{% trans %}item.form.created{% endtrans %}</th>
+        <th scope="col">{% trans %}item.form.updated{% endtrans %}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in items %}
+        <tr>
+            <td>
+                <a href="{{ path('item_show', {id : item.id}) }}" class="btn btn-outline-dark" title="{% trans %}base.btn.view{% endtrans %}"><i class="fa-fw far fa-eye"></i></a>
+            </td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.marking }}</td>
+            <td>{{ item.createdOn|format_datetime('medium', 'short', locale='de') }}</td>
+            <td>{{ item.updatedOn|format_datetime('medium', 'short', locale='de') }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+
+    {{ dump(items) }}
+{% endblock %}

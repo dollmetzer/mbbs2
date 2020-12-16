@@ -1,0 +1,47 @@
+{% set nav_top = 'item' %}
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}item.title.show{% endtrans %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans %}item.title.show{% endtrans %}</h1>
+
+    {% if item %}
+    <table class="table table-striped">
+        <tr>
+            <td><strong>{% trans %}item.form.name{% endtrans %}/strong></td>
+            <td>{{ item.name }}</td>
+        </tr>
+        <tr>
+            <td><strong>{% trans %}item.form.active{% endtrans %}</strong></td>
+            <td>{{ item.active }}</td>
+        </tr>
+        <tr>
+            <td><strong>{% trans %}item.form.state{% endtrans %}</strong></td>
+            <td>{% trans %}item.form.state{% endtrans %}: {{ item.marking }}<br />
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>{% for transition in workflow_transitions(item) %}
+                    <a href="{{ path('item_transfer', {id: item.id, transition: transition.name}) }}" class="btn btn-primary">{{ transition.name }}</a><br />
+                {% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <td><strong>{% trans %}item.form.created{% endtrans %}</strong></td>
+            <td>{{ item.createdOn|format_datetime('medium', 'short', locale='de') }}</td>
+        </tr>
+        <tr>
+            <td><strong>{% trans %}item.form.updated{% endtrans %}</strong></td>
+            <td>{{ item.updatedOn|format_datetime('medium', 'short', locale='de') }}</td>
+        </tr>
+    </table>
+    {% else %}
+        <div class="alert alert-danger" role="alert">
+            {% trans %}item.message.noitem{% endtrans %}
+        </div>
+    {% endif %}
+
+{% endblock %}
+

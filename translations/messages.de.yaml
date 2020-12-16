@@ -37,6 +37,17 @@ base:
     imprint: Imprint
     privacy: Privacy
     terms: Terms
+item:
+  form:
+    name: Name
+    active: Aktiv
+    state: Status
+    created:
+    updated: Geandert
+  link:
+    list: Dinge
+  title:
+    list: Dinge
 security:
   btn:
     impersonate: Übernehmen
