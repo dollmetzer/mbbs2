@@ -1,3 +1,7 @@
+# Language Snippets
+#
+# Do a regular check with
+# bin/console debug:translation de --domain=messages
 admin:
   btn:
     newuser: Neuen Nutzer anlegen
@@ -7,8 +11,8 @@ admin:
     roles: Rollen
     users: Anzahl Nutzer
     protected: Geschützt
-    created: Angelegt
-    updated: Geändert
+    active: Aktiv
+  link:
   message:
     unknownrole: Die gesuchte Rolle existiert nicht.
     unknownuser: Der gesuchte Nutzer existiert nicht.
@@ -25,8 +29,13 @@ base:
     search: Suche
     yes: Ja
     no: Nein
-  message:
-    unsupportedlanguage: Die gewählte Sprache wird nicht unterstützt.
+    impersonate: Übernehmen
+  form:
+    created: Angelegt
+    updated: Geändert
+    username: Nutzername
+    password: Passwort
+    signin: Anmelden
   link:
     imprint: Impressum
     privacy: Datenschutz
@@ -42,21 +51,14 @@ base:
       impersonation:
         start: Benutzerübernahme
         end: Benutzerübernahme beenden
+  message:
+    unsupportedlanguage: Die gewählte Sprache wird nicht unterstützt.
   modal:
     areyousure: Sind Sie sicher?
     delete: Wollen Sie wirklich den Datensatz löschen?
   title:
-    imprint: Imprint
-    privacy: Privacy
-    terms: Terms
-security:
-  btn:
-    impersonate: Übernehmen
-  form:
-    username: Nutzername
-    password: Passwort
-    signin: Anmelden
-  message:
-  title:
+    imprint: Impressum
+    privacy: Datenschutz
+    terms: AGB
     login: Anmelden
     impersonate: Benutzerübernahme

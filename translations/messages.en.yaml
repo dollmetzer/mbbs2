@@ -1,3 +1,7 @@
+# Language Snippets
+#
+# Do a regular check with
+# bin/console debug:translation de --domain=messages
 admin:
   btn:
     newuser: Create new user
@@ -7,8 +11,8 @@ admin:
     roles: Roles
     users: "# of Users"
     protected: Protected
-    created: Created
-    updated: Updated
+    active: Active
+  link:
   message:
     unknownrole: The role doesn't exists.
     unknownuser: The user doesn't exists.
@@ -25,8 +29,13 @@ base:
     search: Search
     yes: yes
     no: no
-  message:
-    unsupportedlanguage: The selected language is not supported.
+    impersonate: Impersonate
+  form:
+    created: Created
+    updated: Updated
+    username: Username
+    password: Password
+    signin: Sign in
   link:
     imprint: Imprint
     privacy: Privacy
@@ -42,6 +51,8 @@ base:
       impersonation:
         start: Impersonation
         end: End Impersonation
+  message:
+    unsupportedlanguage: The selected language is not supported.
   modal:
     areyousure: Are you sure?
     delete: You really want to delete the data?
@@ -49,14 +60,5 @@ base:
     imprint: Imprint
     privacy: Privacy
     terms: Terms
-security:
-  btn:
-    impersonate: Impersonate
-  form:
-    username: Username
-    password: Password
-    signin: Sign in
-  message:
-  title:
     login: Login
     impersonate: Impersonate
