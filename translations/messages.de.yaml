@@ -41,6 +41,7 @@ base:
     privacy: Datenschutz
     terms: AGB
     administration: Verwaltung
+    all: Alle
     admin:
       users: Nutzer
       roles: Rollen
@@ -64,6 +65,7 @@ base:
     impersonate: Benutzerübernahme
 item:
   btn:
+    newitem: Neues Ding anlegen
   form:
     name: Name
     active: Aktiv

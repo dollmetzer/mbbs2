@@ -41,6 +41,7 @@ base:
     privacy: Privacy
     terms: Terms
     administration: Administration
+    all: All
     admin:
       users: Users
       roles: Roles
@@ -64,6 +65,7 @@ base:
     impersonate: Impersonate
 item:
   btn:
+    newitem: Create new item
   form:
     name: Name
     active: Active

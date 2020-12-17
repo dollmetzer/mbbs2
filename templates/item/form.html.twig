@@ -1,0 +1,11 @@
+{% set nav_top = 'item' %}
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}item.title.create{% endtrans %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans %}item.title.create{% endtrans %}</h1>
+
+    {{ form(form) }}
+
+{% endblock %}

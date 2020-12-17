@@ -1,8 +1,8 @@
 <ul class="navbar-nav mr-auto">
     {% if app.user %}
         {% if is_granted('ROLE_ADMIN') %}
-            {% include 'nav_admin.html.twig' %}
-        <li class="nav-item">
+            {% include '_elements/nav_admin.html.twig' %}
+        <li class="nav-item{% if nav_top == 'item' %} active{% endif %}">
             <a class="nav-link" href="{{ path('item_list') }}"><i class="fas fa-boxes"></i> {% trans %}item.link.list{% endtrans %}</a>
         </li>
         {% endif %}

@@ -47,3 +47,10 @@ Set up the database (...tbd...)
     bin/console doctrine:schema:create
     bin/console doctrine:fixtures:load
     
+
+Workflows
+---------
+For Workflows the Graphviz Library is needed.
+
+    sudo apt-get install graphviz
+    sudo apt-get install libgv-php7

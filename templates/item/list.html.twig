@@ -6,6 +6,15 @@
 {% block body %}
     <h1>{% trans %}item.title.list{% endtrans %}</h1>
 
+    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item{% if place is empty %} active{% endif %}"><a href="{{ path('item_list') }}">{% trans %}base.link.all{% endtrans %}</a></li>
+        {% for item in places %}
+            <li class="breadcrumb-item{% if place == item %} active{% endif %}"><a href="{{ path('item_filtered_list', {place: item}) }}">{{ item }}</a></li>
+        {% endfor %}
+    </ol>
+    </nav>
+
     <table class="table table-hover">
     <thead class="thead-dark">
     <tr>
@@ -29,7 +38,15 @@
         </tr>
     {% endfor %}
     </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="5">
+                <a href="{{ path("item_create") }}" class="btn btn-outline-dark" title="{% trans %}base.btn.create{% endtrans %}">{% trans %}item.btn.newitem{% endtrans %}</a>
+            </td>
+        </tr>
+        </tfoot>
     </table>
 
     {{ dump(items) }}
+
 {% endblock %}

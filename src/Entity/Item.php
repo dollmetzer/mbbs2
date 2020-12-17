@@ -1,5 +1,13 @@
 <?php
-
+/**
+ * M B B S 2   -   B u l l e t i n   B o a r d   S y s t e m
+ * ---------------------------------------------------------
+ * A small BBS package for mobile use
+ *
+ * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
+ * @copyright (c) 2014-2020, Dirk Ollmetzer
+ * @license GNU GENERAL PUBLIC LICENSE Version 3
+ */
 
 namespace App\Entity;
 
@@ -38,13 +46,13 @@ class Item
 
     /**
      * @ORM\Column(type="boolean", options={"default":"1"})
-     * @var integer
+     * @var boolean
      */
-    private $active = true;
+    private $isActive = true;
 
     /**
      * @ORM\Column(type="string", nullable=true)
-     * @var
+     * @var string
      */
     private $marking;
 
@@ -73,19 +81,19 @@ class Item
     }
 
     /**
-     * @return int
+     * @return bool
      */
-    public function getActive(): int
+    public function getIsActive()
     {
-        return $this->active;
+        return $this->isActive;
     }
 
     /**
-     * @param int $active
+     * @param bool $isActive
      */
-    public function setActive(int $active): void
+    public function setIsActive($isActive): void
     {
-        $this->active = $active;
+        $this->isActive = $isActive;
     }
 
     /**
@@ -119,5 +127,4 @@ class Item
     {
         $this->marking = $marking;
     }
-
 }
