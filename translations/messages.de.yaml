@@ -7,8 +7,7 @@ admin:
     roles: Rollen
     users: Anzahl Nutzer
     protected: Geschützt
-    created: Angelegt
-    updated: Geändert
+    active: Aktiv
   link:
   message:
     unknownrole: Die gesuchte Rolle existiert nicht.
@@ -26,7 +25,13 @@ base:
     search: Suche
     yes: Ja
     no: Nein
+    impersonate: Übernehmen
   form:
+    created: Angelegt
+    updated: Geändert
+    username: Nutzername
+    password: Passwort
+    signin: Anmelden
   link:
     imprint: Impressum
     privacy: Datenschutz
@@ -75,5 +80,8 @@ security:
   link:
   message:
   title:
+    imprint: Impressum
+    privacy: Datenschutz
+    terms: AGB
     login: Anmelden
     impersonate: Benutzerübernahme

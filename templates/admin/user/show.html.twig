@@ -23,11 +23,11 @@
                 {% endfor %}</td>
         </tr>
         <tr>
-            <td><strong>{% trans %}admin.form.created{% endtrans %}</strong></td>
+            <td><strong>{% trans %}base.form.created{% endtrans %}</strong></td>
             <td>{{ user.createdOn|format_datetime('medium', 'short', locale='de') }}</td>
         </tr>
         <tr>
-            <td><strong>{% trans %}admin.form.updated{% endtrans %}</strong></td>
+            <td><strong>{% trans %}base.form.updated{% endtrans %}</strong></td>
             <td>{{ user.updatedOn|format_datetime('medium', 'short', locale='de') }}</td>
         </tr>
         <tr>

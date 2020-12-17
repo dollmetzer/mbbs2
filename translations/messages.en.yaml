@@ -1,3 +1,7 @@
+# Language Snippets
+#
+# Do a regular check with
+# bin/console debug:translation de --domain=messages
 admin:
   btn:
     newuser: Create new user
@@ -7,8 +11,7 @@ admin:
     roles: Roles
     users: "# of Users"
     protected: Protected
-    created: Created
-    updated: Updated
+    active: Active
   link:
   message:
     unknownrole: The role doesn't exists.
@@ -26,7 +29,13 @@ base:
     search: Search
     yes: yes
     no: no
+    impersonate: Impersonate
   form:
+    created: Created
+    updated: Updated
+    username: Username
+    password: Password
+    signin: Sign in
   link:
     imprint: Imprint
     privacy: Privacy

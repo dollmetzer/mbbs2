@@ -17,11 +17,11 @@
             <td>{% if role.isProtected == true %}{% trans %}base.btn.yes{% endtrans %}{% else %}{% trans %}base.btn.no{% endtrans %}{% endif %}</td>
         </tr>
         <tr>
-            <td><strong>{% trans %}admin.form.created{% endtrans %}</strong></td>
+            <td><strong>{% trans %}base.form.created{% endtrans %}</strong></td>
             <td>{{ role.createdOn|format_datetime('medium', 'short', locale='de') }}</td>
         </tr>
         <tr>
-            <td><strong>{% trans %}admin.form.updated{% endtrans %}</strong></td>
+            <td><strong>{% trans %}base.form.updated{% endtrans %}</strong></td>
             <td>{{ role.updatedOn|format_datetime('medium', 'short', locale='de') }}</td>
         </tr>
         <tr>

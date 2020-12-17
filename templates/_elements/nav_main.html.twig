@@ -1,13 +1,7 @@
 <ul class="navbar-nav mr-auto">
     {% if app.user %}
         {% if is_granted('ROLE_ADMIN') %}
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-toggle-target="menu-item-admin" aria-expanded="false">{% trans %}base.link.administration{% endtrans %}</a>
-            <ul class="dropdown-menu" id="menu-item-admin" aria-labelledby="dropdown01">
-                <li><a class="dropdown-item" href="{{ path('admin_user_list') }}"><i class="fas fa-users"></i>&nbsp;{% trans %}base.link.admin.users{% endtrans %}</a></li>
-                <li><a class="dropdown-item" href="{{ path('admin_role_list') }}"><i class="fas fa-user-tag"></i>&nbsp;{% trans %}base.link.admin.roles{% endtrans %}</a></li>
-            </ul>
-        </li>
+            {% include 'nav_admin.html.twig' %}
         <li class="nav-item">
             <a class="nav-link" href="{{ path('item_list') }}"><i class="fas fa-boxes"></i> {% trans %}item.link.list{% endtrans %}</a>
         </li>
