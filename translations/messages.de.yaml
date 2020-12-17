@@ -9,6 +9,7 @@ admin:
     protected: Geschützt
     created: Angelegt
     updated: Geändert
+  link:
   message:
     unknownrole: Die gesuchte Rolle existiert nicht.
     unknownuser: Der gesuchte Nutzer existiert nicht.
@@ -25,8 +26,7 @@ base:
     search: Suche
     yes: Ja
     no: Nein
-  message:
-    unsupportedlanguage: Die gewählte Sprache wird nicht unterstützt.
+  form:
   link:
     imprint: Impressum
     privacy: Datenschutz
@@ -42,6 +42,8 @@ base:
       impersonation:
         start: Benutzerübernahme
         end: Benutzerübernahme beenden
+  message:
+    unsupportedlanguage: Die gewählte Sprache wird nicht unterstützt.
   modal:
     areyousure: Sind Sie sicher?
     delete: Wollen Sie wirklich den Datensatz löschen?
@@ -50,16 +52,19 @@ base:
     privacy: Privacy
     terms: Terms
 item:
+  btn:
   form:
     name: Name
     active: Aktiv
     state: Status
-    created:
+    created: Angelegt
     updated: Geandert
   link:
     list: Dinge
+  message:
   title:
     list: Dinge
+    show: Ein Ding
 security:
   btn:
     impersonate: Übernehmen
@@ -67,6 +72,7 @@ security:
     username: Nutzername
     password: Passwort
     signin: Anmelden
+  link:
   message:
   title:
     login: Anmelden

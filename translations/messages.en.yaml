@@ -9,6 +9,7 @@ admin:
     protected: Protected
     created: Created
     updated: Updated
+  link:
   message:
     unknownrole: The role doesn't exists.
     unknownuser: The user doesn't exists.
@@ -25,8 +26,7 @@ base:
     search: Search
     yes: yes
     no: no
-  message:
-    unsupportedlanguage: The selected language is not supported.
+  form:
   link:
     imprint: Imprint
     privacy: Privacy
@@ -42,6 +42,8 @@ base:
       impersonation:
         start: Impersonation
         end: End Impersonation
+  message:
+    unsupportedlanguage: The selected language is not supported.
   modal:
     areyousure: Are you sure?
     delete: You really want to delete the data?
@@ -50,6 +52,7 @@ base:
     privacy: Privacy
     terms: Terms
 item:
+  btn:
   form:
     name: Name
     active: Active
@@ -58,8 +61,10 @@ item:
     updated: Updated
   link:
     list: Items
+  message:
   title:
     list: Items
+    show: Item
 security:
   btn:
     impersonate: Impersonate
@@ -67,6 +72,7 @@ security:
     username: Username
     password: Password
     signin: Sign in
+  link:
   message:
   title:
     login: Login
