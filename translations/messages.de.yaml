@@ -1,3 +1,7 @@
+# Language Snippets
+#
+# Do a regular check with
+# bin/console debug:translation de --domain=messages
 admin:
   btn:
     newuser: Neuen Nutzer anlegen
@@ -53,9 +57,11 @@ base:
     areyousure: Sind Sie sicher?
     delete: Wollen Sie wirklich den Datensatz löschen?
   title:
-    imprint: Imprint
-    privacy: Privacy
-    terms: Terms
+    imprint: Impressum
+    privacy: Datenschutz
+    terms: AGB
+    login: Anmelden
+    impersonate: Benutzerübernahme
 item:
   btn:
   form:
@@ -67,21 +73,7 @@ item:
   link:
     list: Dinge
   message:
+    noitem: Das Ding ist nicht verfügbar
   title:
     list: Dinge
     show: Ein Ding
-security:
-  btn:
-    impersonate: Übernehmen
-  form:
-    username: Nutzername
-    password: Passwort
-    signin: Anmelden
-  link:
-  message:
-  title:
-    imprint: Impressum
-    privacy: Datenschutz
-    terms: AGB
-    login: Anmelden
-    impersonate: Benutzerübernahme

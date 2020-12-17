@@ -60,6 +60,8 @@ base:
     imprint: Imprint
     privacy: Privacy
     terms: Terms
+    login: Login
+    impersonate: Impersonate
 item:
   btn:
   form:
@@ -71,18 +73,7 @@ item:
   link:
     list: Items
   message:
+    noitem: The item is not available.
   title:
     list: Items
     show: Item
-security:
-  btn:
-    impersonate: Impersonate
-  form:
-    username: Username
-    password: Password
-    signin: Sign in
-  link:
-  message:
-  title:
-    login: Login
-    impersonate: Impersonate
