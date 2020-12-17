@@ -2,6 +2,8 @@ Progress
 ========
 * 2020-12-16 Added Item and example workflow
 * 2020-12-14 Started Translation of templates in de/en
+* 2020-12-15 Completed translation of templates in de/en
+* 2020-12-14 Started translation of templates in de/en
 * 2020-12-12 Searchform for users 
 * 2020-12-11 Improved UI (menu drop-down, user administration)
 * 2020-12-10 Added impersonation

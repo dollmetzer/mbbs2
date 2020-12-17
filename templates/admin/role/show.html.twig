@@ -9,28 +9,28 @@
     {% if role %}
     <table class="table table-striped">
         <tr>
-            <td><strong>Name</strong></td>
+            <td><strong>{% trans %}admin.form.name{% endtrans %}</strong></td>
             <td>{{ role.name }}</td>
         </tr>
         <tr>
-            <td><strong>Geschützt</strong></td>
-            <td>{% if role.isProtected == true %}Ja{% else %}Nein{% endif %}</td>
+            <td><strong>{% trans %}admin.form.protected{% endtrans %}</strong></td>
+            <td>{% if role.isProtected == true %}{% trans %}base.btn.yes{% endtrans %}{% else %}{% trans %}base.btn.no{% endtrans %}{% endif %}</td>
         </tr>
         <tr>
-            <td><strong>Created</strong></td>
+            <td><strong>{% trans %}admin.form.created{% endtrans %}</strong></td>
             <td>{{ role.createdOn|format_datetime('medium', 'short', locale='de') }}</td>
         </tr>
         <tr>
-            <td><strong>Updated</strong></td>
+            <td><strong>{% trans %}admin.form.updated{% endtrans %}</strong></td>
             <td>{{ role.updatedOn|format_datetime('medium', 'short', locale='de') }}</td>
         </tr>
         <tr>
-            <td colspan="2"><a href="{{ path("admin_role_edit", {id : role.id}) }}" class="btn btn-outline-dark">bearbeiten</a></td>
+            <td colspan="2"><a href="{{ path("admin_role_edit", {id : role.id}) }}" class="btn btn-outline-dark">{% trans %}base.btn.edit{% endtrans %}</a></td>
         </tr>
     </table>
     {% else %}
         <div class="alert alert-danger" role="alert">
-            Die gesuchte Rolle existiert nicht
+            {% trans %}admin.message.unknownrole{% endtrans %}
         </div>
     {% endif %}
 {% endblock %}
