@@ -1,0 +1,46 @@
+{% set nav_top = 'stuff' %}
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}item.title.stuff{% endtrans %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans %}item.title.stuff{% endtrans %}</h1>
+
+    <p>{% trans %}item.message.stuffintro{% endtrans %}</p>
+
+    {{ dump(stuff) }}
+
+    <table class="table table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">&nbsp;</th>
+            <th scope="col">{% trans %}item.form.name{% endtrans %}</th>
+            <th scope="col">{% trans %}item.form.state{% endtrans %}</th>
+            <th scope="col">{% trans %}item.form.created{% endtrans %}</th>
+            <th scope="col">{% trans %}item.form.updated{% endtrans %}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in stuff %}
+            <tr>
+                <td>
+                    <a href="{{ path('stuff_show', {id : item.id}) }}" class="btn btn-outline-dark"
+                       title="{% trans %}base.btn.view{% endtrans %}"><i class="fa-fw far fa-eye"></i></a>
+                </td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.state.name }}</td>
+                <td>{{ item.createdOn|format_datetime('medium', 'short', locale='de') }}</td>
+                <td>{{ item.updatedOn|format_datetime('medium', 'short', locale='de') }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="5">
+                <a href="{{ path("stuff_create") }}" class="btn btn-outline-dark"
+                   title="{% trans %}base.btn.create{% endtrans %}">{% trans %}item.btn.newstuff{% endtrans %}</a>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+{% endblock %}

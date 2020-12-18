@@ -66,6 +66,7 @@ base:
 item:
   btn:
     newitem: Neues Ding anlegen
+    newstuff: Neues Zeug anlegen
   form:
     name: Name
     active: Aktiv
@@ -73,9 +74,14 @@ item:
     created: Angelegt
     updated: Geandert
   link:
-    list: Dinge
+    items: Dinge
+    stuff: Zeug
   message:
-    noitem: Das Ding ist nicht verfügbar
+    itemintro: Dies ist eine kleine Demo, wie State Machines mit Symfony Workflow umgesetzt werden können.
+    stuffintro: Dies ist eine kleine Demo, wie State Machine mit einer flexibelen, genau zugeschnittenen Komponente umgesetzt werden können.
+    noitem: Das ist nicht verfügbar
   title:
     list: Dinge
+    stuff: Zeug
     show: Ein Ding
+    createstuff: Ding anlegen

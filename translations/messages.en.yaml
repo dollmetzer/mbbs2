@@ -66,6 +66,7 @@ base:
 item:
   btn:
     newitem: Create new item
+    newstuff: Create new stuff
   form:
     name: Name
     active: Active
@@ -73,9 +74,14 @@ item:
     created: Created
     updated: Updated
   link:
-    list: Items
+    items: Items
+    stuff: Stuff
   message:
-    noitem: The item is not available.
+    itemintro: This is a tiny demo, how to use a state machine with the Symfony Workflow component.
+    stuffintro: This is a tiny demo, how to use a state machine with a flexible, taylored component.
+    noitem: This is not available.
   title:
     list: Items
+    stuff: Stuff
     show: Item
+    createstuff: Create stuff

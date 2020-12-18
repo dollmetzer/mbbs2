@@ -6,47 +6,49 @@
 {% block body %}
     <h1>{% trans %}item.title.list{% endtrans %}</h1>
 
+    <p>{% trans %}item.message.itemintro{% endtrans %}</p>
     <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item{% if place is empty %} active{% endif %}"><a href="{{ path('item_list') }}">{% trans %}base.link.all{% endtrans %}</a></li>
-        {% for item in places %}
-            <li class="breadcrumb-item{% if place == item %} active{% endif %}"><a href="{{ path('item_filtered_list', {place: item}) }}">{{ item }}</a></li>
-        {% endfor %}
-    </ol>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item{% if place is empty %} active{% endif %}"><a
+                        href="{{ path('item_list') }}">{% trans %}base.link.all{% endtrans %}</a></li>
+            {% for item in places %}
+                <li class="breadcrumb-item{% if place == item %} active{% endif %}"><a
+                            href="{{ path('item_filtered_list', {place: item}) }}">{{ item }}</a></li>
+            {% endfor %}
+        </ol>
     </nav>
 
     <table class="table table-hover">
-    <thead class="thead-dark">
-    <tr>
-        <th scope="col">&nbsp;</th>
-        <th scope="col">{% trans %}item.form.name{% endtrans %}</th>
-        <th scope="col">{% trans %}item.form.state{% endtrans %}</th>
-        <th scope="col">{% trans %}item.form.created{% endtrans %}</th>
-        <th scope="col">{% trans %}item.form.updated{% endtrans %}</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for item in items %}
+        <thead class="thead-dark">
         <tr>
-            <td>
-                <a href="{{ path('item_show', {id : item.id}) }}" class="btn btn-outline-dark" title="{% trans %}base.btn.view{% endtrans %}"><i class="fa-fw far fa-eye"></i></a>
-            </td>
-            <td>{{ item.name }}</td>
-            <td>{{ item.marking }}</td>
-            <td>{{ item.createdOn|format_datetime('medium', 'short', locale='de') }}</td>
-            <td>{{ item.updatedOn|format_datetime('medium', 'short', locale='de') }}</td>
+            <th scope="col">&nbsp;</th>
+            <th scope="col">{% trans %}item.form.name{% endtrans %}</th>
+            <th scope="col">{% trans %}item.form.state{% endtrans %}</th>
+            <th scope="col">{% trans %}item.form.created{% endtrans %}</th>
+            <th scope="col">{% trans %}item.form.updated{% endtrans %}</th>
         </tr>
-    {% endfor %}
-    </tbody>
+        </thead>
+        <tbody>
+        {% for item in items %}
+            <tr>
+                <td>
+                    <a href="{{ path('item_show', {id : item.id}) }}" class="btn btn-outline-dark"
+                       title="{% trans %}base.btn.view{% endtrans %}"><i class="fa-fw far fa-eye"></i></a>
+                </td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.marking }}</td>
+                <td>{{ item.createdOn|format_datetime('medium', 'short', locale='de') }}</td>
+                <td>{{ item.updatedOn|format_datetime('medium', 'short', locale='de') }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
         <tfoot>
         <tr>
             <td colspan="5">
-                <a href="{{ path("item_create") }}" class="btn btn-outline-dark" title="{% trans %}base.btn.create{% endtrans %}">{% trans %}item.btn.newitem{% endtrans %}</a>
+                <a href="{{ path("item_create") }}" class="btn btn-outline-dark"
+                   title="{% trans %}base.btn.create{% endtrans %}">{% trans %}item.btn.newitem{% endtrans %}</a>
             </td>
         </tr>
         </tfoot>
     </table>
-
-    {{ dump(items) }}
-
 {% endblock %}

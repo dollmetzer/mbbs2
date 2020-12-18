@@ -3,13 +3,17 @@
         {% if is_granted('ROLE_ADMIN') %}
             {% include '_elements/nav_admin.html.twig' %}
         <li class="nav-item{% if nav_top == 'item' %} active{% endif %}">
-            <a class="nav-link" href="{{ path('item_list') }}"><i class="fas fa-boxes"></i> {% trans %}item.link.list{% endtrans %}</a>
+            <a class="nav-link" href="{{ path('item_list') }}"><i class="fas fa-boxes"></i> {% trans %}item.link.items{% endtrans %}</a>
+        </li>
+        <li class="nav-item{% if nav_top == 'stuff' %} active{% endif %}">
+            <a class="nav-link" href="{{ path('stuff_list') }}"><i class="fas fa-boxes"></i> {% trans %}item.link.stuff{% endtrans %}</a>
         </li>
         {% endif %}
 
         <li class="nav-item">
             <a class="nav-link" href="{{ path('account_logout') }}"><i class="fas fa-sign-out-alt"></i>&nbsp;{% trans %}base.link.account.logout{% endtrans %} [{{ app.user.handle }}]</a>
         </li>
+
         {% if is_granted('ROLE_ALLOWED_TO_SWITCH') and not is_granted('IS_IMPERSONATOR') %}
         <li class="nav-item{% if nav_top == 'account_impersonate' %} active{% endif %}">
             <a class="nav-link" href="{{ path('account_impersonate') }}"><i class="fas fa-people-arrows"></i>&nbsp;{% trans %}base.link.account.impersonation.start{% endtrans %}</a>

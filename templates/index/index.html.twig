@@ -2,6 +2,30 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Index::index</h1>
+    <h1>Workflows</h1>
+
+    <h2>Symfony Workflow</h2>
+    <strong>Positive</strong>
+    <ul>
+        <li>Symfony Standard</li>
+        <li>Supports Workflows and State Machines</li>
+        <li>Graphical Output of workflows</li>
+        <li>Only one marker field at dataset needed</li>
+    </ul>
+    <strong>Negative</strong>
+    <ul>
+        <li>Unflexible at runtime</li>
+        <li>Everything is code</li>
+    </ul>
+
+    <h2>Workflow</h2>
+    <strong>Positive</strong>
+    <ul>
+        <li>Flexible at runtime</li>
+    </ul>
+    <strong>Negative</strong>
+    <ul>
+        <li>DIY - No support from 3rd parties</li>
+    </ul>
 
 {% endblock %}
