@@ -29,6 +29,10 @@
             </td>
         </tr>
         <tr>
+            {% set picture = 'img/workflow/foto_publishing_' ~ item.marking ~ '.svg' %}
+            <td colspan="2"><img src="{{ asset(picture) }}" title="{{ item.marking }}"/></td>
+        </tr>
+        <tr>
             <td><strong>{% trans %}item.form.created{% endtrans %}</strong></td>
             <td>{{ item.createdOn|format_datetime('medium', 'short', locale='de') }}</td>
         </tr>
