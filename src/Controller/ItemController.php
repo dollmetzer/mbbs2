@@ -1,11 +1,11 @@
 <?php
 /**
- * M B B S 2   -   B u l l e t i n   B o a r d   S y s t e m
- * ---------------------------------------------------------
- * A small BBS package for mobile use
+ * C O M P A R E   2   W O R K F L O W S
+ * -------------------------------------
+ * A small comparison of two workflow implementations
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
- * @copyright (c) 2014-2020, Dirk Ollmetzer
+ * @copyright (c) 2020, Dirk Ollmetzer
  * @license GNU GENERAL PUBLIC LICENSE Version 3
  */
 
@@ -17,7 +17,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Workflow\Dumper\GraphvizDumper;
 use Symfony\Component\Workflow\Exception\ExceptionInterface;
 use Symfony\Component\Workflow\WorkflowInterface;
 
@@ -30,9 +29,10 @@ class ItemController extends AbstractController
 {
     /**
      * @Route("/item/list", name="item_list")
+     * @param WorkflowInterface $fotoPublishingStateMachine
      * @return Response
      */
-    public function itemListAction(WorkflowInterface $fotoPublishingStateMachine)
+    public function itemListAction(WorkflowInterface $fotoPublishingStateMachine): Response
     {
         $places = $fotoPublishingStateMachine->getDefinition()->getPlaces();
         $repository = $this->getDoctrine()->getRepository(Item::class);
@@ -49,9 +49,11 @@ class ItemController extends AbstractController
 
     /**
      * @Route("/item/list/{place}", name="item_filtered_list")
+     * @param WorkflowInterface $fotoPublishingStateMachine
+     * @param string $place
      * @return Response
      */
-    public function itemFilteredListAction(WorkflowInterface $fotoPublishingStateMachine, string $place)
+    public function itemFilteredListAction(WorkflowInterface $fotoPublishingStateMachine, string $place): Response
     {
         $places = $fotoPublishingStateMachine->getDefinition()->getPlaces();
         if(!in_array($place, $places)) {
@@ -72,7 +74,9 @@ class ItemController extends AbstractController
 
     /**
      * @Route("/item/create", name="item_create")
+     * @param WorkflowInterface $fotoPublishingStateMachine
      * @param Request $request
+     * @return Response
      */
     public function itemCreateAction(WorkflowInterface $fotoPublishingStateMachine, Request $request): Response
     {
@@ -100,6 +104,7 @@ class ItemController extends AbstractController
     /**
      * @Route("/item/show/{id}", name="item_show")
      * @param int $id
+     * @return Response
      */
     public function itemShowAction(int $id): Response
     {
@@ -122,19 +127,9 @@ class ItemController extends AbstractController
             $fotoPublishingStateMachine->apply($item, $transition);
             $this->getDoctrine()->getManager()->flush();
         } catch (ExceptionInterface $e) {
-
+            //@todo ...
         }
         $target = $this->generateUrl('item_show', ['id' => $item->getId()]);
         return $this->redirect($target);
-    }
-
-    /**
-     * @Route("item/dump/{place}")
-     */
-    public function dumpAction(WorkflowInterface $fotoPublishingStateMachine, string $place)
-    {
-        $dumper = new GraphvizDumper();
-        $dot = $dumper->dump($fotoPublishingStateMachine->getDefinition());
-
     }
 }

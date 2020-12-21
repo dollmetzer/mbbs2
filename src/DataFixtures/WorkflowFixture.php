@@ -1,8 +1,18 @@
 <?php
+/**
+ * C O M P A R E   2   W O R K F L O W S
+ * -------------------------------------
+ * A small comparison of two workflow implementations
+ *
+ * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
+ * @copyright (c) 2020, Dirk Ollmetzer
+ * @license GNU GENERAL PUBLIC LICENSE Version 3
+ */
 
 namespace App\DataFixtures;
 
 use App\Entity\State;
+use App\Entity\Transition;
 use App\Entity\Workflow;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -25,7 +35,7 @@ class WorkflowFixture extends Fixture
         $manager->persist($workflow);
         $manager->flush();
 
-        $states = [
+        $stateData = [
             'Avise',
             'Vorbereitung',
             'Foto',
@@ -33,8 +43,9 @@ class WorkflowFixture extends Fixture
             'QA',
             'Published'
         ];
+        $states = [];
         $initialState = null;
-        foreach($states as $stateName) {
+        foreach($stateData as $stateName) {
             $state = new State();
             $state->setWorkflow($workflow);
             $state->setName($stateName);
@@ -43,11 +54,48 @@ class WorkflowFixture extends Fixture
             if(!$initialState) {
                 $initialState = $state;
             }
+            $states[$stateName] = $state;
         }
 
         $workflow->setInitialState($initialState);
         $manager->persist($workflow);
         $manager->flush();
 
+        $transitionsData = [
+            'anlieferung' => [
+                'from' => 'Avise',
+                'to' => 'Vorbereitung'
+            ],
+            'styling' => [
+                'from' => 'Vorbereitung',
+                'to' => 'Foto'
+            ],
+            'fotografiert' => [
+                'from' => 'Foto',
+                'to' => 'Retusche'
+            ],
+            'retuschiert' => [
+                'from' => 'Retusche',
+                'to' => 'QA'
+            ],
+            'publish' => [
+                'from' => 'QA',
+                'to' => 'Published'
+            ],
+            'reject' => [
+                'from' => 'QA',
+                'to' => 'Foto'
+            ]
+        ];
+
+        foreach($transitionsData as $transitionName => $targets) {
+            $transition = new Transition();
+            $transition->setName($transitionName);
+            $transition->setWorkflow($workflow);
+            $transition->setFromState($states[$targets['from']]);
+            $transition->setToState($states[$targets['to']]);
+            $manager->persist($transition);
+            $manager->flush();
+        }
     }
 }

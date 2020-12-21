@@ -8,30 +8,30 @@ framework:
                 type: method
             supports:
                 - App\Entity\Item
-            initial_marking: avise
+            initial_marking: Avise
             places:
-                - avise
-                - vorbereitung
-                - foto
-                - retusche
-                - qa
-                - published
+                - Avise
+                - Vorbereitung
+                - Foto
+                - Retusche
+                - QA
+                - Published
             transitions:
                 anlieferung:
-                    from: avise
-                    to: vorbereitung
+                    from: Avise
+                    to: Vorbereitung
                 styling:
-                    from: vorbereitung
-                    to: foto
+                    from: Vorbereitung
+                    to: Foto
                 fotografiert:
-                    from: foto
-                    to: retusche
+                    from: Foto
+                    to: Retusche
                 retuschiert:
-                    from: retusche
-                    to: qa
+                    from: Retusche
+                    to: QA
                 publish:
-                    from: qa
-                    to: published
+                    from: QA
+                    to: Published
                 reject:
-                    from: qa
-                    to: foto
+                    from: QA
+                    to: Foto

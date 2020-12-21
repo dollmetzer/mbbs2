@@ -1,0 +1,51 @@
+{% set nav_top = 'stuff' %}
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}item.title.stuff{% endtrans %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans %}item.title.stuff{% endtrans %}</h1>
+
+    {% if stuff %}
+        <table class="table table-striped">
+            <tr>
+                <td><strong>{% trans %}item.form.name{% endtrans %}</strong></td>
+                <td>{{ stuff.name }}</td>
+            </tr>
+            <tr>
+                <td><strong>{% trans %}item.form.active{% endtrans %}</strong></td>
+                <td>{{ stuff.isActive }}</td>
+            </tr>
+            <tr>
+                <td><strong>{% trans %}item.form.state{% endtrans %}</strong></td>
+                <td>{% trans %}item.form.state{% endtrans %}: {{ stuff.state.name }}<br/>
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>{% for transition in transitions %}
+                        {% if transition.fromState == stuff.state %}
+                            <a href="{{ path('stuff_transfer', {id: stuff.id, transitionid: transition.id}) }}" class="btn btn-primary my-3">{{ transition.name }}</a>
+                        {% else %}
+                            <button class="btn btn-secondary my-3 disabled" disabled>{{ transition.name }}</button>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td><strong>{% trans %}item.form.created{% endtrans %}</strong></td>
+                <td>{{ stuff.createdOn|format_datetime('medium', 'short', locale='de') }}</td>
+            </tr>
+            <tr>
+                <td><strong>{% trans %}item.form.updated{% endtrans %}</strong></td>
+                <td>{{ stuff.updatedOn|format_datetime('medium', 'short', locale='de') }}</td>
+            </tr>
+        </table>
+    {% else %}
+        <div class="alert alert-danger" role="alert">
+            {% trans %}item.message.noitem{% endtrans %}
+        </div>
+    {% endif %}
+{% endblock %}
+
+

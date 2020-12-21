@@ -7,8 +7,17 @@
     <h1>{% trans %}item.title.stuff{% endtrans %}</h1>
 
     <p>{% trans %}item.message.stuffintro{% endtrans %}</p>
+    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+    <li class="breadcrumb-item{% if place is empty %} active{% endif %}"><a
+                href="{{ path('stuff_list') }}">{% trans %}base.link.all{% endtrans %}</a></li>
+        {% for item in workflow.getStates %}
+            <li class="breadcrumb-item{% if place == item.name %} active{% endif %}"><a
+                        href="{{ path('stuff_filtered_list', {place: item.name}) }}">{{ item.name }}</a></li>
+        {% endfor %}
+    </ol>
+    </nav>
 
-    {{ dump(stuff) }}
 
     <table class="table table-hover">
         <thead class="thead-dark">

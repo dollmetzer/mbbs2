@@ -1,22 +1,23 @@
 <?php
 /**
- * M B B S 2   -   B u l l e t i n   B o a r d   S y s t e m
- * ---------------------------------------------------------
- * A small BBS package for mobile use
+ * C O M P A R E   2   W O R K F L O W S
+ * -------------------------------------
+ * A small comparison of two workflow implementations
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
- * @copyright (c) 2014-2020, Dirk Ollmetzer
+ * @copyright (c) 2020, Dirk Ollmetzer
  * @license GNU GENERAL PUBLIC LICENSE Version 3
  */
 
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\StuffRepository;
 
 /**
  * Class Item
  *
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass=StuffRepository::class)
  * @ORM\HasLifecycleCallbacks()
  * @package App\Entity
  */
@@ -51,13 +52,15 @@ class Stuff
     private $isActive = true;
 
     /**
-     * @ORM\OneToMany(targetEntity="Workflow", mappedBy="id")
+     * @ORM\ManyToOne(targetEntity="Workflow")
+     * @ORM\JoinColumn(name="workflow_id", referencedColumnName="id")
      * @var Workflow
      */
     private $workflow;
 
     /**
-     * @ORM\OneToMany(targetEntity="State", mappedBy="id")
+     * @ORM\ManyToOne(targetEntity="State")
+     * @ORM\JoinColumn(name="state_id", referencedColumnName="id")
      * @var State
      */
     private $state;
@@ -97,7 +100,7 @@ class Stuff
     /**
      * @param bool $isActive
      */
-    public function setIsActive($isActive): void
+    public function setIsActive(bool $isActive): void
     {
         $this->isActive = $isActive;
     }

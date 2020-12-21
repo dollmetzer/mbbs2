@@ -1,5 +1,13 @@
 <?php
-
+/**
+ * C O M P A R E   2   W O R K F L O W S
+ * -------------------------------------
+ * A small comparison of two workflow implementations
+ *
+ * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
+ * @copyright (c) 2020, Dirk Ollmetzer
+ * @license GNU GENERAL PUBLIC LICENSE Version 3
+ */
 
 namespace App\Entity;
 
@@ -34,13 +42,15 @@ class Transition
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="State", mappedBy="id")
+     * @ORM\ManyToOne(targetEntity="State")
+     * @ORM\JoinColumn(name="fromstate_id", referencedColumnName="id")
      * @var State
      */
     private $fromState;
 
     /**
-     * @ORM\OneToMany(targetEntity="State", mappedBy="id")
+     * @ORM\ManyToOne(targetEntity="State")
+     * @ORM\JoinColumn(name="tostate_id", referencedColumnName="id")
      * @var State
      */
     private $toState;
@@ -55,7 +65,7 @@ class Transition
     private $roles;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Workflow", inversedBy="states")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Workflow", inversedBy="transitions")
      * @ORM\JoinColumn(name="workflow_id", referencedColumnName="id")
      * @var Workflow
      */

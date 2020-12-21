@@ -1,14 +1,19 @@
 <?php
-
+/**
+ * C O M P A R E   2   W O R K F L O W S
+ * -------------------------------------
+ * A small comparison of two workflow implementations
+ *
+ * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
+ * @copyright (c) 2020, Dirk Ollmetzer
+ * @license GNU GENERAL PUBLIC LICENSE Version 3
+ */
 
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\OneToMany;
-use App\Repository\WorkflowRepository;
-use App\Entity\State;
-use App\Entity\Transition;
 
 /**
  * Class Workflow
@@ -48,20 +53,20 @@ class Workflow
     private $auditTrail = true;
 
     /**
-     * @ORM\OneToOne(targetEntity="State")
+     * @ORM\OneToOne(targetEntity="App\Entity\State")
      * @ORM\JoinColumn(name="initialstate_id", referencedColumnName="id")
      * @var State
      */
     private $initialState;
 
     /**
-     * @OneToMany(targetEntity="State", mappedBy="workflow")
+     * @ORM\OneToMany(targetEntity="App\Entity\State", mappedBy="workflow", orphanRemoval=true, cascade={"persist", "remove"})
      * @var ArrayCollection<State, State>
      */
     private $states;
 
     /**
-     * @OneToMany(targetEntity="Transition", mappedBy="workflow")
+     * @ORM\OneToMany(targetEntity="App\Entity\Transition", mappedBy="workflow", orphanRemoval=true, cascade={"persist", "remove"})
      * @var ArrayCollection<Transition, Transition>
      */
     private $transitions;
@@ -145,9 +150,9 @@ class Workflow
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getStates(): ArrayCollection
+    public function getStates(): Collection
     {
         return $this->states;
     }
@@ -180,9 +185,9 @@ class Workflow
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getTransitions(): ArrayCollection
+    public function getTransitions(): Collection
     {
         return $this->transitions;
     }
