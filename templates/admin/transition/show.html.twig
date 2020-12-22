@@ -1,0 +1,61 @@
+{% set nav_top = 'admin_workflow' %}
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}workflow.title.transition{% endtrans %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans %}workflow.title.transition{% endtrans %}</h1>
+
+    {% if transition %}
+<table class="table table-striped">
+    <tr>
+        <td><strong>{% trans %}admin.form.name{% endtrans %}</strong></td>
+        <td>{{ transition.name }}</td>
+    </tr>
+    <tr>
+        <td><strong>{% trans %}workflow.form.workflow{% endtrans %}</strong></td>
+        <td><a href="{{ path('admin_workflow_show', {id:transition.workflow.id}) }}">{{ transition.workflow.name }}</a></td>
+    </tr>
+    <tr>
+        <td><strong>{% trans %}workflow.form.roles{% endtrans %}</strong></td>
+        <td>{% for role in transition.roles %}
+                {{ role.name }}
+            {% endfor %}</td>
+    </tr>
+    <tr>
+        <td><strong>{% trans %}workflow.form.fromstate{% endtrans %}</strong></td>
+        <td>{{ transition.fromState.name }}</td>
+    </tr>
+    <tr>
+        <td><strong>{% trans %}workflow.form.tostate{% endtrans %}</strong></td>
+        <td>{{ transition.toState.name }}</td>
+    </tr>
+    <tr>
+        <td><strong>{% trans %}workflow.form.onenter{% endtrans %}</strong></td>
+        <td>{{ transition.onEnter }}</td>
+    </tr>
+    <tr>
+        <td><strong>{% trans %}workflow.form.onleave{% endtrans %}</strong></td>
+        <td>{{ transition.onLeave }}</td>
+    </tr>
+    <tr>
+        <td><strong>{% trans %}base.form.created{% endtrans %}</strong></td>
+        <td>{{ transition.createdOn|format_datetime('medium', 'short', locale='de') }}</td>
+    </tr>
+    <tr>
+        <td><strong>{% trans %}base.form.updated{% endtrans %}</strong></td>
+        <td>{{ transition.updatedOn|format_datetime('medium', 'short', locale='de') }}</td>
+    </tr>
+    <tr>
+        <td colspan="2"><a href="{{ path("admin_transition_edit", {id : transition.id}) }}" class="btn btn-outline-dark">{% trans %}base.btn.edit{% endtrans %}</a></td>
+    </tr>
+</table>
+{{ dump(transition) }}
+    {% else %}
+        <div class="alert alert-danger" role="alert">
+            {% trans %}workflow.message.unknowntransition{% endtrans %}
+        </div>
+    {% endif %}
+
+{% endblock %}
+

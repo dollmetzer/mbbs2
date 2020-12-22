@@ -72,7 +72,7 @@ class State
     /**
      * @return Workflow
      */
-    public function getWorkflow(): int
+    public function getWorkflow(): Workflow
     {
         return $this->workflow;
     }

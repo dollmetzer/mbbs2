@@ -1,0 +1,46 @@
+{% set nav_top = 'admin_workflow' %}
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}workflow.title.state{% endtrans %}{% endblock %}
+
+{% block body %}
+<h1>{% trans %}workflow.title.state{% endtrans %}</h1>
+
+    <table class="table table-hover">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">&nbsp;</th>
+        <th scope="col">{% trans %}admin.form.name{% endtrans %}</th>
+        <th scope="col">{% trans %}workflow.form.workflow{% endtrans %}</th>
+        <th scope="col">{% trans %}base.form.created{% endtrans %}</th>
+        <th scope="col">{% trans %}base.form.updated{% endtrans %}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for state in states %}
+        <tr>
+            <td>
+                <a href="{{ path('admin_state_show', {id : state.id}) }}" class="btn btn-outline-dark" title="{% trans %}base.btn.view{% endtrans %}"><i class="fa-fw far fa-eye"></i></a>
+                <a href="{{ path('admin_state_edit', {id : state.id}) }}" class="btn btn-outline-dark" title="{% trans %}base.btn.edit{% endtrans %}"><i class="fa-fw far fa-edit"></i></a>
+                <a data-href="{{ path('admin_state_delete', {id : state.id}) }}" class="btn btn-outline-dark" title="{% trans %}base.btn.delete{% endtrans %}" data-toggle="modal" data-target="#confirm-delete"><i class="fa-fw far fa-trash-alt"></i></a>
+            </td>
+            <td>{{ state.name }}</td>
+            <td><a href="{{ path('admin_workflow_show', {id:state.workflow.id}) }}">{{ state.workflow.name }}</a></td>
+            <td>{{ state.createdOn|format_datetime('medium', 'short', locale='de') }}</td>
+            <td>{{ state.updatedOn|format_datetime('medium', 'short', locale='de') }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="5">
+                <a href="{{ path("admin_state_create") }}" class="btn btn-outline-dark"
+                   title="{% trans %}base.btn.create{% endtrans %}">{% trans %}workflow.btn.newstate{% endtrans %}</a>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+
+    {% include '_elements/modal_delete_confirmation.html.twig' %}
+
+{% endblock %}

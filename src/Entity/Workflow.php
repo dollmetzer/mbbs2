@@ -150,7 +150,7 @@ class Workflow
     }
 
     /**
-     * @return Collection
+     * @return Collection<State, State>
      */
     public function getStates(): Collection
     {
@@ -185,7 +185,7 @@ class Workflow
     }
 
     /**
-     * @return Collection
+     * @return Collection<Transition, Transition>
      */
     public function getTransitions(): Collection
     {

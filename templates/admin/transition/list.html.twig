@@ -1,0 +1,44 @@
+{% set nav_top = 'admin_workflow' %}
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}workflow.title.transition{% endtrans %}{% endblock %}
+
+{% block body %}
+<h1>{% trans %}workflow.title.transition{% endtrans %}</h1>
+
+    <table class="table table-hover">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">&nbsp;</th>
+        <th scope="col">{% trans %}admin.form.name{% endtrans %}</th>
+        <th scope="col">{% trans %}workflow.form.workflow{% endtrans %}</th>
+        <th scope="col">{% trans %}base.form.created{% endtrans %}</th>
+        <th scope="col">{% trans %}base.form.updated{% endtrans %}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for transition in transitions %}
+    <tr>
+        <td>
+            <a href="{{ path('admin_transition_show', {id : transition.id}) }}" class="btn btn-outline-dark" title="{% trans %}base.btn.view{% endtrans %}"><i class="fa-fw far fa-eye"></i></a>
+            <a href="{{ path('admin_transition_edit', {id : transition.id}) }}" class="btn btn-outline-dark" title="{% trans %}base.btn.edit{% endtrans %}"><i class="fa-fw far fa-edit"></i></a>
+            <a data-href="{{ path('admin_transition_delete', {id : transition.id}) }}" class="btn btn-outline-dark" title="{% trans %}base.btn.delete{% endtrans %}" data-toggle="modal" data-target="#confirm-delete"><i class="fa-fw far fa-trash-alt"></i></a>
+        </td>
+        <td>{{ transition.name }}</td>
+        <td><a href="{{ path('admin_workflow_show', {id: transition.workflow.id}) }}">{{ transition.workflow.name }}</a></td>
+        <td>{{ transition.createdOn|format_datetime('medium', 'short', locale='de') }}</td>
+        <td>{{ transition.updatedOn|format_datetime('medium', 'short', locale='de') }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="5">
+                <a href="{{ path("admin_transition_create") }}" class="btn btn-outline-dark"
+                   title="{% trans %}base.btn.create{% endtrans %}">{% trans %}workflow.btn.newtransition{% endtrans %}</a>
+            </td>
+        </tr>
+        </tfoot>
+
+    </table>
+{% endblock %}

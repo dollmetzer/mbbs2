@@ -1,0 +1,62 @@
+{% set nav_top = 'admin_workflow' %}
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}workflow.title.workflow{% endtrans %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans %}workflow.title.workflow{% endtrans %}</h1>
+
+    {% if workflow %}
+        <table class="table table-striped">
+            <tr>
+                <td><strong>{% trans %}admin.form.name{% endtrans %}</strong></td>
+                <td>{{ workflow.name }}</td>
+            </tr>
+            <tr>
+                <td><strong>{% trans %}admin.form.type{% endtrans %}</strong></td>
+                <td>{{ workflow.type }}</td>
+            </tr>
+            <tr>
+                <td><strong>{% trans %}workflow.form.history{% endtrans %}</strong></td>
+                <td>{% if workflow.auditTrail %}
+                        {% trans %}base.btn.yes{% endtrans %}
+                    {% else %}
+                        {% trans %}base.btn.no{% endtrans %}
+                    {% endif %}</td>
+            </tr>
+            <tr>
+                <td><strong>{% trans %}workflow.form.initialstate{% endtrans %}</strong></td>
+                <td>{{ workflow.initialState.name }}</td>
+            </tr>
+            <tr>
+                <td><strong>{% trans %}workflow.form.states{% endtrans %}</strong></td>
+                <td>{% for state in workflow.states %}
+                        {{ state.name }}
+                    {% endfor %}</td>
+            </tr>
+            <tr>
+                <td><strong>{% trans %}workflow.form.transitions{% endtrans %}</strong></td>
+                <td>{% for transition in workflow.transitions %}
+                        {{ transition.name }}
+                    {% endfor %}</td>
+            </tr>
+            <tr>
+                <td><strong>{% trans %}base.form.created{% endtrans %}</strong></td>
+                <td>{{ workflow.createdOn|format_datetime('medium', 'short', locale='de') }}</td>
+            </tr>
+            <tr>
+                <td><strong>{% trans %}base.form.updated{% endtrans %}</strong></td>
+                <td>{{ workflow.updatedOn|format_datetime('medium', 'short', locale='de') }}</td>
+            </tr>
+            <tr>
+                <td colspan="2"><a href="{{ path("admin_workflow_edit", {id : workflow.id}) }}" class="btn btn-outline-dark">{% trans %}base.btn.edit{% endtrans %}</a></td>
+            </tr>
+        </table>
+    {% else %}
+        <div class="alert alert-danger" role="alert">
+            {% trans %}workflow.message.unknownworkflow{% endtrans %}
+        </div>
+    {% endif %}
+
+{% endblock %}
+

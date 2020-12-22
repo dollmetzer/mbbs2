@@ -12,6 +12,7 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
@@ -58,8 +59,11 @@ class Transition
     /**
      * Access allowed for Roles
      *
-     * @ManyToMany(targetEntity="Role", inversedBy="users")
-     * @JoinTable(name="transition_2_role")
+     * @ManyToMany(targetEntity="Role", inversedBy="transition")
+     * @JoinTable(name="transition_2_role",
+     *      joinColumns={@ORM\JoinColumn(name="transition_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
+     * )
      * @var ArrayCollection<Role, Role>
      */
     private $roles;
@@ -80,6 +84,11 @@ class Transition
      * @var string Class name and method name
      */
     private $onLeave;
+
+    public function __construct()
+    {
+        $this->roles = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -138,19 +147,38 @@ class Transition
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection<Role, Role>
      */
-    public function getRoles(): ArrayCollection
+    public function getRoles(): Collection
     {
         return $this->roles;
     }
 
     /**
-     * @param ArrayCollection $roles
+     * @param Role $role
+     * @return $this
      */
-    public function setRoles(ArrayCollection $roles): void
+    public function addRole(Role $role): self
     {
-        $this->roles = $roles;
+        foreach($this->roles->getValues() as $associated) {
+            if ($associated === $role) return $this;
+        }
+        $this->roles->add($role);
+        return $this;
+    }
+
+    /**
+     * @param Role $role
+     * @return $this
+     */
+    public function removeRole(Role $role): self
+    {
+        foreach($this->roles->getValues() as $associated) {
+            if ($associated === $role) {
+                $this->roles->removeElement($role);
+            }
+        }
+        return $this;
     }
 
     /**
@@ -172,7 +200,7 @@ class Transition
     /**
      * @return string
      */
-    public function getOnEnter(): string
+    public function getOnEnter(): ?string
     {
         return $this->onEnter;
     }
@@ -188,7 +216,7 @@ class Transition
     /**
      * @return string
      */
-    public function getOnLeave(): string
+    public function getOnLeave(): ?string
     {
         return $this->onLeave;
     }

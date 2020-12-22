@@ -1,0 +1,38 @@
+{% set nav_top = 'admin_workflow' %}
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}workflow.title.state{% endtrans %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans %}workflow.title.state{% endtrans %}</h1>
+
+    {% if state %}
+        <table class="table table-striped">
+            <tr>
+                <td><strong>{% trans %}admin.form.name{% endtrans %}</strong></td>
+                <td>{{ state.name }}</td>
+            </tr>
+            <tr>
+                <td><strong>{% trans %}workflow.form.workflow{% endtrans %}</strong></td>
+                <td><a href="{{ path('admin_workflow_show', {id:state.workflow.id}) }}">{{ state.workflow.name }}</a></td>
+            </tr>
+            <tr>
+                <td><strong>{% trans %}base.form.created{% endtrans %}</strong></td>
+                <td>{{ state.createdOn|format_datetime('medium', 'short', locale='de') }}</td>
+            </tr>
+            <tr>
+                <td><strong>{% trans %}base.form.updated{% endtrans %}</strong></td>
+                <td>{{ state.updatedOn|format_datetime('medium', 'short', locale='de') }}</td>
+            </tr>
+            <tr>
+                <td colspan="2"><a href="{{ path("admin_state_edit", {id : state.id}) }}" class="btn btn-outline-dark">{% trans %}base.btn.edit{% endtrans %}</a></td>
+            </tr>
+        </table>
+    {% else %}
+        <div class="alert alert-danger" role="alert">
+            {% trans %}workflow.message.unknownstate{% endtrans %}
+        </div>
+    {% endif %}
+
+{% endblock %}
+

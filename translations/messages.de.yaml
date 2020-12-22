@@ -12,6 +12,7 @@ admin:
     users: Anzahl Nutzer
     protected: Geschützt
     active: Aktiv
+    type: Typ
   link:
   message:
     unknownrole: Die gesuchte Rolle existiert nicht.
@@ -85,3 +86,32 @@ item:
     stuff: Zeug
     show: Ein Ding
     createstuff: Ding anlegen
+workflow:
+  btn:
+    newworkflow: Neuen Workflow anlegen
+    newstate: Neuen Zustand anlegen
+    newtransition: Neuen Übergang anlegen
+  form:
+    workflow: Workflow
+    history: Änderungen protokollieren
+    initialstate: Initialer Zustand
+    states: Zustände
+    transitions: Übergänge
+    fromstate: Von Zustand
+    tostate: Zu Zustand
+    roles: Zugriff für Rollen
+    onenter: Beim Eintritt
+    onleave: Beim Verlassen
+  link:
+    administration: Workflows
+    workflow: Workflows
+    state: Zustände
+    transition: Übergänge
+  message:
+    unknownworkflow: Der Workflow ist nicht vorhanden.
+    unknownstate: Der Zustand ist nicht vorhanden.
+    unknowntransition: Der Übergang ist nicht vorhanden.
+  title:
+    workflow: Workflows
+    state: Zustände
+    transition: Übergänge

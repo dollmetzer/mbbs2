@@ -11,6 +11,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Role;
 use App\Entity\State;
 use App\Entity\Transition;
 use App\Entity\Workflow;
@@ -29,12 +30,29 @@ class WorkflowFixture extends Fixture
      */
     public function load(ObjectManager $manager): void
     {
+        // ROLE
+        $roleContent = new Role();
+        $roleContent->setIsProtected(true);
+        $roleContent->setName('ROLE_CONTENT');
+        $roleContent->setTimestamps();
+        $manager->persist($roleContent);
+
+        $roleFoto = new Role();
+        $roleFoto->setIsProtected(true);
+        $roleFoto->setName('ROLE_FOTO');
+        $roleFoto->setTimestamps();
+        $manager->persist($roleFoto);
+
+
+        // Workflow
         $workflow = new Workflow();
         $workflow->setName('Foto Publishing');
         $workflow->setTimestamps();
         $manager->persist($workflow);
         $manager->flush();
 
+
+        // States
         $stateData = [
             'Avise',
             'Vorbereitung',
@@ -61,6 +79,8 @@ class WorkflowFixture extends Fixture
         $manager->persist($workflow);
         $manager->flush();
 
+
+        // Transitions
         $transitionsData = [
             'anlieferung' => [
                 'from' => 'Avise',
