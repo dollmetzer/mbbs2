@@ -76,15 +76,8 @@ class Transition
     private $workflow;
 
     /**
-     * @var string Class name and method name
+     * Transition constructor.
      */
-    private $onEnter;
-
-    /**
-     * @var string Class name and method name
-     */
-    private $onLeave;
-
     public function __construct()
     {
         $this->roles = new ArrayCollection();
@@ -195,37 +188,5 @@ class Transition
     public function setWorkflow(Workflow $workflow): void
     {
         $this->workflow = $workflow;
-    }
-
-    /**
-     * @return string
-     */
-    public function getOnEnter(): ?string
-    {
-        return $this->onEnter;
-    }
-
-    /**
-     * @param string $onEnter
-     */
-    public function setOnEnter(string $onEnter): void
-    {
-        $this->onEnter = $onEnter;
-    }
-
-    /**
-     * @return string
-     */
-    public function getOnLeave(): ?string
-    {
-        return $this->onLeave;
-    }
-
-    /**
-     * @param string $onLeave
-     */
-    public function setOnLeave(string $onLeave): void
-    {
-        $this->onLeave = $onLeave;
     }
 }

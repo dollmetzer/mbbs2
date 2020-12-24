@@ -1,5 +1,6 @@
 Progress
 ========
+* 2020-12-24 Moved onEnter and onLeave from Transition to State. Added Workflows create and edit
 * 2020-12-22 Added custom Workflow, State and Transition with listAction and showAction
 * 2020-12-21 Basic custom workflow ready. Added workflow SVG Images for item.
 * 2020-12-17 Added breadcrumb navigation in item list

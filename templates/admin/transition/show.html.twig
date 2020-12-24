@@ -31,14 +31,6 @@
         <td>{{ transition.toState.name }}</td>
     </tr>
     <tr>
-        <td><strong>{% trans %}workflow.form.onenter{% endtrans %}</strong></td>
-        <td>{{ transition.onEnter }}</td>
-    </tr>
-    <tr>
-        <td><strong>{% trans %}workflow.form.onleave{% endtrans %}</strong></td>
-        <td>{{ transition.onLeave }}</td>
-    </tr>
-    <tr>
         <td><strong>{% trans %}base.form.created{% endtrans %}</strong></td>
         <td>{{ transition.createdOn|format_datetime('medium', 'short', locale='de') }}</td>
     </tr>

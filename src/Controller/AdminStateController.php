@@ -12,6 +12,7 @@
 namespace App\Controller;
 
 use App\Entity\State;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,6 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class AdminStateController
  *
+ * @IsGranted("ROLE_ADMIN")
  * @package App\Controller
  */
 class AdminStateController extends AbstractController

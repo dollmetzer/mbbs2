@@ -33,10 +33,22 @@ class State
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=32)
+     * @ORM\Column(type="string", length=32, nullable=false)
      * @var string
      */
     private $name;
+
+    /**
+     * @ORM\Column(type="string", length=128, nullable=true)
+     * @var string Class name and method name
+     */
+    private $onEnter;
+
+    /**
+     * @ORM\Column(type="string", length=128, nullable=true)
+     * @var string Class name and method name
+     */
+    private $onLeave;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Workflow", inversedBy="states")
@@ -67,6 +79,39 @@ class State
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getOnEnter(): ?string
+    {
+        return $this->onEnter;
+    }
+
+    /**
+     * @param string $onEnter
+     */
+    public function setOnEnter(string $onEnter): void
+    {
+        $this->onEnter = $onEnter;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOnLeave(): ?string
+    {
+        return $this->onLeave;
+    }
+
+    /**
+     * @param string $onLeave
+     */
+    public function setOnLeave(string $onLeave): void
+    {
+        $this->onLeave = $onLeave;
     }
 
     /**

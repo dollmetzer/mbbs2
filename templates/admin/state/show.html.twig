@@ -17,6 +17,14 @@
                 <td><a href="{{ path('admin_workflow_show', {id:state.workflow.id}) }}">{{ state.workflow.name }}</a></td>
             </tr>
             <tr>
+                <td><strong>{% trans %}workflow.form.onenter{% endtrans %}</strong></td>
+                <td>{{ state.onEnter }}</td>
+            </tr>
+            <tr>
+                <td><strong>{% trans %}workflow.form.onleave{% endtrans %}</strong></td>
+                <td>{{ state.onLeave }}</td>
+            </tr>
+            <tr>
                 <td><strong>{% trans %}base.form.created{% endtrans %}</strong></td>
                 <td>{{ state.createdOn|format_datetime('medium', 'short', locale='de') }}</td>
             </tr>

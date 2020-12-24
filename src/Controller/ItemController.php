@@ -13,6 +13,7 @@ namespace App\Controller;
 
 use App\Entity\Item;
 use App\Form\Type\ItemType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,6 +24,7 @@ use Symfony\Component\Workflow\WorkflowInterface;
 /**
  * Class ItemController
  *
+ * @IsGranted("ROLE_CONTENT")
  * @package App\Controller
  */
 class ItemController extends AbstractController

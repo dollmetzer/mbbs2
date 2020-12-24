@@ -17,6 +17,7 @@ use App\Entity\Transition;
 use App\Entity\Workflow;
 use App\Form\Type\StuffType;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,6 +26,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class StuffController
  *
+ * @IsGranted("ROLE_CONTENT")
  * @package App\Controller
  */
 class StuffController extends AbstractController

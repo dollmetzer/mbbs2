@@ -12,6 +12,8 @@
 namespace App\Controller;
 
 use App\Entity\Workflow;
+use App\Form\Type\AdminWorkflowType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,6 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class AdminWorkflowController
  *
+ * @IsGranted("ROLE_ADMIN")
  * @package App\Controller
  */
 class AdminWorkflowController extends AbstractController
@@ -62,9 +65,44 @@ class AdminWorkflowController extends AbstractController
      * @Route("workflow/edit/{id}", name="admin_workflow_edit")
      * @param int $id
      */
-    public function workflowEditAction(int $id): void
+    public function workflowEditAction(Request $request, int $id): Response
     {
-        die('no edit yet');
+        $repository = $this->getDoctrine()->getRepository(Workflow::class);
+        $workflow = $repository->find($id);
+        if (empty($workflow)) {
+            $this->addFlash('error', 'Workflow not found');
+            return $this->redirectToRoute('admin_workflow_list');
+        }
+
+        return $this->workflowFormProcess($workflow, $request);
+    }
+
+    /**
+     * @Route("workflow/create", name="admin_workflow_create")
+     */
+    public function workflowCreateAction(Request $request): Response
+    {
+        $workflow = new Workflow();
+
+        return $this->workflowFormProcess($workflow, $request);
+    }
+
+    private function workflowFormProcess(Workflow $workflow, Request $request): Response
+    {
+        $form = $this->createForm(AdminWorkflowType::class, $workflow);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $workflow = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($workflow);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('admin_workflow_list');
+        }
+        return $this->render('admin/workflow/form.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     /**
@@ -76,11 +114,5 @@ class AdminWorkflowController extends AbstractController
         die('no delete yet');
     }
 
-    /**
-     * @Route("workflow/create", name="admin_workflow_create")
-     */
-    public function workflowCreateAction(): void
-    {
-        die('no create yet');
-    }
+
 }

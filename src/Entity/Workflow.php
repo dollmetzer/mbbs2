@@ -54,7 +54,7 @@ class Workflow
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\State")
-     * @ORM\JoinColumn(name="initialstate_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="initialstate_id", referencedColumnName="id", nullable=true)
      * @var State
      */
     private $initialState;
@@ -136,7 +136,7 @@ class Workflow
     /**
      * @return State
      */
-    public function getInitialState(): State
+    public function getInitialState(): ?State
     {
         return $this->initialState;
     }

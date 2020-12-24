@@ -2,6 +2,17 @@
     {% if app.user %}
         {% if is_granted('ROLE_ADMIN') %}
             {% include '_elements/nav_admin.html.twig' %}
+            <li class="nav-item dropdown{% if nav_top == 'admin_workflow' %} active{% endif %}">
+                <a class="nav-link dropdown-toggle" href="#" data-toggle-target="menu-item-workflow" aria-expanded="false"><i class="fas fa-sitemap"></i>&nbsp;{% trans %}workflow.link.administration{% endtrans %}</a>
+                <ul class="dropdown-menu" id="menu-item-workflow" aria-labelledby="dropdown01">
+                    <li><a class="dropdown-item" href="{{ path('admin_workflow_list') }}">{% trans %}workflow.link.workflow{% endtrans %}</a></li>
+                    <li><a class="dropdown-item" href="{{ path('admin_state_list') }}">{% trans %}workflow.link.state{% endtrans %}</a></li>
+                    <li><a class="dropdown-item" href="{{ path('admin_transition_list') }}">{% trans %}workflow.link.transition{% endtrans %}</a></li>
+                </ul>
+            </li>
+        {% endif %}
+
+        {% if is_granted('ROLE_CONTENT') %}
         <li class="nav-item{% if nav_top == 'item' %} active{% endif %}">
             <a class="nav-link" href="{{ path('item_list') }}"><i class="fas fa-boxes"></i> {% trans %}item.link.items{% endtrans %}</a>
         </li>
@@ -9,19 +20,6 @@
             <a class="nav-link" href="{{ path('stuff_list') }}"><i class="fas fa-boxes"></i> {% trans %}item.link.stuff{% endtrans %}</a>
         </li>
         {% endif %}
-
-
-
-        <li class="nav-item dropdown{% if nav_top == 'admin_workflow' %} active{% endif %}">
-            <a class="nav-link dropdown-toggle" href="#" data-toggle-target="menu-item-workflow" aria-expanded="false"><i class="fas fa-sitemap"></i>&nbsp;{% trans %}workflow.link.administration{% endtrans %}</a>
-            <ul class="dropdown-menu" id="menu-item-workflow" aria-labelledby="dropdown01">
-                <li><a class="dropdown-item" href="{{ path('admin_workflow_list') }}">{% trans %}workflow.link.workflow{% endtrans %}</a></li>
-                <li><a class="dropdown-item" href="{{ path('admin_state_list') }}">{% trans %}workflow.link.state{% endtrans %}</a></li>
-                <li><a class="dropdown-item" href="{{ path('admin_transition_list') }}">{% trans %}workflow.link.transition{% endtrans %}</a></li>
-            </ul>
-        </li>
-
-
 
         <li class="nav-item">
             <a class="nav-link" href="{{ path('account_logout') }}"><i class="fas fa-sign-out-alt"></i>&nbsp;{% trans %}base.link.account.logout{% endtrans %} [{{ app.user.handle }}]</a>
