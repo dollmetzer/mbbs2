@@ -81,7 +81,6 @@ class State
         $this->name = $name;
     }
 
-
     /**
      * @return string
      */
@@ -115,9 +114,9 @@ class State
     }
 
     /**
-     * @return Workflow
+     * @return Workflow|null
      */
-    public function getWorkflow(): Workflow
+    public function getWorkflow(): ?Workflow
     {
         return $this->workflow;
     }

@@ -1,0 +1,11 @@
+{% set nav_top = 'admin_workflow' %}
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}workflow.title.state{% endtrans %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans %}workflow.title.state{% endtrans %}</h1>
+
+    {{ form(form) }}
+
+{% endblock %}

@@ -63,7 +63,9 @@ class AdminWorkflowController extends AbstractController
 
     /**
      * @Route("workflow/edit/{id}", name="admin_workflow_edit")
+     * @param Request $request
      * @param int $id
+     * @return Response
      */
     public function workflowEditAction(Request $request, int $id): Response
     {
@@ -79,6 +81,8 @@ class AdminWorkflowController extends AbstractController
 
     /**
      * @Route("workflow/create", name="admin_workflow_create")
+     * @param Request $request
+     * @return Response
      */
     public function workflowCreateAction(Request $request): Response
     {
@@ -113,6 +117,4 @@ class AdminWorkflowController extends AbstractController
     {
         die('no delete yet');
     }
-
-
 }

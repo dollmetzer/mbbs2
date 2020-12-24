@@ -51,7 +51,6 @@ class AdminWorkflowType extends AbstractType
                     'choice_value' => 'name',
                     'choice_label' => 'name',
                 ]
-
             );
         }
 

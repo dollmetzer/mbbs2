@@ -12,6 +12,8 @@
 namespace App\Controller;
 
 use App\Entity\State;
+use App\Entity\Workflow;
+use App\Form\Type\AdminStateType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,8 +47,9 @@ class AdminStateController extends AbstractController
     /**
      * @Route("state/show/{id}", name="admin_state_show")
      * @param int $id
+     * @return Response
      */
-    public function workflowShowAction(int $id): Response
+    public function stateShowAction(int $id): Response
     {
         $repository = $this->getDoctrine()->getRepository(State::class);
         $state = $repository->find($id);
@@ -61,27 +64,62 @@ class AdminStateController extends AbstractController
 
     /**
      * @Route("state/edit/{id}", name="admin_state_edit")
+     * @param Request $request
      * @param int $id
+     * @return Response
      */
-    public function workflowEditAction(int $id): void
+    public function stateEditAction(Request $request, int $id): Response
     {
-        die('no edit yet');
+        $repository = $this->getDoctrine()->getRepository(State::class);
+        $state = $repository->find($id);
+
+        return $this->stateFormProcess($state, $request);
+    }
+
+    /**
+     * @Route("state/create", name="admin_state_create")
+     * @param Request $request
+     * @return Response
+     */
+    public function stateCreateAction(Request $request): Response
+    {
+        $state = new State();
+
+        return $this->stateFormProcess($state, $request);
+    }
+
+    /**
+     * @param State $state
+     * @param Request $request
+     * @return Response
+     */
+    private function stateFormProcess(State $state, Request $request): Response
+    {
+        $workflowRepository = $this->getDoctrine()->getRepository(Workflow::class);
+        $workflows = $workflowRepository->findAll();
+
+        $form = $this->createForm(AdminStateType::class, $state, ['workflows' => $workflows]);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $state = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($state);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('admin_state_list');
+        }
+        return $this->render('admin/state/form.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     /**
      * @Route("state/delete/{id}", name="admin_state_delete")
      * @param int $id
      */
-    public function workflowDeleteAction(int $id): void
+    public function stateDeleteAction(int $id): void
     {
         die('no delete yet');
-    }
-
-    /**
-     * @Route("state/create", name="admin_state_create")
-     */
-    public function workflowCreateAction(): void
-    {
-        die('no create yet');
     }
 }
