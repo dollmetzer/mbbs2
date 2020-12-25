@@ -108,9 +108,9 @@ class Transition
     }
 
     /**
-     * @return State
+     * @return State|null
      */
-    public function getFromState(): State
+    public function getFromState(): ?State
     {
         return $this->fromState;
     }
@@ -124,9 +124,9 @@ class Transition
     }
 
     /**
-     * @return State
+     * @return State|null
      */
-    public function getToState(): State
+    public function getToState(): ?State
     {
         return $this->toState;
     }
@@ -175,9 +175,9 @@ class Transition
     }
 
     /**
-     * @return Workflow
+     * @return Workflow|null
      */
-    public function getWorkflow(): Workflow
+    public function getWorkflow(): ?Workflow
     {
         return $this->workflow;
     }

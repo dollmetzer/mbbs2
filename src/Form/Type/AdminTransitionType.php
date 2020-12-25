@@ -19,11 +19,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class AdminStateType
+ * Class AdminTransitionType
  *
  * @package App\Form\Type
  */
-class AdminStateType extends AbstractType
+class AdminTransitionType extends AbstractType
 {
     /**
      * @param OptionsResolver $resolver
@@ -31,9 +31,11 @@ class AdminStateType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'workflows' => []
+            'workflows' => [],
+            'states' => []
         ]);
         $resolver->setAllowedTypes('workflows', 'array');
+        $resolver->setAllowedTypes('states', 'array');
     }
 
     /**
@@ -43,6 +45,7 @@ class AdminStateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $workflows = $options['workflows'];
+        $states = $options['states'];
         $builder->add(
             'name',
             TextType::class,
@@ -52,35 +55,29 @@ class AdminStateType extends AbstractType
                     'maxlength' => 32
                 ]
             ]
-        );
-
-        if (0 != count($workflows)) {
-            $builder->add(
-                'workflow',
-                ChoiceType::class,
-                [
-                    'choices' => $workflows,
-                    'choice_value' => 'id',
-                    'choice_label' => 'name',
-                ]
-            );
-        }
-
-        $builder->add(
-            'onEnter',
-            TextType::class,
+        )->add(
+            'workflow',
+            ChoiceType::class,
             [
-                'attr' => [
-                    'maxlength' => 128
-                ]
+                'choices' => $workflows,
+                'choice_value' => 'id',
+                'choice_label' => 'name',
             ]
         )->add(
-            'onLeave',
-            TextType::class,
+            'fromState',
+            ChoiceType::class,
             [
-                'attr' => [
-                    'maxlength' => 128
-                ]
+                'choices' => $states,
+                'choice_value' => 'id',
+                'choice_label' => 'name',
+            ]
+        )->add(
+            'toState',
+            ChoiceType::class,
+            [
+                'choices' => $states,
+                'choice_value' => 'id',
+                'choice_label' => 'name',
             ]
         )->add(
             'save',
