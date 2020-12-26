@@ -1,5 +1,6 @@
 Progress
 ========
+* 2020-12-26 Added translations in controllers. Check existance of item in edit user and edit role. Some refactoring.
 * 2020-12-26 Added role add and remove for Transitions
 * 2020-12-25 Added create and edit for Transitions
 * 2020-12-24 Moved onEnter and onLeave from Transition to State. Added Workflows create and edit. Added create and edit for State.

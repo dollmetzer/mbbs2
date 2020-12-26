@@ -18,7 +18,11 @@ admin:
   link:
   message:
     unknownrole: The role doesn't exists.
+    deletedrole: The role was deleted
     unknownuser: The user doesn't exists.
+    deleteduser: The user was deleted.
+    failedassignroletouser: Failed assign role to user.
+    faileddetachrolefromuser: Failed detach role from user.
   title:
     roles: Role Administration
     users: User Administration

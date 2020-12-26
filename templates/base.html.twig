@@ -38,7 +38,7 @@
             {% include '_elements/nav_main.html.twig' %}
             {% if searchFormUrl is defined %}
             <form action="{{ searchFormUrl }}" class="form-inline mt-2 mt-md-0" method="POST">
-                <input name="searchterm" class="form-control mr-sm-2" type="text" placeholder="{% trans %}base.btn.search{% endtrans %}" aria-label="Search" {% if searchterm is defined %}value="{{ searchterm }}"{% endif %}>
+                <input name="searchterm" class="form-control mr-sm-2" type="text" placeholder="{% trans %}base.btn.search{% endtrans %}" aria-label="Search" {% if searchTerm is defined %}value="{{ searchTerm }}"{% endif %}>
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">{% trans %}base.btn.search{% endtrans %}</button>
             </form>
             {% endif %}

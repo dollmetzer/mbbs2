@@ -9,46 +9,11 @@
     {{ form(form) }}
 
     {% if showRoleSelector %}
-    <table class="table">
-        <tr>
-            <th>Rollen</th>
-        </tr>
-        {% for roleName in user.roles %}
-            {% if roleName == 'ROLE_USER' %}
-                <tr>
-                    <td><button class="btn btn-danger disabled"><i class="fa-fw far fa-trash-alt"></i></button>&nbsp;{{ roleName }}</td>
-                </tr>
-            {% endif %}
-            {% for role in allRoles %}
-                {% if roleName == role.name %}
-                    <tr>
-                        <td><a href="{{ path('admin_user_deleterole', {id:user.id, roleId:role.id}) }}" class="btn btn-danger"><i class="fa-fw far fa-trash-alt"></i></a>&nbsp;{{ role.name }}</td>
-                    </tr>
-                {% endif %}
-            {% endfor %}
-        {% endfor %}
-        <tr>
-            <td>
-                <form class="form" action="">
-                    <select class="form-select form-control" aria-label="Default select example">
-                        <option selected>Rolle hinzufügen</option>
-                        {% for role in allRoles %}
-                            <option value="{{ role.id }}">{{ role.name }}</option>
-                        {% endfor %}
-                    </select>
-                </form>
-            </td>
-        </tr>
-    </table>
-    <script type="text/javascript">
-        $('.form-select').change(function(){
-            let userId = {{ user.id }};
-            let roleId = $( this ).val();
-            let url = '{{ path('admin_user_addrole', {id: 1, roleId: 2}) }}';
-            url = url.replace(2, roleId);
-            url = url.replace(1, userId);
-            document.location.href = url;
-        });
-    </script>
+    {% set item = user %}
+    {% set target_attach_role = 'admin_user_attach_role' %}
+    {% set target_remove_role = 'admin_user_remove_role' %}
+    {% set roles = item.getRawRoles() %}
+    {% include '_elements/form_roleselector.html.twig' %}
+
     {% endif %}
 {% endblock %}

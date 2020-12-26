@@ -19,6 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class AdminRoleController
@@ -32,15 +33,24 @@ class AdminRoleController extends AbstractController
      * @var EntityManagerInterface
      */
     private $entityManager;
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
 
     /**
      * AdminRoleController constructor.
      *
      * @param EntityManagerInterface $entityManager
+     * @param TranslatorInterface $translator
      */
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        TranslatorInterface $translator
+    )
     {
         $this->entityManager = $entityManager;
+        $this->translator = $translator;
     }
 
     /**
@@ -72,10 +82,16 @@ class AdminRoleController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function roleEditAction(int $id, Request $request)
+    public function roleEditAction(int $id, Request $request): Response
     {
         $repository = $this->getDoctrine()->getRepository(Role::class);
         $role = $repository->find($id);
+
+        if (empty($user)) {
+            $this->addFlash('error', $this->translator->trans('admin.message.unknownrole'));
+            return $this->redirectToRoute('admin_role_list');
+        }
+
         return $this->roleFormProcess($role, $request);
     }
 
@@ -91,9 +107,9 @@ class AdminRoleController extends AbstractController
         if (null !== $role) {
             $this->entityManager->remove($role);
             $this->entityManager->flush();
-            $this->addFlash('success', 'Die Rolle wurde gelöscht.');
+            $this->addFlash('success', $this->translator->trans('admin.message.deletedrole'));
         } else {
-            $this->addFlash('error', 'Die Rolle existiert nicht.');
+            $this->addFlash('error', $this->translator->trans('admin.message.unknownrole'));
         }
         return $this->redirectToRoute('admin_role_list');
     }
