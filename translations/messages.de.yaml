@@ -6,6 +6,8 @@ admin:
   btn:
     newuser: Neuen Nutzer anlegen
     newrole: Neue Rolle anlegen
+    addrole: Rolle hinzufügen
+    removerole: Rolle entfernen
   form:
     name: Name
     roles: Rollen
@@ -15,7 +17,11 @@ admin:
   link:
   message:
     unknownrole: Die gesuchte Rolle existiert nicht.
+    deletedrole: Die Rolle wurde gelöscht.
     unknownuser: Der gesuchte Nutzer existiert nicht.
+    deleteduser: Der Nutzer wurde gelöscht.
+    failedassignroletouser: Die Rolle konnte dem Nutzer nicht zugeordnet werden.
+    faileddetachrolefromuser: Die Rolle konnte nicht entfernt werden.
   title:
     roles: Rollenverwaltung
     users: Nutzerverwaltung

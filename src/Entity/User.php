@@ -135,6 +135,13 @@ class User implements UserInterface
         return $roles;
     }
 
+    public function getRawRoles()
+    {
+        //var_dump($this->roles);
+        //die();
+        return $this->roles;
+    }
+
     /**
      * @param Role $role
      * @return $this

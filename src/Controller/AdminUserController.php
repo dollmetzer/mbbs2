@@ -21,6 +21,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class AdminUserController
@@ -41,16 +42,24 @@ class AdminUserController extends AbstractController
     private $passwordEncoder;
 
     /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    /**
      * AdminUserController constructor.
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param EntityManagerInterface $entityManager
+     * @param TranslatorInterface $translator
      */
     public function __construct(
         UserPasswordEncoderInterface $passwordEncoder,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        TranslatorInterface $translator
     ) {
         $this->passwordEncoder = $passwordEncoder;
         $this->entityManager = $entityManager;
+        $this->translator = $translator;
     }
 
     /**
@@ -92,6 +101,12 @@ class AdminUserController extends AbstractController
     {
         $repository = $this->getDoctrine()->getRepository(User::class);
         $user = $repository->find($id);
+
+        if (empty($user)) {
+            $this->addFlash('error', $this->translator->trans('admin.message.unknownuser'));
+            return $this->redirectToRoute('admin_user_list');
+        }
+
         return $this->userFormProcess($user, $request, true);
     }
 
@@ -107,9 +122,10 @@ class AdminUserController extends AbstractController
         if (null !== $user) {
             $this->entityManager->remove($user);
             $this->entityManager->flush();
-            $this->addFlash('success', 'Der Nutzer wurde gelöscht.');
+
+            $this->addFlash('success', $this->translator->trans('admin.message.deleteduser'));
         } else {
-            $this->addFlash('error', 'Die Nutzer existiert nicht.');
+            $this->addFlash('error', $this->translator->trans('admin.message.unknownuser'));
         }
         return $this->redirectToRoute('admin_user_list');
     }
@@ -133,16 +149,16 @@ class AdminUserController extends AbstractController
     public function userSearchAction(Request $request): Response
     {
         $searchFormUrl = $this->generateUrl('admin_user_search');
-        $searchterm = strip_tags($request->get('searchterm'));
+        $searchTerm = strip_tags($request->get('searchterm'));
         $repository = $this->getDoctrine()->getRepository(User::class);
-        $users = $repository->findBy(['handle' => $searchterm]);
+        $users = $repository->findBy(['handle' => $searchTerm]);
 
         return $this->render(
             'admin/user/list.html.twig',
             [
                 'users' => $users,
                 'searchFormUrl' => $searchFormUrl,
-                'searchterm' => $searchterm
+                'searchTerm' => $searchTerm
             ]
         );
     }
@@ -181,17 +197,18 @@ class AdminUserController extends AbstractController
             'form' => $form->createView(),
             'user' => $user,
             'allRoles' => $allRoles,
+            'itemId' => $user->getId(),
             'showRoleSelector' => $showRoleSelector
         ]);
     }
 
     /**
-     * @Route("/admin/user/addrole/{id}/{roleId}", name="admin_user_addrole")
+     * @Route("/admin/user/attachrole/{id}/{roleId}", name="admin_user_attach_role")
      * @param int $id
      * @param int $roleId
      * @return Response
      */
-    public function addRole(int $id, int $roleId): Response
+    public function attachRole(int $id, int $roleId): Response
     {
         $userRepo = $this->getDoctrine()->getRepository(User::class);
         $user = $userRepo->find($id);
@@ -205,19 +222,19 @@ class AdminUserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
         } else {
-            $this->addFlash('error', 'Die Rolle konnte dem Nutzer nicht zugeordnet werden.');
+            $this->addFlash('error', $this->translator->trans('admin.message.failedassignroletouser'));
         }
 
         return $this->redirectToRoute('admin_user_edit', ['id' =>$id]);
     }
 
     /**
-     * @Route("/admin/user/deleterole/{id}/{roleId}", name="admin_user_deleterole")
+     * @Route("/admin/user/removerole/{id}/{roleId}", name="admin_user_remove_role")
      * @param int $id
      * @param int $roleId
      * @return Response
      */
-    public function deleteRole(int $id, int $roleId): Response
+    public function removeRole(int $id, int $roleId): Response
     {
         $userRepo = $this->getDoctrine()->getRepository(User::class);
         $user = $userRepo->find($id);
@@ -231,7 +248,7 @@ class AdminUserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
         } else {
-            $this->addFlash('error', 'Die Rolle konnte dem Nutzer nicht zugeordnet werden.');
+            $this->addFlash('error', $this->translator->trans('admin.message.faileddetachrolefromuser'));
         }
 
         return $this->redirectToRoute('admin_user_edit', ['id' =>$id]);

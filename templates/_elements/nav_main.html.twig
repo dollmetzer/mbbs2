@@ -1,7 +1,7 @@
 <ul class="navbar-nav mr-auto">
     {% if app.user %}
         {% if is_granted('ROLE_ADMIN') %}
-            {% include 'nav_admin.html.twig' %}
+            {% include '_elements/nav_admin.html.twig' %}
         {% endif %}
         <li class="nav-item">
             <a class="nav-link" href="{{ path('account_logout') }}"><i class="fas fa-sign-out-alt"></i>&nbsp;{% trans %}base.link.account.logout{% endtrans %} [{{ app.user.handle }}]</a>
