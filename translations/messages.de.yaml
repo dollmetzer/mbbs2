@@ -6,6 +6,8 @@ admin:
   btn:
     newuser: Neuen Nutzer anlegen
     newrole: Neue Rolle anlegen
+    addrole: Rolle hinzufügen
+    removerole: Rolle entfernen
   form:
     name: Name
     roles: Rollen

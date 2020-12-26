@@ -1,0 +1,36 @@
+<table class="table">
+    <tr>
+        <th>{% trans %}admin.form.roles{% endtrans %}</th>
+    </tr>
+    <tr>
+
+    {% for role in item.roles %}
+    <tr>
+        <td><a href="{{ path('admin_transition_deleterole', {id:item.id, roleId:role.id}) }}"
+               class="btn btn-danger"><i class="fa-fw far fa-trash-alt"></i></a>&nbsp;{{ role.name }}</td>
+    </tr>
+    {% endfor %}
+
+    </tr>
+    <tr>
+        <td>
+            <form class="form" action="">
+                <select class="form-select form-control" aria-label="Default select example">
+                    <option selected>{% trans %}admin.btn.addrole{% endtrans %}</option>
+                    {% for role in allRoles %}
+                        <option value="{{ role.id }}">{{ role.name }}</option>
+                    {% endfor %}
+                </select>
+            </form>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+    $('.form-select').change(function () {
+        let roleId = $(this).val();
+        let url = '{{ path(target_add_role, {id: itemId, roleId: '_roleId_'}) }}';
+        url = url.replace('_roleId_', roleId);
+        console.log(url);
+        document.location.href = url;
+    });
+</script>

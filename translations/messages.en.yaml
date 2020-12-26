@@ -6,6 +6,8 @@ admin:
   btn:
     newuser: Create new user
     newrole: Create new role
+    addrole: Add role
+    removerole: Remove role
   form:
     name: Name
     roles: Roles

@@ -1,5 +1,7 @@
 Progress
 ========
+* 2020-12-26 Added role add and remove for Transitions
+* 2020-12-25 Added create and edit for Transitions
 * 2020-12-24 Moved onEnter and onLeave from Transition to State. Added Workflows create and edit. Added create and edit for State.
 * 2020-12-22 Added custom Workflow, State and Transition with listAction and showAction
 * 2020-12-21 Basic custom workflow ready. Added workflow SVG Images for item.

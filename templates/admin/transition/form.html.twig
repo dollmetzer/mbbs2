@@ -8,4 +8,9 @@
 
     {{ form(form) }}
 
+    {% if showRoleSelector %}
+        {% set target_add_role = 'admin_transition_addrole' %}
+        {% include '_elements/form_roleselector.html.twig' %}
+    {% endif %}
+
 {% endblock %}

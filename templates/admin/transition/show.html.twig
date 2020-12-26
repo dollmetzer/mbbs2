@@ -24,11 +24,11 @@
     </tr>
     <tr>
         <td><strong>{% trans %}workflow.form.fromstate{% endtrans %}</strong></td>
-        <td>{{ transition.fromState.name }}</td>
+        <td>{% if transition.fromState is not null %}{{ transition.fromState.name }}{% endif %}</td>
     </tr>
     <tr>
         <td><strong>{% trans %}workflow.form.tostate{% endtrans %}</strong></td>
-        <td>{{ transition.toState.name }}</td>
+        <td>{% if transition.toState is not null %}{{ transition.toState.name }}{% endif %}</td>
     </tr>
     <tr>
         <td><strong>{% trans %}base.form.created{% endtrans %}</strong></td>

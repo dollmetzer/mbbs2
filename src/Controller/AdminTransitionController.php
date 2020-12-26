@@ -11,6 +11,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Role;
 use App\Entity\State;
 use App\Entity\Transition;
 use App\Entity\Workflow;
@@ -30,7 +31,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminTransitionController extends AbstractController
 {
     /**
-     * @Route("transition/list", name="admin_transition_list")
+     * @Route("/admin/transition/list", name="admin_transition_list")
      */
     public function transitionListAction(): Response
     {
@@ -46,7 +47,7 @@ class AdminTransitionController extends AbstractController
     }
 
     /**
-     * @Route("transition/show/{id}", name="admin_transition_show")
+     * @Route("/admin/transition/show/{id}", name="admin_transition_show")
      * @param int $id
      * @return Response
      */
@@ -64,7 +65,7 @@ class AdminTransitionController extends AbstractController
     }
 
     /**
-     * @Route("transition/edit/{id}", name="admin_transition_edit")
+     * @Route("/admin/transition/edit/{id}", name="admin_transition_edit")
      * @param Request $request
      * @param int $id
      * @return Response
@@ -74,11 +75,11 @@ class AdminTransitionController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Transition::class);
         $transition = $repository->find($id);
 
-        return $this->transitionFormProcess($request, $transition);
+        return $this->transitionFormProcess($request, $transition, true);
     }
 
     /**
-     * @Route("transition/create", name="admin_transition_create")
+     * @Route("/admin/transition/create", name="admin_transition_create")
      * @param Request $request
      * @return Response
      */
@@ -86,21 +87,25 @@ class AdminTransitionController extends AbstractController
     {
         $transition = new Transition();
 
-        return $this->transitionFormProcess($request, $transition);
+        return $this->transitionFormProcess($request, $transition, false);
     }
 
     /**
      * @param Request $request
      * @param Transition $transition
+     * @param bool $showRoleSelector
      * @return Response
      */
-    private function transitionFormProcess(Request $request, Transition $transition): Response
+    private function transitionFormProcess(Request $request, Transition $transition, bool $showRoleSelector): Response
     {
         $workflowRepository = $this->getDoctrine()->getRepository(Workflow::class);
         $workflows = $workflowRepository->findAll();
 
         $stateRepository = $this->getDoctrine()->getRepository(State::class);
-        $states = $stateRepository->findAll();
+        $states = $stateRepository->findBy(['workflow' => $transition->getWorkflow()]);
+
+        $roleRepository = $this->getDoctrine()->getRepository(Role::class);
+        $allRoles = $roleRepository->findAll();
 
         $form = $this->createForm(AdminTransitionType::class, $transition, ['workflows' => $workflows, 'states' => $states]);
 
@@ -117,15 +122,71 @@ class AdminTransitionController extends AbstractController
 
         return $this->render('admin/transition/form.html.twig', [
             'form' => $form->createView(),
+            'allRoles' => $allRoles,
+            'item' => $transition,
+            'itemId' => $transition->getId(),
+            'showRoleSelector' => $showRoleSelector
         ]);
     }
 
     /**
-     * @Route("transition/delete/{id}", name="admin_transition_delete")
+     * @Route("/admin/transition/delete/{id}", name="admin_transition_delete")
      * @param int $id
      */
     public function transitionDeleteAction(int $id): void
     {
         die('no delete yet');
+    }
+
+    /**
+     * @Route("/admin/transition/addrole/{id}/{roleId}", name="admin_transition_addrole")
+     * @param int $id
+     * @param int $roleId
+     * @return Response
+     */
+    public function addRole(int $id, int $roleId): Response
+    {
+        $transitionRepository = $this->getDoctrine()->getRepository(Transition::class);
+        $transition = $transitionRepository->find($id);
+
+        $roleRepo = $this->getDoctrine()->getRepository(Role::class);
+        $role = $roleRepo->find($roleId);
+
+        if ((null !== $transition) && (null !== $role)) {
+            $transition->addRole($role);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($transition);
+            $entityManager->flush();
+        } else {
+            $this->addFlash('error', 'Die Rolle konnte dem Nutzer nicht zugeordnet werden.');
+        }
+
+        return $this->redirectToRoute('admin_transition_edit', ['id' =>$id]);
+    }
+
+    /**
+     * @Route("/admin/transition/deleterole/{id}/{roleId}", name="admin_transition_deleterole")
+     * @param int $id
+     * @param int $roleId
+     * @return Response
+     */
+    public function deleteRole(int $id, int $roleId): Response
+    {
+        $transitionRepository = $this->getDoctrine()->getRepository(Transition::class);
+        $transition = $transitionRepository->find($id);
+
+        $roleRepo = $this->getDoctrine()->getRepository(Role::class);
+        $role = $roleRepo->find($roleId);
+
+        if ((null !== $transition) && (null !== $role)) {
+            $transition->removeRole($role);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($transition);
+            $entityManager->flush();
+        } else {
+            $this->addFlash('error', 'Die Rolle konnte dem Nutzer nicht zugeordnet werden.');
+        }
+
+        return $this->redirectToRoute('admin_transition_edit', ['id' =>$id]);
     }
 }
