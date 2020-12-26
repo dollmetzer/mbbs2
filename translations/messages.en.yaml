@@ -117,6 +117,8 @@ workflow:
     unknownworkflow: The workflow is not available.
     unknownstate: The state is not available.
     unknowntransition: The transition is not available.
+    failedassignroletotransition: Failed assign role to transition.
+    faileddetachrolefromtransition: Failed detach role from transition.
   title:
     workflow: Workflows
     state: States

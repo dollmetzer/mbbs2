@@ -137,7 +137,7 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection
+     * @return Collection<Role, Role>
      */
     public function getRawRoles(): Collection
     {

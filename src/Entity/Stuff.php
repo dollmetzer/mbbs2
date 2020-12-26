@@ -21,7 +21,7 @@ use App\Repository\StuffRepository;
  * @ORM\HasLifecycleCallbacks()
  * @package App\Entity
  */
-class Stuff
+class Stuff implements WorkflowEntityInterface
 {
     use Timestampable;
 

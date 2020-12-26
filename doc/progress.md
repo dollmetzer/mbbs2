@@ -1,5 +1,6 @@
 Progress
 ========
+* 2020-12-26 Introduced WorkflowEntityInterface and Transfer Service
 * 2020-12-26 Added translations in controllers. Check existance of item in edit user and edit role. Some refactoring.
 * 2020-12-26 Added role add and remove for Transitions
 * 2020-12-25 Added create and edit for Transitions
@@ -11,11 +12,11 @@ Progress
 * 2020-12-16 Added Item and example workflow
 * 2020-12-15 Completed translation of templates in de/en
 * 2020-12-14 Started translation of templates in de/en
-* 2020-12-12 Searchform for users 
+* 2020-12-12 Search form for users 
 * 2020-12-11 Improved UI (menu drop-down, user administration)
 * 2020-12-10 Added impersonation
 * 2020-12-09 Admin: attach/detach roles to/from user
-* 2020-12-04 Added delete confimation modal for user and role. Changed Access Control by Roles
+* 2020-12-04 Added delete confirmation modal for user and role. Changed Access Control by Roles
 * 2020-11-30 Admin Role and User create and edit finished. Removed all Code Style notifications
 * 2020-11-29 Added check script, mess detector, PHPStan and PHPUnit for code quality. Added LifecycleCallbacks
 * 2020-11-23 Admin User and Role show pages. Started Admin User and Role create

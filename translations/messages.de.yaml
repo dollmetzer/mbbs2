@@ -79,7 +79,7 @@ item:
     active: Aktiv
     state: Status
     created: Angelegt
-    updated: Geandert
+    updated: Geändert
   link:
     items: Dinge
     stuff: Zeug
@@ -117,6 +117,8 @@ workflow:
     unknownworkflow: Der Workflow ist nicht vorhanden.
     unknownstate: Der Zustand ist nicht vorhanden.
     unknowntransition: Der Übergang ist nicht vorhanden.
+    failedassignroletotransition: Die Rolle konnte dem Übergang nicht zugeordnet werden.
+    faileddetachrolefromtransition: Die Rolle konnte nicht entfernt werden.
   title:
     workflow: Workflows
     state: Zustände

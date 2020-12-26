@@ -16,6 +16,8 @@ use App\Entity\Stuff;
 use App\Entity\Transition;
 use App\Entity\Workflow;
 use App\Form\Type\StuffType;
+use App\Workflow\Transfer;
+use App\Workflow\TransferException;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,13 +39,20 @@ class StuffController extends AbstractController
     private $entityManager;
 
     /**
+     * @var Transfer
+     */
+    private $transfer;
+
+    /**
      * StuffController constructor.
      *
      * @param EntityManagerInterface $entityManager
+     * @param Transfer $transfer
      */
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, Transfer $transfer)
     {
         $this->entityManager = $entityManager;
+        $this->transfer = $transfer;
     }
 
     /**
@@ -165,22 +174,11 @@ class StuffController extends AbstractController
             return $this->redirect($this->generateUrl('stuff_list'));
         }
 
-        $transitionsRepository = $this->getDoctrine()->getRepository(Transition::class);
-        $transition = $transitionsRepository->find($transitionid);
-        if (empty($stuff) || empty($transition)) {
-            $this->addFlash('error', 'Transition not found');
-            return $this->redirect($this->generateUrl('stuff_show', ['id' => $stuff->getId()]));
+        try {
+            $this->transfer->execute($stuff, $transitionid);
+        } catch(TransferException $e) {
+            $this->addFlash('error', $e->getMessage());
         }
-
-        if($stuff->getState() !== $transition->getFromState()) {
-            $this->addFlash('error', 'Transition not allowed');
-            return $this->redirect($this->generateUrl('stuff_show', ['id' => $stuff->getId()]));
-        }
-
-        $toState = $transition->getToState();
-        $stuff->setState($transition->getToState());
-        $this->entityManager->persist($stuff);
-        $this->entityManager->flush();
         return $this->redirect($this->generateUrl('stuff_show', ['id' => $stuff->getId()]));
     }
 

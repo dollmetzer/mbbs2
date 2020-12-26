@@ -10,6 +10,9 @@
 
     {% if showRoleSelector %}
         {% set target_add_role = 'admin_transition_addrole' %}
+        {% set target_attach_role = 'admin_transition_attach_role' %}
+        {% set target_remove_role = 'admin_transition_remove_role' %}
+        {% set roles = item.roles %}
         {% include '_elements/form_roleselector.html.twig' %}
     {% endif %}
 

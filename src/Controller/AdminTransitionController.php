@@ -21,6 +21,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class AdminTransitionController
@@ -30,6 +31,20 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AdminTransitionController extends AbstractController
 {
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    /**
+     * AdminTransitionController constructor.
+     * @param TranslatorInterface $translator
+     */
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     /**
      * @Route("/admin/transition/list", name="admin_transition_list")
      */
@@ -139,12 +154,12 @@ class AdminTransitionController extends AbstractController
     }
 
     /**
-     * @Route("/admin/transition/addrole/{id}/{roleId}", name="admin_transition_addrole")
+     * @Route("/admin/transition/attachrole/{id}/{roleId}", name="admin_transition_attach_role")
      * @param int $id
      * @param int $roleId
      * @return Response
      */
-    public function addRole(int $id, int $roleId): Response
+    public function attachRole(int $id, int $roleId): Response
     {
         $transitionRepository = $this->getDoctrine()->getRepository(Transition::class);
         $transition = $transitionRepository->find($id);
@@ -158,19 +173,19 @@ class AdminTransitionController extends AbstractController
             $entityManager->persist($transition);
             $entityManager->flush();
         } else {
-            $this->addFlash('error', 'Die Rolle konnte dem Nutzer nicht zugeordnet werden.');
+            $this->addFlash('error', $this->translator->trans('admin.message.failedassignroletotransition'));
         }
 
         return $this->redirectToRoute('admin_transition_edit', ['id' =>$id]);
     }
 
     /**
-     * @Route("/admin/transition/deleterole/{id}/{roleId}", name="admin_transition_deleterole")
+     * @Route("/admin/transition/removerole/{id}/{roleId}", name="admin_transition_remove_role")
      * @param int $id
      * @param int $roleId
      * @return Response
      */
-    public function deleteRole(int $id, int $roleId): Response
+    public function removeRole(int $id, int $roleId): Response
     {
         $transitionRepository = $this->getDoctrine()->getRepository(Transition::class);
         $transition = $transitionRepository->find($id);
@@ -184,7 +199,7 @@ class AdminTransitionController extends AbstractController
             $entityManager->persist($transition);
             $entityManager->flush();
         } else {
-            $this->addFlash('error', 'Die Rolle konnte dem Nutzer nicht zugeordnet werden.');
+            $this->addFlash('error', $this->translator->trans('admin.message.faileddetachrolefromtransition'));
         }
 
         return $this->redirectToRoute('admin_transition_edit', ['id' =>$id]);

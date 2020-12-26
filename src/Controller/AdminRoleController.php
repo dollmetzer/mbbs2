@@ -87,7 +87,7 @@ class AdminRoleController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Role::class);
         $role = $repository->find($id);
 
-        if (empty($user)) {
+        if (empty($role)) {
             $this->addFlash('error', $this->translator->trans('admin.message.unknownrole'));
             return $this->redirectToRoute('admin_role_list');
         }
