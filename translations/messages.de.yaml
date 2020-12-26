@@ -14,6 +14,7 @@ admin:
     users: Anzahl Nutzer
     protected: Geschützt
     active: Aktiv
+    type: Typ
   link:
   message:
     unknownrole: Die gesuchte Rolle existiert nicht.
@@ -47,6 +48,7 @@ base:
     privacy: Datenschutz
     terms: AGB
     administration: Verwaltung
+    all: Alle
     admin:
       users: Nutzer
       roles: Rollen

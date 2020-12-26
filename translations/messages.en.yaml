@@ -14,6 +14,7 @@ admin:
     users: "# of Users"
     protected: Protected
     active: Active
+    type: Type
   link:
   message:
     unknownrole: The role doesn't exists.
@@ -47,6 +48,7 @@ base:
     privacy: Privacy
     terms: Terms
     administration: Administration
+    all: All
     admin:
       users: Users
       roles: Roles
