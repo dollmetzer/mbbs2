@@ -54,10 +54,16 @@ class User implements UserInterface
     private $handle;
 
     /**
-     * @var string The hashed password
      * @ORM\Column(type="string")
+     * @var string The hashed password
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="string", length=2, options={"default":"en"})
+     * @var string
+     */
+    private $locale;
 
     /**
      * @ManyToMany(targetEntity="Role", inversedBy="users")
@@ -112,6 +118,22 @@ class User implements UserInterface
         $this->handle = $handle;
 
         return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLocale(): ?string
+    {
+        return $this->locale;
+    }
+
+    /**
+     * @param string $locale
+     */
+    public function setLocale(string $locale): void
+    {
+        $this->locale = $locale;
     }
 
     /**

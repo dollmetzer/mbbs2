@@ -74,6 +74,7 @@ class AppFixtures extends Fixture
             $user,
             'Admin2020!'
         ));
+        $user->setLocale('en');
         $user->setTimestamps();
         $user->addRole($roleAdmin);
         $user->setIsActive(true);

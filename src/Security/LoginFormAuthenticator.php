@@ -61,6 +61,11 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
     private $passwordEncoder;
 
     /**
+     * @var null|User
+     */
+    private $user;
+
+    /**
      * LoginFormAuthenticator constructor.
      *
      * @param EntityManagerInterface $entityManager
@@ -84,7 +89,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
      * @param Request $request
      * @return bool
      */
-    public function supports(Request $request)
+    public function supports(Request $request): bool
     {
         return self::LOGIN_ROUTE === $request->attributes->get('_route')
             && $request->isMethod('POST');
@@ -94,7 +99,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
      * @param Request $request
      * @return array
      */
-    public function getCredentials(Request $request)
+    public function getCredentials(Request $request): array
     {
         $credentials = [
             'handle' => $request->request->get('handle'),
@@ -127,6 +132,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             // fail authentication with a custom error
             throw new CustomUserMessageAuthenticationException('Handle could not be found.');
         }
+        $this->user = $user;
 
         return $user;
     }
@@ -136,13 +142,14 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
      * @param UserInterface $user
      * @return bool
      */
-    public function checkCredentials($credentials, UserInterface $user)
+    public function checkCredentials($credentials, UserInterface $user): bool
     {
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }
 
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
+     * @param array $credentials
      * @return string|null
      */
     public function getPassword($credentials): ?string
@@ -156,8 +163,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
      * @param string $providerKey
      * @return RedirectResponse
      */
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey)
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey): RedirectResponse
     {
+        $this->setLocale($request);
+
         $targetPath = $this->getTargetPath($request->getSession(), $providerKey);
         if ($targetPath) {
             return new RedirectResponse($targetPath);
@@ -169,8 +178,26 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
     /**
      * @return string
      */
-    protected function getLoginUrl()
+    protected function getLoginUrl(): string
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
+    }
+
+    /**
+     * @param Request $request
+     */
+    protected function setLocale(Request $request): void
+    {
+        $locale = '';
+
+        if ($request->getLocale()) {
+            $locale = $request->getLocale();
+        }
+
+        if ($this->user) {
+            $locale = $this->user->getLocale();
+        }
+
+        $request->getSession()->set('_locale', $locale);
     }
 }
