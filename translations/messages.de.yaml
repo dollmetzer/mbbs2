@@ -89,10 +89,10 @@ item:
     stuffintro: Dies ist eine kleine Demo, wie State Machine mit einer flexibelen, genau zugeschnittenen Komponente umgesetzt werden können.
     noitem: Das ist nicht verfügbar
   title:
-    list: Dinge
+    itemlist: Dinge
+    stufflist: Zeug
+    item: Ein Ding
     stuff: Zeug
-    show: Ein Ding
-    createstuff: Ding anlegen
 workflow:
   btn:
     newworkflow: Neuen Workflow anlegen
@@ -118,6 +118,7 @@ workflow:
     unknownworkflow: Der Workflow ist nicht vorhanden.
     unknownstate: Der Zustand ist nicht vorhanden.
     unknowntransition: Der Übergang ist nicht vorhanden.
+    unknownstuff: Das Zeug ist nicht vorhanden.
     failedassignroletotransition: Die Rolle konnte dem Übergang nicht zugeordnet werden.
     faileddetachrolefromtransition: Die Rolle konnte nicht entfernt werden.
   title:

@@ -20,6 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Workflow\Exception\ExceptionInterface;
 use Symfony\Component\Workflow\WorkflowInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class ItemController
@@ -29,6 +30,20 @@ use Symfony\Component\Workflow\WorkflowInterface;
  */
 class ItemController extends AbstractController
 {
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    /**
+     * AdminWorkflowController constructor.
+     * @param TranslatorInterface $translator
+     */
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     /**
      * @Route("/item/list", name="item_list")
      * @param WorkflowInterface $fotoPublishingStateMachine
@@ -59,7 +74,7 @@ class ItemController extends AbstractController
     {
         $places = $fotoPublishingStateMachine->getDefinition()->getPlaces();
         if(!in_array($place, $places)) {
-            $this->addFlash('error', '');
+            $this->addFlash('error', $this->translator->trans('workflow.message.unknownstate'));
             return $this->redirect($this->generateUrl('item_list'));
         }
         $repository = $this->getDoctrine()->getRepository(Item::class);

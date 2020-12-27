@@ -24,6 +24,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class StuffController
@@ -44,15 +45,26 @@ class StuffController extends AbstractController
     private $transfer;
 
     /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    /**
      * StuffController constructor.
      *
      * @param EntityManagerInterface $entityManager
      * @param Transfer $transfer
+     * @param TranslatorInterface $translator
      */
-    public function __construct(EntityManagerInterface $entityManager, Transfer $transfer)
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        Transfer $transfer,
+        TranslatorInterface $translator
+    )
     {
         $this->entityManager = $entityManager;
         $this->transfer = $transfer;
+        $this->translator = $translator;
     }
 
     /**
@@ -88,7 +100,7 @@ class StuffController extends AbstractController
         $stateRepository = $this->getDoctrine()->getRepository(State::class);
         $state = $stateRepository->findOneBy(['name' => $place]);
         if (!$state) {
-            $this->addFlash('error', 'Illegal State');
+            $this->addFlash('error', $this->translator->trans('workflow.message.unknownstate'));
             return $this->redirectToRoute('stuff_list');
         }
 
@@ -170,7 +182,7 @@ class StuffController extends AbstractController
         $stuffRepository = $this->getDoctrine()->getRepository(Stuff::class);
         $stuff = $stuffRepository->find($id);
         if (empty($stuff)) {
-            $this->addFlash('error', 'Stuff not found');
+            $this->addFlash('error', $this->translator->trans('workflow.message.unknownstuff'));
             return $this->redirect($this->generateUrl('stuff_list'));
         }
 

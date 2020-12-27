@@ -18,6 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class AdminWorkflowController
@@ -27,6 +28,20 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AdminWorkflowController extends AbstractController
 {
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    /**
+     * AdminWorkflowController constructor.
+     * @param TranslatorInterface $translator
+     */
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     /**
      * @Route("workflow/list", name="admin_workflow_list")
      */
@@ -72,7 +87,7 @@ class AdminWorkflowController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Workflow::class);
         $workflow = $repository->find($id);
         if (empty($workflow)) {
-            $this->addFlash('error', 'Workflow not found');
+            $this->addFlash('error', $this->translator->trans('workflow.message.unknownworkflow'));
             return $this->redirectToRoute('admin_workflow_list');
         }
 
