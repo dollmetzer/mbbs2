@@ -44,6 +44,7 @@ base:
     username: Nutzername
     password: Passwort
     signin: Anmelden
+    save: Speichern
   link:
     imprint: Impressum
     privacy: Datenschutz
@@ -77,6 +78,7 @@ item:
     newstuff: Neues Zeug anlegen
   form:
     name: Name
+    identifier: Eindeutige ID
     active: Aktiv
     state: Status
     created: Angelegt
@@ -98,6 +100,10 @@ workflow:
     newworkflow: Neuen Workflow anlegen
     newstate: Neuen Zustand anlegen
     newtransition: Neuen Übergang anlegen
+  exception:
+    transition:
+      notfound: Ungültiger Übergang
+      forbidden: Sie haben nicht die notwendige Berechtigung
   form:
     workflow: Workflow
     history: Änderungen protokollieren

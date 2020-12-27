@@ -25,9 +25,20 @@
                 <td>&nbsp;</td>
                 <td>{% for transition in transitions %}
                         {% if transition.fromState == stuff.state %}
+                            {% set is_allowed = false %}
+                            {% for role in transition.roles %}
+                                {% if role.name in app.user.roles %}
+                                    {% set is_allowed = true %}
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if is_allowed %}
                             <a href="{{ path('stuff_transfer', {id: stuff.id, transitionid: transition.id}) }}" class="btn btn-primary my-3">{{ transition.name }}</a>
-                        {% else %}
+                            {% else %}
                             <button class="btn btn-secondary my-3 disabled" disabled>{{ transition.name }}</button>
+                            {% endif %}
+                        {% else %}
+                            <button class="btn btn-outline-secondary my-3 disabled" disabled>{{ transition.name }}</button>
                         {% endif %}
                     {% endfor %}
                 </td>

@@ -44,6 +44,7 @@ base:
     username: Username
     password: Password
     signin: Sign in
+    save: Save
   link:
     imprint: Imprint
     privacy: Privacy
@@ -77,6 +78,7 @@ item:
     newstuff: Create new stuff
   form:
     name: Name
+    identifier: Unique ID
     active: Active
     state: State
     created: Created

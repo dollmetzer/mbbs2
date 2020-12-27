@@ -35,6 +35,7 @@ class ItemType extends AbstractType
             TextType::class,
             [
                 'attr' => [
+                    'label' => 'item.form.name',
                     'minlength' => 4,
                     'maxlength' => 32
                 ]
@@ -43,6 +44,7 @@ class ItemType extends AbstractType
             'identifier',
             TextType::class,
             [
+                'label' => 'item.form.identifier',
                 'attr' => [
                     'minlength' => 4,
                     'maxlength' => 32
@@ -52,12 +54,16 @@ class ItemType extends AbstractType
             'isActive',
             CheckboxType::class,
             [
+                'label' => 'item.form.active',
                 'data' => true,
                 'required' => false
             ]
         )->add(
             'save',
-            SubmitType::class
+            SubmitType::class,
+            [
+                'label' => 'base.form.save',
+            ]
         );
     }
 }

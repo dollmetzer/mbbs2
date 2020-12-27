@@ -1,5 +1,6 @@
 Progress
 ========
+* 2020-12-27 Implemented access control on transitions
 * 2020-12-27 Implemented Language switching an extended user locale
 * 2020-12-26 Introduced WorkflowEntityInterface and Transfer Service
 * 2020-12-26 Added translations in controllers. Check existance of item in edit user and edit role. Some refactoring.

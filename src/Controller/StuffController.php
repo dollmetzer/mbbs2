@@ -189,7 +189,7 @@ class StuffController extends AbstractController
         try {
             $this->transfer->execute($stuff, $transitionid);
         } catch(TransferException $e) {
-            $this->addFlash('error', $e->getMessage());
+            $this->addFlash('error', $this->translator->trans($e->getMessage()));
         }
         return $this->redirect($this->generateUrl('stuff_show', ['id' => $stuff->getId()]));
     }

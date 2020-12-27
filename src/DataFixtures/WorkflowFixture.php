@@ -14,9 +14,11 @@ namespace App\DataFixtures;
 use App\Entity\Role;
 use App\Entity\State;
 use App\Entity\Transition;
+use App\Entity\User;
 use App\Entity\Workflow;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Class WorkflowFixture
@@ -26,11 +28,27 @@ use Doctrine\Persistence\ObjectManager;
 class WorkflowFixture extends Fixture
 {
     /**
+     * @var UserPasswordEncoderInterface
+     */
+    private $passwordEncoder;
+
+    /**
+     * AppFixtures constructor.
+     *
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     */
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
+
+    /**
      * @param ObjectManager $manager
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
     public function load(ObjectManager $manager): void
     {
-        // ROLE
+        // ROLES
         $roleContent = new Role();
         $roleContent->setIsProtected(true);
         $roleContent->setName('ROLE_CONTENT');
@@ -43,8 +61,42 @@ class WorkflowFixture extends Fixture
         $roleFoto->setTimestamps();
         $manager->persist($roleFoto);
 
+        $roleQA = new Role();
+        $roleQA->setIsProtected(true);
+        $roleQA->setName('ROLE_QA');
+        $roleQA->setTimestamps();
+        $manager->persist($roleQA);
 
-        // Workflow
+
+        // USERS
+        $userFoto = new User();
+        $userFoto->setHandle('foto');
+        $userFoto->setPassword($this->passwordEncoder->encodePassword(
+            $userFoto,
+            'Foto2020!'
+        ));
+        $userFoto->setLocale('de');
+        $userFoto->setTimestamps();
+        $userFoto->addRole($roleContent);
+        $userFoto->addRole($roleFoto);
+        $userFoto->setIsActive(true);
+        $manager->persist($userFoto);
+
+        $userContent = new User();
+        $userContent->setHandle('content');
+        $userContent->setPassword($this->passwordEncoder->encodePassword(
+            $userContent,
+            'Content2020!'
+        ));
+        $userContent->setLocale('de');
+        $userContent->setTimestamps();
+        $userContent->addRole($roleContent);
+        $userContent->addRole($roleQA);
+        $userContent->setIsActive(true);
+        $manager->persist($userContent);
+
+
+        // WORKFLOW
         $workflow = new Workflow();
         $workflow->setName('Foto Publishing');
         $workflow->setTimestamps();
@@ -52,7 +104,7 @@ class WorkflowFixture extends Fixture
         $manager->flush();
 
 
-        // States
+        // STATES
         $stateData = [
             'Avise',
             'Vorbereitung',
@@ -80,31 +132,37 @@ class WorkflowFixture extends Fixture
         $manager->flush();
 
 
-        // Transitions
+        // TRANSITIONS
         $transitionsData = [
-            'anlieferung' => [
+            'angeliefert' => [
                 'from' => 'Avise',
-                'to' => 'Vorbereitung'
+                'to' => 'Vorbereitung',
+                'role' => 'ROLE_CONTENT'
             ],
-            'styling' => [
+            'gestylt' => [
                 'from' => 'Vorbereitung',
-                'to' => 'Foto'
+                'to' => 'Foto',
+                'role' => 'ROLE_CONTENT'
             ],
             'fotografiert' => [
                 'from' => 'Foto',
-                'to' => 'Retusche'
+                'to' => 'Retusche',
+                'role' => 'ROLE_FOTO'
             ],
             'retuschiert' => [
                 'from' => 'Retusche',
-                'to' => 'QA'
+                'to' => 'QA',
+                'role' => 'ROLE_FOTO'
             ],
-            'publish' => [
+            'akzeptiert' => [
                 'from' => 'QA',
-                'to' => 'Published'
+                'to' => 'Published',
+                'role' => 'ROLE_QA'
             ],
-            'reject' => [
+            'zurückgewiesen' => [
                 'from' => 'QA',
-                'to' => 'Foto'
+                'to' => 'Foto',
+                'role' => 'ROLE_QA'
             ]
         ];
 
@@ -114,6 +172,13 @@ class WorkflowFixture extends Fixture
             $transition->setWorkflow($workflow);
             $transition->setFromState($states[$targets['from']]);
             $transition->setToState($states[$targets['to']]);
+            if($targets['role'] == 'ROLE_CONTENT') {
+                $transition->addRole($roleContent);
+            } else if($targets['role'] == 'ROLE_FOTO') {
+                $transition->addRole($roleFoto);
+            } elseif($targets['role'] == 'ROLE_QA') {
+                $transition->addRole($roleQA);
+            }
             $manager->persist($transition);
             $manager->flush();
         }

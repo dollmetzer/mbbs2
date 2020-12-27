@@ -14,6 +14,7 @@ namespace App\Workflow;
 use App\Entity\Transition;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\WorkflowEntityInterface;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * Class Transfer
@@ -28,12 +29,18 @@ class Transfer
     private $entityManager;
 
     /**
+     * @var Security
+     */
+    private $security;
+
+    /**
      * Transfer constructor.
      * @param EntityManagerInterface $entityManager
      */
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, Security $security)
     {
         $this->entityManager = $entityManager;
+        $this->security = $security;
     }
 
     /**
@@ -72,10 +79,18 @@ class Transfer
 
     /**
      * @param Transition $transition
-     * @todo: check user Roles
+     * @throws TransferException
      */
     private function checkAccess(Transition $transition): void
     {
+        $userRoles = $this->security->getUser()->getRoles();
 
+        foreach($transition->getRoles() as $role) {
+            if (in_array($role->getName(), $userRoles))
+            {
+                return;
+            }
+        }
+        throw new TransferException('workflow.exception.transition.forbidden');
     }
 }

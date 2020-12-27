@@ -19,7 +19,7 @@
     <tr>
         <td><strong>{% trans %}workflow.form.roles{% endtrans %}</strong></td>
         <td>{% for role in transition.roles %}
-                {{ role.name }}
+                {{ role.name }}{% if not loop.last %}, {% endif %}
             {% endfor %}</td>
     </tr>
     <tr>
@@ -42,7 +42,6 @@
         <td colspan="2"><a href="{{ path("admin_transition_edit", {id : transition.id}) }}" class="btn btn-outline-dark">{% trans %}base.btn.edit{% endtrans %}</a></td>
     </tr>
 </table>
-{{ dump(transition) }}
     {% else %}
         <div class="alert alert-danger" role="alert">
             {% trans %}workflow.message.unknowntransition{% endtrans %}
