@@ -1,5 +1,6 @@
 Progress
 ========
+* 2020-12-27 Implemented Language switching an extended user locale
 * 2020-12-26 Added translations in controllers. Check existance of item in edit user and edit role. Some refactoring.
 * 2020-12-15 Completed translation of templates in de/en
 * 2020-12-14 Started translation of templates in de/en

@@ -14,10 +14,12 @@ namespace App\Form\Type;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class AdminUserType
@@ -26,6 +28,17 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class AdminUserType extends AbstractType
 {
+    /**
+     * @param OptionsResolver $resolver
+     */
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'locales' => [],
+        ]);
+        $resolver->setAllowedTypes('locales', 'array');
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -38,6 +51,11 @@ class AdminUserType extends AbstractType
             $passwordRequired = true;
         } else {
             $passwordRequired = false;
+        }
+
+        $choices = [];
+        foreach($options['locales'] as $item) {
+            $choices[$item] = $item;
         }
 
         $builder->add(
@@ -58,6 +76,12 @@ class AdminUserType extends AbstractType
                     'minlength' => 4,
                     'maxlength' => 32
                 ]
+            ]
+        )->add(
+            'locale',
+            ChoiceType::class,
+            [
+                'choices' => $choices
             ]
         )->add(
             'isActive',

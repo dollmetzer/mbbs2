@@ -68,6 +68,10 @@
             <li class="nav-item"><a class="nav-link" href="{{ path('index_terms') }}">{% trans %}base.link.terms{% endtrans %}</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ path('index_privacy') }}">{% trans %}base.link.privacy{% endtrans %}</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ path('index_imprint') }}">{% trans %}base.link.imprint{% endtrans %}</a></li>
+            <li class="nav-item"><p style="margin:.5rem;">[
+                    <a href="{{ path('index_set_language', {lang:'de'}) }}">DE</a> |
+                    <a href="{{ path('index_set_language', {lang:'en'}) }}">EN</a>
+                    ]</p></li>
         </ul>
     </nav>
 </div>

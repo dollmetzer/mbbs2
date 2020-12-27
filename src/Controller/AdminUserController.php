@@ -170,7 +170,12 @@ class AdminUserController extends AbstractController
      */
     private function userFormProcess(User $user, Request $request, bool $showRoleSelector): Response
     {
-        $form = $this->createForm(AdminUserType::class, $user);
+        $locales = $this->getParameter('locales');
+        if (null === $user->getLocale()) {
+            $user->setLocale($this->getParameter('locale'));
+        }
+
+        $form = $this->createForm(AdminUserType::class, $user, ['locales' => $locales]);
         $oldPassword = $user->getPassword();
 
         $form->handleRequest($request);

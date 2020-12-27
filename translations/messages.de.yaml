@@ -15,6 +15,7 @@ admin:
     protected: Geschützt
     active: Aktiv
     type: Typ
+    locale: Sprache
   link:
   message:
     unknownrole: Die gesuchte Rolle existiert nicht.

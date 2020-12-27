@@ -12,6 +12,7 @@
             <th scope="col">&nbsp;</th>
             <th scope="col">{% trans %}admin.form.name{% endtrans %}</th>
             <th scope="col">{% trans %}admin.form.roles{% endtrans %}</th>
+            <th scope="col">{% trans %}admin.form.locale{% endtrans %}</th>
             <th scope="col">{% trans %}base.form.created{% endtrans %}</th>
             <th scope="col">{% trans %}base.form.updated{% endtrans %}</th>
         </tr>
@@ -28,6 +29,7 @@
             <td>{% for role in user.roles %}
                 {{ role }}
                 {% endfor %}</td>
+            <td>{{ user.locale }}</td>
             <td>{{ user.createdOn|format_datetime('medium', 'short', locale='de') }}</td>
             <td>{{ user.updatedOn|format_datetime('medium', 'short', locale='de') }}</td>
         </tr>
@@ -35,7 +37,7 @@
         </tbody>
         <tfoot>
         <tr>
-            <td colspan="5">
+            <td colspan="6">
                 <a href="{{ path("admin_user_create") }}" class="btn btn-outline-dark" title="{% trans %}base.btn.create{% endtrans %}">{% trans %}admin.btn.newuser{% endtrans %}</a>
             </td>
         </tr>
