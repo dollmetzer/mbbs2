@@ -25,6 +25,7 @@
             <th scope="col">&nbsp;</th>
             <th scope="col">{% trans %}item.form.name{% endtrans %}</th>
             <th scope="col">{% trans %}item.form.state{% endtrans %}</th>
+            <th scope="col">{% trans %}item.form.identifier{% endtrans %}</th>
             <th scope="col">{% trans %}item.form.created{% endtrans %}</th>
             <th scope="col">{% trans %}item.form.updated{% endtrans %}</th>
         </tr>
@@ -38,6 +39,7 @@
                 </td>
                 <td>{{ item.name }}</td>
                 <td>{{ item.state.name }}</td>
+                <td>{{ item.identifier }}</td>
                 <td>{{ item.createdOn|format_datetime('medium', 'short', locale='de') }}</td>
                 <td>{{ item.updatedOn|format_datetime('medium', 'short', locale='de') }}</td>
             </tr>
@@ -45,7 +47,7 @@
         </tbody>
         <tfoot>
         <tr>
-            <td colspan="5">
+            <td colspan="6">
                 <a href="{{ path("stuff_create") }}" class="btn btn-outline-dark"
                    title="{% trans %}base.btn.create{% endtrans %}">{% trans %}item.btn.newstuff{% endtrans %}</a>
             </td>

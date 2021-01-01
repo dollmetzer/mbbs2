@@ -162,6 +162,8 @@ class StuffController extends AbstractController
         $transitionsRepository = $this->getDoctrine()->getRepository(Transition::class);
         $transitions = $transitionsRepository->findAll();
 
+        $this->transfer->enterState($stuff);
+
         return $this->render(
             'stuff/show.html.twig',
             [
@@ -172,12 +174,12 @@ class StuffController extends AbstractController
     }
 
     /**
-     * @Route("/stuff/transfer/{id}/{transitionid}", name="stuff_transfer")
+     * @Route("/stuff/transfer/{id}/{transitionId}", name="stuff_transfer")
      * @param int $id
-     * @param int $transitionid
+     * @param int $transitionId
      * @return Response
      */
-    public function stuffTransferAction(int $id, int $transitionid): Response
+    public function stuffTransferAction(int $id, int $transitionId): Response
     {
         $stuffRepository = $this->getDoctrine()->getRepository(Stuff::class);
         $stuff = $stuffRepository->find($id);
@@ -187,7 +189,7 @@ class StuffController extends AbstractController
         }
 
         try {
-            $this->transfer->execute($stuff, $transitionid);
+            $this->transfer->execute($stuff, $transitionId);
         } catch(TransferException $e) {
             $this->addFlash('error', $this->translator->trans($e->getMessage()));
         }

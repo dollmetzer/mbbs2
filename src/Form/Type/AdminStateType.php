@@ -70,7 +70,9 @@ class AdminStateType extends AbstractType
             'onEnter',
             TextType::class,
             [
+                'required' => false,
                 'attr' => [
+
                     'maxlength' => 128
                 ]
             ]
@@ -78,6 +80,7 @@ class AdminStateType extends AbstractType
             'onLeave',
             TextType::class,
             [
+                'required' => false,
                 'attr' => [
                     'maxlength' => 128
                 ]

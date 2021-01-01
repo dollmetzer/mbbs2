@@ -80,7 +80,7 @@ item:
     name: Name
     identifier: Eindeutige ID
     active: Aktiv
-    state: Status
+    state: Zustand
     created: Angelegt
     updated: Geändert
   link:
@@ -104,6 +104,8 @@ workflow:
     transition:
       notfound: Ungültiger Übergang
       forbidden: Sie haben nicht die notwendige Berechtigung
+      illegalsetting: Die Einstellungen für den Zustandsübergang sind fehlerhaft.
+      failed: Beim verlassen des aktuellen Zustands ist ein Fehler aufgetreten
   form:
     workflow: Workflow
     history: Änderungen protokollieren
@@ -127,6 +129,9 @@ workflow:
     unknownstuff: Das Zeug ist nicht vorhanden.
     failedassignroletotransition: Die Rolle konnte dem Übergang nicht zugeordnet werden.
     faileddetachrolefromtransition: Die Rolle konnte nicht entfernt werden.
+    translation:
+      sent: Die Originaltexte wurden zum Übersetzungsbüro verschickt.
+      fetched: Die Übersetzungen wurden vom Übersetzungsbüro geliefert.
   title:
     workflow: Workflows
     state: Zustände

@@ -37,7 +37,7 @@
 
     <testsuites>
         <testsuite name="Project Test Suite">
-            <directory>tests</directory>
+            <directory>tests/unit</directory>
         </testsuite>
     </testsuites>
 

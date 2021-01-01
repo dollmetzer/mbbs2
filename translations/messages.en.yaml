@@ -100,6 +100,12 @@ workflow:
     newworkflow: Create new Workflow
     newstate: Create new State
     newtransition: Create new transition
+  exception:
+    transition:
+      notfound: Illegal transition
+      forbidden: You don't have the permission
+      illegalsetting: The settings for the transition are incorrect.
+      failed: An error occurred during the transition.
   form:
     workflow: Workflow
     history: Logging change history
@@ -123,6 +129,9 @@ workflow:
     unknownstuff: The stuff is not available.
     failedassignroletotransition: Failed assign role to transition.
     faileddetachrolefromtransition: Failed detach role from transition.
+    translation:
+      sent: The original tests are sent to the translation service.
+      fetched: The translated texts are returned from the translation service.
   title:
     workflow: Workflows
     state: States

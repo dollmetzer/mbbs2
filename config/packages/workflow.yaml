@@ -17,21 +17,27 @@ framework:
                 - QA
                 - Published
             transitions:
-                anlieferung:
+                angeliefert:
+                    guard: "is_granted('ROLE_CONTENT')"
                     from: Avise
                     to: Vorbereitung
-                styling:
+                gestylt:
+                    guard: "is_granted('ROLE_CONTENT')"
                     from: Vorbereitung
                     to: Foto
                 fotografiert:
+                    guard: "is_granted('ROLE_FOTO')"
                     from: Foto
                     to: Retusche
                 retuschiert:
+                    guard: "is_granted('ROLE_FOTO')"
                     from: Retusche
                     to: QA
-                publish:
+                akzeptiert:
+                    guard: "is_granted('ROLE_QA')"
                     from: QA
                     to: Published
-                reject:
+                zurückgewiesen:
+                    guard: "is_granted('ROLE_QA')"
                     from: QA
                     to: Foto
