@@ -46,7 +46,11 @@ class TranslationService implements StateChangingInterface
      * @param Session $session
      * @param TranslatorInterface $translator
      */
-    public function __construct(LoggerInterface $logger, Session $session, TranslatorInterface $translator)
+    public function __construct(
+        LoggerInterface $logger,
+        Session $session,
+        TranslatorInterface $translator
+    )
     {
         $this->logger = $logger;
         $this->session = $session;

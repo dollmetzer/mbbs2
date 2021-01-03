@@ -46,7 +46,11 @@ class ImageProcessing implements StateChangingInterface
      * @param Session $session
      * @param TranslatorInterface $translator
      */
-    public function __construct(LoggerInterface $logger, Session $session, TranslatorInterface $translator)
+    public function __construct(
+        LoggerInterface $logger,
+        Session $session,
+        TranslatorInterface $translator
+    )
     {
         $this->logger = $logger;
         $this->session = $session;
@@ -69,6 +73,9 @@ class ImageProcessing implements StateChangingInterface
      */
     public function onEnter(WorkflowEntityInterface $entity): bool
     {
+        $message = $this->translator->trans('workflow.message.translation.fetched');
+        $this->session->getFlashBag()->add('info', $message);
+
         $this->logger->info('Fetch processed pictures from image processing service');
         return true;
     }
@@ -78,6 +85,9 @@ class ImageProcessing implements StateChangingInterface
      */
     public function onLeave(WorkflowEntityInterface $entity): bool
     {
+        $message = $this->translator->trans('workflow.message.translation.sent');
+        $this->session->getFlashBag()->add('info', $message);
+
         $this->logger->info('Send original pictures to image processing service');
         return true;
     }

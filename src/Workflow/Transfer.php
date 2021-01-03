@@ -92,7 +92,7 @@ class Transfer
 
         $eventClassName = $this->stateChangeHelper->getClassName($onEnter);
         $eventMethodName = $this->stateChangeHelper->getMethodName($onEnter, 'onEnter');
-        $eventClass = new $eventClassName($this->logger);
+        $eventClass = new $eventClassName($this->logger, $this->session, $this->translator);
         if (false === $eventClass->$eventMethodName($entity)) {
             throw new TransferException('workflow.exception.transition.onEnter.failed');
         }

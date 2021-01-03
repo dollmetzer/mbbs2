@@ -106,19 +106,43 @@ class WorkflowFixture extends Fixture
 
         // STATES
         $stateData = [
-            'Avise',
-            'Vorbereitung',
-            'Foto',
-            'Retusche',
-            'QA',
-            'Published'
+            'Avise' => [
+                'on_enter' => '',
+                'on_leave' => '',
+            ],
+            'Vorbereitung' => [
+                'on_enter' => '',
+                'on_leave' => 'App\Transition\TranslationService:sendOriginalTexts',
+            ],
+            'Foto' => [
+                'on_enter' => '',
+                'on_leave' => 'App\Transition\ImageProcessing',
+            ],
+            'Retusche' => [
+                'on_enter' => 'App\Transition\ImageProcessing',
+                'on_leave' => '',
+            ],
+            'QA' => [
+                'on_enter' => 'App\Transition\TranslationService:fetchTranslations',
+                'on_leave' => '',
+            ],
+            'Published' => [
+                'on_enter' => '',
+                'on_leave' => '',
+            ]
         ];
         $states = [];
         $initialState = null;
-        foreach($stateData as $stateName) {
+        foreach($stateData as $stateName=>$stateEvents) {
             $state = new State();
             $state->setWorkflow($workflow);
             $state->setName($stateName);
+            if (!empty($stateEvents['on_enter'])) {
+                $state->setOnEnter($stateEvents['on_enter']);
+            }
+            if (!empty($stateEvents['on_leave'])) {
+                $state->setOnLeave($stateEvents['on_leave']);
+            }
             $manager->persist($state);
             $manager->flush();
             if(!$initialState) {

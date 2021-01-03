@@ -132,6 +132,9 @@ workflow:
     translation:
       sent: The original tests are sent to the translation service.
       fetched: The translated texts are returned from the translation service.
+    imageprocessing:
+      sent: The fotos are sent to the image processing.
+      fetched: The edited images are returned from the image processing.
   title:
     workflow: Workflows
     state: States

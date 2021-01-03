@@ -132,6 +132,9 @@ workflow:
     translation:
       sent: Die Originaltexte wurden zum Übersetzungsbüro verschickt.
       fetched: Die Übersetzungen wurden vom Übersetzungsbüro geliefert.
+    imageprocessing:
+      sent: Die Fotos wurden zur Bildverarbeitung übertragen.
+      fetched: Die bearbeiteten Fotos wurden von der Bildverarbeitung geliefert.
   title:
     workflow: Workflows
     state: Zustände

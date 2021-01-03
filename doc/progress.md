@@ -1,5 +1,6 @@
 Progress
 ========
+* 2021-01-02 Added Events to both workflows
 * 2021-01-01 Added Role Restriction to symfony workflow, Added identifier in ItemList and StuffList. Fixed PHPStan Problem with PHPUnit. Added howto-demo.md.
 * 2020-12-27 Implemented access control on transitions
 * 2020-12-27 Implemented Language switching an extended user locale
