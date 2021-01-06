@@ -16,6 +16,7 @@ admin:
     active: Aktiv
     type: Typ
     locale: Sprache
+    registrar: Angelegt&nbsp;von
   link:
   message:
     unknownrole: Die gesuchte Rolle existiert nicht.

@@ -25,6 +25,10 @@
             <td>{{ user.locale }}</td>
         </tr>
         <tr>
+            <td><strong>{% trans %}admin.form.registrar{% endtrans %}</strong></td>
+            <td>{% if user.registrar %}{{ user.registrar.username }}{% else %}---{% endif %}</td>
+        </tr>
+        <tr>
             <td><strong>{% trans %}base.form.created{% endtrans %}</strong></td>
             <td>{{ user.createdOn|format_datetime('medium', 'short', locale='de') }}</td>
         </tr>

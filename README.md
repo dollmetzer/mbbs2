@@ -47,3 +47,10 @@ Set up the database (...tbd...)
     bin/console doctrine:schema:create
     bin/console doctrine:fixtures:load
     
+
+Configuration
+-------------
+Allow / Deny Self Registration via SELF_REGISTER in .env.
+Default is Deny (0).
+
+   

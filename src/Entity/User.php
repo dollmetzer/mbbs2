@@ -223,9 +223,9 @@ class User implements UserInterface
     }
 
     /**
-     * @return User
+     * @return User|null
      */
-    public function getRegistrar(): User
+    public function getRegistrar(): ?User
     {
         return $this->registrar;
     }
