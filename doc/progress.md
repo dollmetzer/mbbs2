@@ -1,5 +1,7 @@
 Progress
 ========
+* 2021-01-06 Self registration switchable in .env. Add registrar to the User entity
+* 2021-01-05 Added simple self registration form
 * 2020-12-27 Implemented Language switching an extended user locale
 * 2020-12-26 Added translations in controllers. Check existance of item in edit user and edit role. Some refactoring.
 * 2020-12-15 Completed translation of templates in de/en

@@ -37,13 +37,16 @@ base:
     search: Search
     yes: yes
     no: no
+    register: Register
     impersonate: Impersonate
   form:
     created: Created
     updated: Updated
     username: Username
     password: Password
+    password2: Password (again)
     signin: Sign in
+    save: Save
   link:
     imprint: Imprint
     privacy: Privacy
@@ -62,6 +65,9 @@ base:
         end: End Impersonation
   message:
     unsupportedlanguage: The selected language is not supported.
+    handlelength: The length of the username must be between 4 and 32 characters
+    handleexists: The username already exists
+    differentpasswords: The password fields are not identical.
   modal:
     areyousure: Are you sure?
     delete: You really want to delete the data?
@@ -70,4 +76,5 @@ base:
     privacy: Privacy
     terms: Terms
     login: Login
+    register: Register
     impersonate: Impersonate

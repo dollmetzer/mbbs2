@@ -20,9 +20,11 @@
         <li class="nav-item{% if nav_top == 'account_login' %} active{% endif %}">
             <a class="nav-link" href="{{ path('account_login') }}"><i class="fas fa-sign-in-alt"></i>&nbsp;{% trans %}base.link.account.login{% endtrans %}</a>
         </li>
+        {% if selfregister %}
         <li class="nav-item{% if nav_top == 'account_register' %} active{% endif %}">
             <a class="nav-link" href="{{ path('account_register') }}"><i class="fas fa-file-signature"></i>&nbsp;{% trans %}base.link.account.register{% endtrans %}</a>
         </li>
+        {% endif %}
     {% endif %}
 </ul>
 <script>

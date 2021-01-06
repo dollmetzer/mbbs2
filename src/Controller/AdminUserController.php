@@ -166,6 +166,7 @@ class AdminUserController extends AbstractController
     /**
      * @param User $user
      * @param Request $request
+     * @param bool $showRoleSelector
      * @return Response
      */
     private function userFormProcess(User $user, Request $request, bool $showRoleSelector): Response
@@ -186,6 +187,7 @@ class AdminUserController extends AbstractController
                 $user->setPassword($oldPassword);
             } else {
                 $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
+                $user->setRegistrar($this->getUser());
             }
 
             $entityManager = $this->getDoctrine()->getManager();

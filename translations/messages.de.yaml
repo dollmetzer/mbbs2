@@ -37,13 +37,16 @@ base:
     search: Suche
     yes: Ja
     no: Nein
+    register: Registrieren
     impersonate: Übernehmen
   form:
     created: Angelegt
     updated: Geändert
     username: Nutzername
     password: Passwort
+    password2: Passwort (wdh.)
     signin: Anmelden
+    save: Speichern
   link:
     imprint: Impressum
     privacy: Datenschutz
@@ -62,6 +65,9 @@ base:
         end: Benutzerübernahme beenden
   message:
     unsupportedlanguage: Die gewählte Sprache wird nicht unterstützt.
+    handlelength: Der Nutzername muss zwischen 4 und 32 Zeichen lang sein.
+    handleexists: Der Nutzername existiert bereits
+    differentpasswords: Das Passwort muss zweimal identisch eingegeben werden.
   modal:
     areyousure: Sind Sie sicher?
     delete: Wollen Sie wirklich den Datensatz löschen?
@@ -70,4 +76,5 @@ base:
     privacy: Datenschutz
     terms: AGB
     login: Anmelden
+    register: Registrieren
     impersonate: Benutzerübernahme
