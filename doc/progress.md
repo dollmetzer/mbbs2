@@ -1,5 +1,8 @@
 Progress
 ========
+* 2021-01-09 Added Accept Invitation and Accept Invitation Form (create account still remaining)
+* 2021-01-08 Added Create Invitation and QR Code
+* 2021-01-07 Added Invitation Switch
 * 2021-01-06 Self registration switchable in .env. Add registrar to the User entity
 * 2021-01-05 Added simple self registration form
 * 2020-12-27 Implemented Language switching an extended user locale

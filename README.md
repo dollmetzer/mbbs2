@@ -50,7 +50,16 @@ Set up the database (...tbd...)
 
 Configuration
 -------------
-Allow / Deny Self Registration via SELF_REGISTER in .env.
-Default is Deny (0).
+**Registration**
 
+The following flags can be set in the .env file:
+
+    REGISTER_SELF (default is false)
+Boolean controls if guests can register for an account by themself.
+
+    REGISTER_DOUBLE_OPT_IN (default is false)
+Boolean controls if self registration (see above) needs a double opt-in via email.
+
+    REGISTER_INVITATION (default is false)
+Boolean controls if a user can invite another user. 
    

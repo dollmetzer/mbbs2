@@ -4,3 +4,5 @@ twig:
 
     globals:
         selfregister: '%selfregister%'
+        doubleoptin: '%doubleoptin%'
+        invitation: '%invitation%'

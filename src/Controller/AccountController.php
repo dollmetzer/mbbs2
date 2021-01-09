@@ -15,6 +15,7 @@ use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -37,10 +38,20 @@ class AccountController extends AbstractController
      */
     private $passwordEncoder;
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder, TranslatorInterface $translator)
+    /**
+     * @var SessionInterface
+     */
+    private $session;
+
+    public function __construct(
+        UserPasswordEncoderInterface $passwordEncoder,
+        TranslatorInterface $translator,
+        SessionInterface $session
+    )
     {
         $this->translator = $translator;
         $this->passwordEncoder = $passwordEncoder;
+        $this->session = $session;
     }
 
     /**
@@ -77,7 +88,6 @@ class AccountController extends AbstractController
      */
     public function registerAction(Request $request): Response
     {
-        // TODO: Check, if selregister is allowed in services.yaml
         if (true !== $this->getParameter('selfregister')) {
             return $this->redirectToRoute('index_index');
         }

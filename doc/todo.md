@@ -1,5 +1,8 @@
 ToDo
 ====
-* complete translation in Controllers
-* Add a delete button to user/role view
-* Protected Roles should be not deleteable and get disabled buttons
+* Complete Invitation - Timeout for code in createInvitation
+* Complete Invitation - Accept: create user, create Contact to inviting user
+* - push
+* Refactor Registration like https://symfony.com/doc/current/form/without_class.html
+* - push
+* Create Contact and Circles

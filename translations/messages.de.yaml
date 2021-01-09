@@ -40,6 +40,10 @@ base:
     no: Nein
     register: Registrieren
     impersonate: Übernehmen
+    invite: Einladung erstellen
+  error:
+    invitation:
+      invalid: Der Einladungscode ist ungültig oder abgelaufen.
   form:
     created: Angelegt
     updated: Geändert
@@ -47,6 +51,7 @@ base:
     password: Passwort
     password2: Passwort (wdh.)
     signin: Anmelden
+    invitationcode: Einladungscode
     save: Speichern
   link:
     imprint: Impressum
@@ -61,6 +66,8 @@ base:
       register: Registrieren
       login: Anmelden
       logout: Abmelden
+      invite: Einladen
+      invitation: Einladung annehmen
       impersonation:
         start: Benutzerübernahme
         end: Benutzerübernahme beenden
@@ -69,6 +76,10 @@ base:
     handlelength: Der Nutzername muss zwischen 4 und 32 Zeichen lang sein.
     handleexists: Der Nutzername existiert bereits
     differentpasswords: Das Passwort muss zweimal identisch eingegeben werden.
+    invitation: Bitte geben Sie Ihren Einladungscode ein, um ein Benutzerkonto zu erstellen.
+    invite: Erstellen Sie eine Einladung für ihre Freunde.
+    invitationcode: Der Einladungs Code
+    invitationuntil: Die Einladung ist gültig bis
   modal:
     areyousure: Sind Sie sicher?
     delete: Wollen Sie wirklich den Datensatz löschen?
@@ -79,3 +90,5 @@ base:
     login: Anmelden
     register: Registrieren
     impersonate: Benutzerübernahme
+    invite: Jemanden einladenv
+    invitation: Einladung annehmen

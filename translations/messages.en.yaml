@@ -40,6 +40,10 @@ base:
     no: no
     register: Register
     impersonate: Impersonate
+    invite: Create Invitation
+  error:
+    invitation:
+      invalid: The invitation code is invalid or expired.
   form:
     created: Created
     updated: Updated
@@ -47,6 +51,7 @@ base:
     password: Password
     password2: Password (again)
     signin: Sign in
+    invitationcode: Invitation&nbsp;Code
     save: Save
   link:
     imprint: Imprint
@@ -61,6 +66,8 @@ base:
       register: Register
       login: Login
       logout: Logout
+      invite: Invite
+      invitation: Accept Invitation
       impersonation:
         start: Impersonation
         end: End Impersonation
@@ -69,6 +76,10 @@ base:
     handlelength: The length of the username must be between 4 and 32 characters
     handleexists: The username already exists
     differentpasswords: The password fields are not identical.
+    invitation: Please enter your invitationcode to create your acount
+    invite: Create an invitation for your friends.
+    invitationcode: The invitation code
+    invitationuntil: The invitationcode is valid until
   modal:
     areyousure: Are you sure?
     delete: You really want to delete the data?
@@ -79,3 +90,5 @@ base:
     login: Login
     register: Register
     impersonate: Impersonate
+    invite: Invite somebody
+    invitation: Accept Invitation
