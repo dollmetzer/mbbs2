@@ -80,6 +80,7 @@ base:
     invite: Erstellen Sie eine Einladung für ihre Freunde.
     invitationcode: Der Einladungs Code
     invitationuntil: Die Einladung ist gültig bis
+    accountcreated: Ihr Benutzerkonto ist erstellt. Sie können sich nun anmelden.
   modal:
     areyousure: Sind Sie sicher?
     delete: Wollen Sie wirklich den Datensatz löschen?
@@ -92,3 +93,4 @@ base:
     impersonate: Benutzerübernahme
     invite: Jemanden einladenv
     invitation: Einladung annehmen
+    accountapplication: Benutzerkonto erstellen

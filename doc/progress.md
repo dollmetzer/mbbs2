@@ -1,5 +1,6 @@
 Progress
 ========
+* 2021-01-10 Added Create Account (after Invitation)
 * 2021-01-09 Added Accept Invitation and Accept Invitation Form (create account still remaining)
 * 2021-01-08 Added Create Invitation and QR Code
 * 2021-01-07 Added Invitation Switch

@@ -11,19 +11,24 @@
 
 namespace App\Controller;
 
+use App\Domain\Account;
 use App\Entity\Invitation;
+use App\Entity\User;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -53,8 +58,20 @@ class InvitationController extends AbstractController
      */
     private $entityManager;
 
+    /**
+     * @var UserPasswordEncoderInterface
+     */
+    private $passwordEncoder;
+
+    /**
+     * @var Account
+     */
+    private $account;
+
     public function __construct(
         SessionInterface $session,
+        Account $account,
+        UserPasswordEncoderInterface $passwordEncoder,
         TranslatorInterface $translator,
         EntityManagerInterface $entityManager,
         LoggerInterface $logger
@@ -64,6 +81,8 @@ class InvitationController extends AbstractController
         $this->logger = $logger;
         $this->translator = $translator;
         $this->entityManager = $entityManager;
+        $this->passwordEncoder = $passwordEncoder;
+        $this->account = $account;
     }
 
     /**
@@ -135,7 +154,7 @@ class InvitationController extends AbstractController
      */
     public function invitationformAction(Request $request): Response
     {
-        $defaultData = ['message' => 'Type your message here'];
+        $defaultData = [];
         $form = $this->createFormBuilder($defaultData)
             ->add(
                 '1',
@@ -192,7 +211,7 @@ class InvitationController extends AbstractController
 
             $this->session->set('invitedBy', $invitation->getOriginator()->getId());
             $this->entityManager->remove($invitation);
-            $this->entityManager->persist();
+            $this->entityManager->persist($invitation);
             $this->entityManager->flush();
             return $this->redirectToRoute('account_invitation_create_account');
         }
@@ -217,7 +236,7 @@ class InvitationController extends AbstractController
 
         $this->session->set('invitedBy', $invitation->getOriginator()->getId());
         $this->entityManager->remove($invitation);
-        $this->entityManager->persist();
+        $this->entityManager->persist($invitation);
         $this->entityManager->flush();
 
         return $this->redirectToRoute('account_invitation_create_account');
@@ -227,12 +246,99 @@ class InvitationController extends AbstractController
      * @Route("account/invitation/create/account", name="account_invitation_create_account")
      * @return Response
      */
-    public function createAccount(): Response
+    public function createAccount(Request $request): Response
     {
-        die('Create Account');
-        // todo: first check Session invitedBy
-    }
+        $repo = $this->entityManager->getRepository(User::class);
+        $invitedBy = $this->session->get('invitedBy');
 
+        if (!$invitedBy) {
+            $this->addFlash('error', $this->translator->trans('base.error.invitation.invalid'));
+            return $this->redirectToRoute('index_index');
+        }
+
+        $locales = $this->getParameter('locales');
+
+        $choices = [];
+        foreach($locales as $item) {
+            $choices[$item] = $item;
+        }
+
+        $defaultData = [];
+        $form = $this->createFormBuilder($defaultData)
+            ->add(
+                'handle',
+                TextType::class,
+                [
+                    'attr' => [
+                        'minlength' => 4,
+                        'maxlength' => 32
+                    ]
+                ]
+            )->add(
+                'password',
+                PasswordType::class,
+                [
+                    'attr' => [
+                        'minlength' => 4,
+                        'maxlength' => 32
+                    ]
+                ]
+            )->add(
+                'password2',
+                PasswordType::class,
+                [
+                    'attr' => [
+                        'minlength' => 4,
+                        'maxlength' => 32
+                    ]
+                ]
+            )->add(
+                'locale',
+                ChoiceType::class,
+                [
+                    'choices' => $choices
+                ]
+            )->add('send', SubmitType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+
+            $isOk = true;
+
+            $password = $data['password'];
+            if ($password !== $data['password2']) {
+                $this->addFlash('error', $this->translator->trans('base.message.differentpasswords'));
+                $isOk = false;
+            }
+
+            $handle = $data['handle'];
+            $user = $repo->findOneBy(['handle' => $handle]);
+            if ($user) {
+                $this->addFlash('error', $this->translator->trans('base.message.handleexists'));
+                $isOk = false;
+            }
+
+            $locale = $data['locale'];
+            if (!in_array($locale, $locales)) {
+                $this->addFlash('error', $this->translator->trans('base.message.unsupportedlanguage'));
+                $isOk = false;
+            }
+
+            if (true === $isOk) {
+                $registrar = $repo->find($invitedBy);
+                $this->account->createUser($handle, $password, $locale, $registrar);
+                $this->addFlash('notice', $this->translator->trans('base.message.accountcreated'));
+                return $this->redirectToRoute('account_login');
+            }
+        }
+
+        return $this->render('invitation/account_application.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
 
     /**
      * @param string $code

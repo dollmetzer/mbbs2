@@ -134,6 +134,8 @@ class AccountController extends AbstractController
                 $entityManager->persist($user);
                 $entityManager->flush();
 
+                $this->addFlash('notice', $this->translator->trans('base.message.accountcreated'));
+
                 return $this->redirectToRoute('account_login');
             }
         }

@@ -1,0 +1,13 @@
+{% set nav_top = 'account_register' %}
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}base.title.accountapplication{% endtrans %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans %}base.title.accountapplication{% endtrans %}</h1>
+
+    <p></p>
+
+    {{ form(form) }}
+{% endblock %}
+

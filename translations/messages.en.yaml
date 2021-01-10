@@ -80,6 +80,7 @@ base:
     invite: Create an invitation for your friends.
     invitationcode: The invitation code
     invitationuntil: The invitationcode is valid until
+    accountcreated: Your account is created. You can log in now.
   modal:
     areyousure: Are you sure?
     delete: You really want to delete the data?
@@ -92,3 +93,4 @@ base:
     impersonate: Impersonate
     invite: Invite somebody
     invitation: Accept Invitation
+    accountapplication: Create account
