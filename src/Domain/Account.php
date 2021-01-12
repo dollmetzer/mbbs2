@@ -55,7 +55,7 @@ class Account
      * @param string $locale
      * @param User|null $registrar
      */
-    public function createUser(string $handle, string $password, string $locale, ?User $registrar): void
+    public function createUser(string $handle, string $password, string $locale, ?User $registrar = null): void
     {
         $user = new User();
         $user->setHandle($handle);

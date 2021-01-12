@@ -5,33 +5,7 @@
 
 {% block body %}
     <h1>{% trans %}base.title.register{% endtrans %}</h1>
-    <form name="admin_user" method="post">
-        <div id="admin_user">
-            <div class="form-group">
-                <label for="admin_user_handle" class="required">{% trans %}base.form.username{% endtrans %}</label>
-                <input type="text" id="admin_user_handle" name="admin_user[handle]" required="required" minlength="4" maxlength="32" class="form-control" value="{{ handle }}" />
-            </div>
-            <div class="form-group">
-                <label for="admin_user_password" class="required">{% trans %}base.form.password{% endtrans %}</label>
-                <input type="password" id="admin_user_password" name="admin_user[password]" required="required" minlength="4" maxlength="32" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label for="admin_user_password2" class="required">{% trans %}base.form.password2{% endtrans %}</label>
-                <input type="password" id="admin_user_password2" name="admin_user[password2]" required="required" minlength="4" maxlength="32" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label class="required" for="admin_user_locale">{% trans %}admin.form.locale{% endtrans %}</label>
-                <select id="admin_user_locale" name="admin_user[locale]" class="form-control">
-                    {% for loc in locales %}
-                        <option value="{{ loc }}"{% if loc == locale %} selected="selected"{% endif %}>{{ loc }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="form-group">
-                <button type="submit" id="admin_user_save" name="admin_user[save]" class="btn-primary btn">{% trans %}base.btn.register{% endtrans %}</button>
-            </div>
-            <input type="hidden" id="admin_user__token" name="admin_user[_token]" value="SSyqL-hsTP2HbSaYG3844uS8rUhQIgC0RD0DxsGH-io" />
-        </div>
-    </form>
+
+    {{ form(form) }}
 
 {% endblock %}

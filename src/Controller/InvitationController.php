@@ -30,6 +30,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Form\FormInterface;
 
 /**
  * Class InvitationController
@@ -150,51 +151,12 @@ class InvitationController extends AbstractController
 
     /**
      * @Route("account/invitation", name="account_invitation")
+     * @param Request $request
      * @return Response
      */
-    public function invitationformAction(Request $request): Response
+    public function invitationFormAction(Request $request): Response
     {
-        $defaultData = [];
-        $form = $this->createFormBuilder($defaultData)
-            ->add(
-                '1',
-                TextType::class,
-                [
-                    'attr' => [
-                        'minlength' => 4,
-                        'maxlength' => 4
-                    ]
-                ]
-            )->add(
-                '2',
-                TextType::class,
-                [
-                    'attr' => [
-                        'minlength' => 4,
-                        'maxlength' => 4
-                    ]
-                ]
-            )->add(
-                '3',
-                TextType::class,
-                [
-                    'attr' => [
-                        'minlength' => 4,
-                        'maxlength' => 4
-                    ]
-                ]
-            )->add(
-                '4',
-                TextType::class,
-                [
-                    'attr' => [
-                        'minlength' => 4,
-                        'maxlength' => 4
-                    ]
-                ]
-            )->add('send', SubmitType::class)
-            ->getForm();
-
+        $form = $this->getInvitationForm([]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -244,6 +206,7 @@ class InvitationController extends AbstractController
 
     /**
      * @Route("account/invitation/create/account", name="account_invitation_create_account")
+     * @param Request $request
      * @return Response
      */
     public function createAccount(Request $request): Response
@@ -258,49 +221,7 @@ class InvitationController extends AbstractController
 
         $locales = $this->getParameter('locales');
 
-        $choices = [];
-        foreach($locales as $item) {
-            $choices[$item] = $item;
-        }
-
-        $defaultData = [];
-        $form = $this->createFormBuilder($defaultData)
-            ->add(
-                'handle',
-                TextType::class,
-                [
-                    'attr' => [
-                        'minlength' => 4,
-                        'maxlength' => 32
-                    ]
-                ]
-            )->add(
-                'password',
-                PasswordType::class,
-                [
-                    'attr' => [
-                        'minlength' => 4,
-                        'maxlength' => 32
-                    ]
-                ]
-            )->add(
-                'password2',
-                PasswordType::class,
-                [
-                    'attr' => [
-                        'minlength' => 4,
-                        'maxlength' => 32
-                    ]
-                ]
-            )->add(
-                'locale',
-                ChoiceType::class,
-                [
-                    'choices' => $choices
-                ]
-            )->add('send', SubmitType::class)
-            ->getForm();
-
+        $form = $this->getAccountForm($locales, []);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -338,6 +259,103 @@ class InvitationController extends AbstractController
         return $this->render('invitation/account_application.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @param array $defaultData
+     * @return FormInterface
+     */
+    private function getInvitationForm(array $defaultData): FormInterface
+    {
+        return $this->createFormBuilder($defaultData)
+            ->add(
+                '1',
+                TextType::class,
+                [
+                    'attr' => [
+                        'minlength' => 4,
+                        'maxlength' => 4
+                    ]
+                ]
+            )->add(
+                '2',
+                TextType::class,
+                [
+                    'attr' => [
+                        'minlength' => 4,
+                        'maxlength' => 4
+                    ]
+                ]
+            )->add(
+                '3',
+                TextType::class,
+                [
+                    'attr' => [
+                        'minlength' => 4,
+                        'maxlength' => 4
+                    ]
+                ]
+            )->add(
+                '4',
+                TextType::class,
+                [
+                    'attr' => [
+                        'minlength' => 4,
+                        'maxlength' => 4
+                    ]
+                ]
+            )->add('send', SubmitType::class)
+            ->getForm();
+    }
+
+    /**
+     * @param array $locales
+     * @param array $defaultData
+     * @return FormInterface
+     */
+    private function getAccountForm(array $locales, array $defaultData): FormInterface
+    {
+        $choices = [];
+        foreach($locales as $item) {
+            $choices[$item] = $item;
+        }
+
+        return $this->createFormBuilder($defaultData)
+            ->add(
+                'handle',
+                TextType::class,
+                [
+                    'attr' => [
+                        'minlength' => 4,
+                        'maxlength' => 32
+                    ]
+                ]
+            )->add(
+                'password',
+                PasswordType::class,
+                [
+                    'attr' => [
+                        'minlength' => 4,
+                        'maxlength' => 32
+                    ]
+                ]
+            )->add(
+                'password2',
+                PasswordType::class,
+                [
+                    'attr' => [
+                        'minlength' => 4,
+                        'maxlength' => 32
+                    ]
+                ]
+            )->add(
+                'locale',
+                ChoiceType::class,
+                [
+                    'choices' => $choices
+                ]
+            )->add('send', SubmitType::class)
+            ->getForm();
     }
 
     /**

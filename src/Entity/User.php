@@ -18,7 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
-use Doctrine\ORM\Mapping\OneToOne;
+use Doctrine\ORM\Mapping\ManyToOne;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -68,7 +68,7 @@ class User implements UserInterface
     private $locale;
 
     /**
-     * @OneToOne(targetEntity="User")
+     * @ManyToOne(targetEntity="User")
      * @JoinColumn(name="registrar_id", referencedColumnName="id")
      * @var User
      */
@@ -230,9 +230,9 @@ class User implements UserInterface
     }
 
     /**
-     * @param User $registrar
+     * @param User|null $registrar
      */
-    public function setRegistrar(User $registrar): void
+    public function setRegistrar(?User $registrar): void
     {
         $this->registrar = $registrar;
     }

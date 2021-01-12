@@ -11,8 +11,15 @@
 
 namespace App\Controller;
 
+use App\Domain\Account;
 use App\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -43,15 +50,29 @@ class AccountController extends AbstractController
      */
     private $session;
 
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+
+    /**
+     * @var Account
+     */
+    private $account;
+
     public function __construct(
+        Account $account,
         UserPasswordEncoderInterface $passwordEncoder,
         TranslatorInterface $translator,
+        EntityManagerInterface $entityManager,
         SessionInterface $session
     )
     {
         $this->translator = $translator;
         $this->passwordEncoder = $passwordEncoder;
         $this->session = $session;
+        $this->entityManager = $entityManager;
+        $this->account = $account;
     }
 
     /**
@@ -93,57 +114,44 @@ class AccountController extends AbstractController
         }
 
         $locales = $this->getParameter('locales');
-        $handle = '';
-        $locale = $locales[0];
 
-        if (!empty($_POST)) {
-            $success = true;
-            $handle = strip_tags($_POST['admin_user']['handle']);
-            if ((strlen($handle) < 4) or (strlen($handle) > 32)) {
-                $success = false;
-                $this->addFlash('error', $this->translator->trans('base.message.handlelength'));
-            }
+        $form = $this->getAccountForm($locales, []);
+        $form->handleRequest($request);
 
-            $repository = $this->getDoctrine()->getManager()->getRepository(User::class);
-            $user = $repository->findBy(['handle' => $handle]);
-            if($user) {
-                $success = false;
-                $this->addFlash('error', $this->translator->trans('base.message.handleexists'));
-            }
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
 
-            $password = $_POST['admin_user']['password'];
-            if ($password !== $_POST['admin_user']['password2']) {
-                $success = false;
+            $isOk = true;
+
+            $password = $data['password'];
+            if ($password !== $data['password2']) {
                 $this->addFlash('error', $this->translator->trans('base.message.differentpasswords'));
+                $isOk = false;
             }
 
-            $locale = $_POST['admin_user']['locale'];
+            $repo = $this->entityManager->getRepository(User::class);
+            $handle = $data['handle'];
+            $user = $repo->findOneBy(['handle' => $handle]);
+            if ($user) {
+                $this->addFlash('error', $this->translator->trans('base.message.handleexists'));
+                $isOk = false;
+            }
+
+            $locale = $data['locale'];
             if (!in_array($locale, $locales)) {
-                $success = false;
                 $this->addFlash('error', $this->translator->trans('base.message.unsupportedlanguage'));
+                $isOk = false;
             }
 
-            if ($success === true) {
-                $user = new User();
-                $user->setHandle($handle);
-                $user->setPassword($this->passwordEncoder->encodePassword($user, $password));
-                $user->setLocale($locale);
-                $user->setIsActive(true);
-
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($user);
-                $entityManager->flush();
-
+            if (true === $isOk) {
+                $this->account->createUser($handle, $password, $locale);
                 $this->addFlash('notice', $this->translator->trans('base.message.accountcreated'));
-
                 return $this->redirectToRoute('account_login');
             }
         }
 
         return $this->render('security/register.html.twig', [
-            'handle' => $handle,
-            'locales' => $locales,
-            'locale' => $locale
+            'form' => $form->createView()
         ]);
     }
 
@@ -166,5 +174,55 @@ class AccountController extends AbstractController
         $users = $repository->findAll();
 
         return $this->render('security/impersonate.html.twig', ['users' => $users]);
+    }
+
+    /**
+     * @param array $locales
+     * @param array $defaultData
+     * @return FormInterface
+     */
+    private function getAccountForm(array $locales, array $defaultData): FormInterface
+    {
+        $choices = [];
+        foreach($locales as $item) {
+            $choices[$item] = $item;
+        }
+
+        return $this->createFormBuilder($defaultData)
+            ->add(
+                'handle',
+                TextType::class,
+                [
+                    'attr' => [
+                        'minlength' => 4,
+                        'maxlength' => 32
+                    ]
+                ]
+            )->add(
+                'password',
+                PasswordType::class,
+                [
+                    'attr' => [
+                        'minlength' => 4,
+                        'maxlength' => 32
+                    ]
+                ]
+            )->add(
+                'password2',
+                PasswordType::class,
+                [
+                    'attr' => [
+                        'minlength' => 4,
+                        'maxlength' => 32
+                    ]
+                ]
+            )->add(
+                'locale',
+                ChoiceType::class,
+                [
+                    'choices' => $choices
+                ]
+            )->add('send', SubmitType::class)
+            ->getForm();
     }
 }
