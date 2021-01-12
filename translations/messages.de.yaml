@@ -16,6 +16,7 @@ admin:
     active: Aktiv
     type: Typ
     locale: Sprache
+    registrar: Angelegt&nbsp;von
   link:
   message:
     unknownrole: Die gesuchte Rolle existiert nicht.
@@ -37,13 +38,20 @@ base:
     search: Suche
     yes: Ja
     no: Nein
+    register: Registrieren
     impersonate: Übernehmen
+    invite: Einladung erstellen
+  error:
+    invitation:
+      invalid: Der Einladungscode ist ungültig oder abgelaufen.
   form:
     created: Angelegt
     updated: Geändert
     username: Nutzername
     password: Passwort
+    password2: Passwort (wdh.)
     signin: Anmelden
+    invitationcode: Einladungscode
     save: Speichern
   link:
     imprint: Impressum
@@ -58,11 +66,21 @@ base:
       register: Registrieren
       login: Anmelden
       logout: Abmelden
+      invite: Einladen
+      invitation: Einladung annehmen
       impersonation:
         start: Benutzerübernahme
         end: Benutzerübernahme beenden
   message:
     unsupportedlanguage: Die gewählte Sprache wird nicht unterstützt.
+    handlelength: Der Nutzername muss zwischen 4 und 32 Zeichen lang sein.
+    handleexists: Der Nutzername existiert bereits
+    differentpasswords: Das Passwort muss zweimal identisch eingegeben werden.
+    invitation: Bitte geben Sie Ihren Einladungscode ein, um ein Benutzerkonto zu erstellen.
+    invite: Erstellen Sie eine Einladung für ihre Freunde.
+    invitationcode: Der Einladungs Code
+    invitationuntil: Die Einladung ist gültig bis
+    accountcreated: Ihr Benutzerkonto ist erstellt. Sie können sich nun anmelden.
   modal:
     areyousure: Sind Sie sicher?
     delete: Wollen Sie wirklich den Datensatz löschen?
@@ -71,6 +89,7 @@ base:
     privacy: Datenschutz
     terms: AGB
     login: Anmelden
+    register: Registrieren
     impersonate: Benutzerübernahme
 item:
   btn:
@@ -139,3 +158,6 @@ workflow:
     workflow: Workflows
     state: Zustände
     transition: Übergänge
+    invite: Jemanden einladenv
+    invitation: Einladung annehmen
+    accountapplication: Benutzerkonto erstellen

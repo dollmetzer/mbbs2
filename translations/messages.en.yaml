@@ -16,6 +16,7 @@ admin:
     active: Active
     type: Type
     locale: Language
+    registrar: Registered&nbsp;by
   link:
   message:
     unknownrole: The role doesn't exists.
@@ -37,13 +38,20 @@ base:
     search: Search
     yes: yes
     no: no
+    register: Register
     impersonate: Impersonate
+    invite: Create Invitation
+  error:
+    invitation:
+      invalid: The invitation code is invalid or expired.
   form:
     created: Created
     updated: Updated
     username: Username
     password: Password
+    password2: Password (again)
     signin: Sign in
+    invitationcode: Invitation&nbsp;Code
     save: Save
   link:
     imprint: Imprint
@@ -58,11 +66,21 @@ base:
       register: Register
       login: Login
       logout: Logout
+      invite: Invite
+      invitation: Accept Invitation
       impersonation:
         start: Impersonation
         end: End Impersonation
   message:
     unsupportedlanguage: The selected language is not supported.
+    handlelength: The length of the username must be between 4 and 32 characters
+    handleexists: The username already exists
+    differentpasswords: The password fields are not identical.
+    invitation: Please enter your invitationcode to create your acount
+    invite: Create an invitation for your friends.
+    invitationcode: The invitation code
+    invitationuntil: The invitationcode is valid until
+    accountcreated: Your account is created. You can log in now.
   modal:
     areyousure: Are you sure?
     delete: You really want to delete the data?
@@ -71,6 +89,7 @@ base:
     privacy: Privacy
     terms: Terms
     login: Login
+    register: Register
     impersonate: Impersonate
 item:
   btn:
@@ -139,3 +158,6 @@ workflow:
     workflow: Workflows
     state: States
     transition: Transitions
+    invite: Invite somebody
+    invitation: Accept Invitation
+    accountapplication: Create account

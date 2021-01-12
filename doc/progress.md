@@ -3,6 +3,13 @@ Progress
 * 2021-01-02 Added Events to both workflows
 * 2021-01-01 Added Role Restriction to symfony workflow, Added identifier in ItemList and StuffList. Fixed PHPStan Problem with PHPUnit. Added howto-demo.md.
 * 2020-12-27 Implemented access control on transitions
+* 2021-01-12 User Registrar_id no longer UNIQE, Added App\Domain\Account, Refactored Inviation and Registration
+* 2021-01-10 Added Create Account (after Invitation)
+* 2021-01-09 Added Accept Invitation and Accept Invitation Form (create account still remaining)
+* 2021-01-08 Added Create Invitation and QR Code
+* 2021-01-07 Added Invitation Switch
+* 2021-01-06 Self registration switchable in .env. Add registrar to the User entity
+* 2021-01-05 Added simple self registration form
 * 2020-12-27 Implemented Language switching an extended user locale
 * 2020-12-26 Introduced WorkflowEntityInterface and Transfer Service
 * 2020-12-26 Added translations in controllers. Check existance of item in edit user and edit role. Some refactoring.
