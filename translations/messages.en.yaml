@@ -91,6 +91,9 @@ base:
     login: Login
     register: Register
     impersonate: Impersonate
+    invite: Invite somebody
+    invitation: Accept Invitation
+    accountapplication: Create account
 item:
   btn:
     newitem: Create new item
@@ -158,6 +161,3 @@ workflow:
     workflow: Workflows
     state: States
     transition: Transitions
-    invite: Invite somebody
-    invitation: Accept Invitation
-    accountapplication: Create account

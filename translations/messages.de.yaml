@@ -91,6 +91,9 @@ base:
     login: Anmelden
     register: Registrieren
     impersonate: Benutzerübernahme
+    invite: Jemanden einladenv
+    invitation: Einladung annehmen
+    accountapplication: Benutzerkonto erstellen
 item:
   btn:
     newitem: Neues Ding anlegen
@@ -158,6 +161,3 @@ workflow:
     workflow: Workflows
     state: Zustände
     transition: Übergänge
-    invite: Jemanden einladenv
-    invitation: Einladung annehmen
-    accountapplication: Benutzerkonto erstellen
