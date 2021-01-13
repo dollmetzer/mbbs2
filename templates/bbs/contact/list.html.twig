@@ -1,0 +1,33 @@
+{% set nav_top = 'bbs_contacts' %}
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}bbs.title.contacts{% endtrans %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans %}bbs.title.contacts{% endtrans %}</h1>
+
+    {% if contacts %}
+<table class="table table-hover">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">&nbsp;</th>
+        <th scope="col">{% trans %}admin.form.name{% endtrans %}</th>
+        <th scope="col">{% trans %}base.form.created{% endtrans %}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for contact in contacts %}
+        <tr>
+            <td></td>
+            <td>{{ contact.contact.handle }}</td>
+            <td>{{ contact.contact.createdOn|format_datetime('medium', 'none', locale='de') }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+    {% else %}
+        <p>{% trans %}bbs.message.nocontacts{% endtrans %}</p>
+    {% endif %}
+
+{% endblock %}
+

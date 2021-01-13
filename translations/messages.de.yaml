@@ -94,3 +94,20 @@ base:
     invite: Jemanden einladenv
     invitation: Einladung annehmen
     accountapplication: Benutzerkonto erstellen
+bbs:
+  btn:
+    dummy: dummy
+  error:
+    dummy: dummy
+  form:
+    dummy: dummy
+  link:
+    contacts: Kontakte
+    circles: Kreise
+    profile: Profil
+  message:
+    nocontacts: Sie haben noch keine Kontakte.
+  title:
+    contacts: Kontakte
+    circles: Kreise
+    profile: Profil

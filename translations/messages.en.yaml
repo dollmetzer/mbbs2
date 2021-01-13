@@ -94,3 +94,20 @@ base:
     invite: Invite somebody
     invitation: Accept Invitation
     accountapplication: Create account
+bbs:
+  btn:
+    dummy: dummy
+  error:
+    dummy: dummy
+  form:
+    dummy: dummy
+  link:
+    contacts: Contacts
+    circles: Circles
+    profile: Profile
+  message:
+    nocontacts: You still have no contacts
+  title:
+    contacts: Contacts
+    circles: Circles
+    profile: Profile
