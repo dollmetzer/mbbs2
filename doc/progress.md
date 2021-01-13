@@ -1,6 +1,7 @@
 Progress
 ========
 * 2021-01-12 Merged changes from main branch
+* 2021-01-13 Picked fixes in navigation from main branch 
 * 2021-01-12 User Registrar_id no longer UNIQE, Added App\Domain\Account, Refactored Inviation and Registration
 * 2021-01-10 Added Create Account (after Invitation)
 * 2021-01-09 Added Accept Invitation and Accept Invitation Form (create account still remaining)
