@@ -11,9 +11,13 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
 
 /**
@@ -53,6 +57,18 @@ class Circle
      * @var User
      */
     private $owner;
+
+    /**
+     * @ManyToMany(targetEntity="Contact", inversedBy="circles")
+     * @JoinTable(name="circle_2_contact")
+     * @var ArrayCollection<Contact, Contact>
+     */
+    private $contacts;
+
+    public function __construct()
+    {
+        $this->contacts = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -108,5 +124,40 @@ class Circle
     public function setOwner(User $owner): void
     {
         $this->owner = $owner;
+    }
+
+    /**
+     * @return ArrayCollection<Contact, Contact>
+     */
+    public function getContacts(): Collection
+    {
+        return $this->contacts;
+    }
+
+    /**
+     * @param Contact $contact
+     * @return $this
+     */
+    public function addContact(Contact $contact): self
+    {
+        foreach($this->contacts->getValues() as $associated) {
+            if ($associated === $contact) return $this;
+        }
+        $this->contacts->add($contact);
+        return $this;
+    }
+
+    /**
+     * @param Contact $contact
+     * @return $this
+     */
+    public function removeContact(Contact $contact): self
+    {
+        foreach($this->contacts->getValues() as $associated) {
+            if ($associated === $contact) {
+                $this->contacts->remove($contact);
+            }
+        }
+        return $this;
     }
 }

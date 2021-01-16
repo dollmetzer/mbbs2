@@ -12,6 +12,7 @@
     <tr>
         <th scope="col">&nbsp;</th>
         <th scope="col">{% trans %}admin.form.name{% endtrans %}</th>
+        <th scope="col">{% trans %}bbs.form.circles{% endtrans %}</th>
         <th scope="col">{% trans %}base.form.created{% endtrans %}</th>
     </tr>
     </thead>
@@ -20,6 +21,7 @@
         <tr>
             <td></td>
             <td>{{ contact.contact.handle }}</td>
+            <td>{% for circle in contact.circles %}{{ circle.name }}{% endfor %}</td>
             <td>{{ contact.contact.createdOn|format_datetime('medium', 'none', locale='de') }}</td>
         </tr>
     {% endfor %}

@@ -100,13 +100,15 @@ bbs:
   error:
     dummy: dummy
   form:
-    dummy: dummy
+    primary: dummy
   link:
     contacts: Contacts
     circles: Circles
     profile: Profile
   message:
     nocontacts: You still have no contacts
+  text:
+    newcontacts: New contacts
   title:
     contacts: Contacts
     circles: Circles
