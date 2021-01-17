@@ -12,22 +12,23 @@
 namespace App\DataFixtures;
 
 use App\Entity\User;
-use App\Entity\Contact;
 use App\Entity\Circle;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
 class BbsFixtures extends Fixture
 {
-
-    public function load(ObjectManager $manager)
+    /**
+     * @param ObjectManager $manager
+     */
+    public function load(ObjectManager $manager): void
     {
         $userRepo = $manager->getRepository(User::class);
         $admin = $userRepo->findOneBy(['handle' => 'admin']);
 
         $circle = new Circle();
         $circle->setIsPrimary(true);
-        $circle->setName('New Contacts');
+        $circle->setName('New contacts');
         $circle->setOwner($admin);
         $circle->setTimestamps();
         $manager->persist($circle);

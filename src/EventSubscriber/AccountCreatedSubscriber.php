@@ -1,18 +1,31 @@
 <?php
-
+/**
+ * M B B S 2   -   B u l l e t i n   B o a r d   S y s t e m
+ * ---------------------------------------------------------
+ * A small BBS package for mobile use
+ *
+ * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
+ * @copyright (c) 2014-2020, Dirk Ollmetzer
+ * @license GNU GENERAL PUBLIC LICENSE Version 3
+ */
 
 namespace App\EventSubscriber;
 
 use App\Domain\Contact;
 use App\Entity\Circle;
-use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use App\Events\AccountEvent;
+use App\Events\AccountCreatedEvent;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class AccountSubscriber implements EventSubscriberInterface
+/**
+ * Class AccountSubscriber
+ *
+ * @package App\EventSubscriber
+ */
+class AccountCreatedSubscriber implements EventSubscriberInterface
 {
     /**
      * @var LoggerInterface
@@ -25,6 +38,11 @@ class AccountSubscriber implements EventSubscriberInterface
     private $entityManager;
 
     /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
+
+    /**
      * @var TranslatorInterface
      */
     private $translator;
@@ -32,20 +50,28 @@ class AccountSubscriber implements EventSubscriberInterface
     public function __construct(
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
+        EventDispatcherInterface $eventDispatcher,
         LoggerInterface $logger
     )
     {
-        $this->logger = $logger;
         $this->entityManager = $entityManager;
         $this->translator = $translator;
+        $this->eventDispatcher = $eventDispatcher;
+        $this->logger = $logger;
     }
 
+    /**
+     * @return string[]
+     */
     public static function getSubscribedEvents()
     {
-        return [AccountEvent::NAME => 'onAccountEvent'];
+        return [AccountCreatedEvent::NAME => 'onAccountCreatedEvent'];
     }
 
-    public function onAccountEvent(AccountEvent $event)
+    /**
+     * @param AccountCreatedEvent $event
+     */
+    public function onAccountCreatedEvent(AccountCreatedEvent $event): void
     {
         $user = $event->getUser();
 
@@ -56,11 +82,10 @@ class AccountSubscriber implements EventSubscriberInterface
         $this->entityManager->persist($circle);
         $this->entityManager->flush();
 
-        $userRepo = $this->entityManager->getRepository(User::class);
         $registrar = $user->getRegistrar();
 
         if(null !== $registrar) {
-            $contact = new Contact($this->entityManager, $this->logger);
+            $contact = new Contact($this->entityManager, $this->eventDispatcher, $this->logger);
             $contact->add($user, $registrar);
             $contact->add($registrar, $user);
         }

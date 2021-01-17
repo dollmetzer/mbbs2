@@ -108,7 +108,7 @@ bbs:
   message:
     nocontacts: Sie haben noch keine Kontakte.
   text:
-    newcontacts: New contacts
+    newcontacts: Neue Kontakte
   title:
     contacts: Kontakte
     circles: Kreise

@@ -12,7 +12,7 @@
 namespace App\Domain;
 
 use App\Entity\User;
-use App\Events\AccountEvent;
+use App\Events\AccountCreatedEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -36,14 +36,14 @@ class Account
     private $entityManager;
 
     /**
-     * @var LoggerInterface
-     */
-    private $logger;
-
-    /**
      * @var EventDispatcherInterface
      */
     private $eventDispatcher;
+
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
 
     public function __construct(
         UserPasswordEncoderInterface $passwordEncoder,
@@ -64,7 +64,7 @@ class Account
      * @param User|null $registrar
      * @return User
      */
-    public function createUser(string $handle, string $password, string $locale, ?User $registrar = null): User
+    public function create(string $handle, string $password, string $locale, ?User $registrar = null): User
     {
         $user = new User();
         $user->setHandle($handle);
@@ -78,8 +78,8 @@ class Account
 
         $this->logger->info('Account created', ['handle' => $user->getHandle(), 'id' => $user->getId()]);
 
-        $event = new AccountEvent($user);
-        $this->eventDispatcher->dispatch($event, AccountEvent::NAME);
+        $event = new AccountCreatedEvent($user);
+        $this->eventDispatcher->dispatch($event, AccountCreatedEvent::NAME);
 
         return $user;
     }

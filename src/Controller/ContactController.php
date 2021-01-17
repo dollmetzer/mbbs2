@@ -30,9 +30,10 @@ class ContactController extends AbstractController
     /**
      * @Route("/contact/show/{id}", name="contact_show")
      * @IsGranted("ROLE_USER")
+     * @param int $id
      * @return Response
      */
-    public function showAction($id): Response
+    public function showAction(int $id): Response
     {
         return $this->render("bbs/contact/show.html.twig");
     }

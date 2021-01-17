@@ -12,9 +12,12 @@
 namespace App\Domain;
 
 use App\Entity\Circle;
+use App\Entity\Contact as ContactEntity;
 use App\Entity\User;
+use App\Events\ContactAddedEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Class Contact
@@ -29,33 +32,50 @@ class Contact
     private $entityManager;
 
     /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
+
+    /**
      * @var LoggerInterface
      */
     private $logger;
 
     public function __construct(
         EntityManagerInterface $entityManager,
+        EventDispatcherInterface $eventDispatcher,
         LoggerInterface $logger
     ) {
         $this->entityManager = $entityManager;
         $this->logger = $logger;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
-    public function add(User $owner, User $user)
+    /**
+     * @param User $owner
+     * @param User $user
+     * @return ContactEntity
+     */
+    public function add(User $owner, User $user): ContactEntity
     {
-        $circleRepo = $this->entityManager->getRepository(Circle::class);
-        $circle = $circleRepo->findOneBy(['owner' => $owner, 'isPrimary' => true]);
-
-        $contact = new \App\Entity\Contact();
+        $contact = new ContactEntity();
         $contact->setOwner($owner);
         $contact->setContact($user);
-        if ($circle) {
-            $contact->addCircle($circle);
-        }
         $contact->setTimestamps();
         $this->entityManager->persist($contact);
+
+        $circleRepo = $this->entityManager->getRepository(Circle::class);
+        $circle = $circleRepo->findOneBy(['owner' => $owner->getId(), 'isPrimary' => 1]);
+        $circle->addContact($contact);
+        $this->entityManager->persist($circle);
+
         $this->entityManager->flush();
 
         $this->logger->info('Added contact', ['owner' => $owner->getHandle(), 'contact' => $user->getHandle()]);
+
+        $event = new ContactAddedEvent($contact);
+        $this->eventDispatcher->dispatch($event, ContactAddedEvent::NAME);
+
+        return $contact;
     }
 }

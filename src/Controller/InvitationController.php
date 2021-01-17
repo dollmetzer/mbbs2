@@ -250,7 +250,7 @@ class InvitationController extends AbstractController
 
             if (true === $isOk) {
                 $registrar = $repo->find($invitedBy);
-                $user = $this->account->createUser($handle, $password, $locale, $registrar);
+                $user = $this->account->create($handle, $password, $locale, $registrar);
 
                 $this->addFlash('notice', $this->translator->trans('base.message.accountcreated'));
                 return $this->redirectToRoute('account_login');

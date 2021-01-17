@@ -1,5 +1,6 @@
 Progress
 ========
+* 2021-01-16 Added AccountCreatedEvent and AccountCreatedSubscriber
 * 2021-01-13 Added contact, circle and profile Controller
 * 2021-01-12 User Registrar_id no longer UNIQE, Added App\Domain\Account, Refactored Inviation and Registration
 * 2021-01-10 Added Create Account (after Invitation)
