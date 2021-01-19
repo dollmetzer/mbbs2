@@ -1,5 +1,6 @@
 Progress
 ========
+* 2021-01-19 Added AccountCreatedEvent, added functional test for IndexController
 * 2021-01-13 Picked fixes in navigation from main branch 
 * 2021-01-12 User Registrar_id no longer UNIQE, Added App\Domain\Account, Refactored Inviation and Registration
 * 2021-01-10 Added Create Account (after Invitation)

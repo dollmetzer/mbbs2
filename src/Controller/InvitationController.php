@@ -184,6 +184,7 @@ class InvitationController extends AbstractController
 
     /**
      * @Route("account/accept/invitation/{code}", name="account_accept_invitation")
+     * @param string $code
      * @return Response
      */
     public function acceptInvitationAction(string $code): Response
@@ -250,7 +251,8 @@ class InvitationController extends AbstractController
 
             if (true === $isOk) {
                 $registrar = $repo->find($invitedBy);
-                $this->account->createUser($handle, $password, $locale, $registrar);
+                $user = $this->account->create($handle, $password, $locale, $registrar);
+
                 $this->addFlash('notice', $this->translator->trans('base.message.accountcreated'));
                 return $this->redirectToRoute('account_login');
             }

@@ -144,7 +144,7 @@ class AccountController extends AbstractController
             }
 
             if (true === $isOk) {
-                $this->account->createUser($handle, $password, $locale);
+                $this->account->create($handle, $password, $locale);
                 $this->addFlash('notice', $this->translator->trans('base.message.accountcreated'));
                 return $this->redirectToRoute('account_login');
             }
