@@ -7,31 +7,36 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class IndexControllerTest extends WebTestCase
 {
-    public function testIndexGet() {
+    public function testIndexGet(): void
+    {
         $client = static::createClient();
         $client->request('GET', '/');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 
-    public function testTermsGet() {
+    public function testTermsGet(): void
+    {
         $client = static::createClient();
         $client->request('GET', '/terms');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 
-    public function testPrivacyGet() {
+    public function testPrivacyGet(): void
+    {
         $client = static::createClient();
         $client->request('GET', '/privacy');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 
-    public function testImprintGet() {
+    public function testImprintGet(): void
+    {
         $client = static::createClient();
         $client->request('GET', '/imprint');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 
-    public function testSetlangSuccess() {
+    public function testSetlangSuccess(): void
+    {
         $client = static::createClient();
         $client->request('GET', '/lang/de');
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
@@ -39,7 +44,8 @@ class IndexControllerTest extends WebTestCase
         $this->assertEquals('de', $client->getRequest()->getSession()->get('_locale'));
     }
 
-    public function testSetlangFailure() {
+    public function testSetlangFailure(): void
+    {
         $client = static::createClient();
         $client->request('GET', '/lang/illegal');
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
