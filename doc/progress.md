@@ -1,5 +1,6 @@
 Progress
 ========
+* 2021-01-22 Added Circle list, create, edit and delete
 * 2021-01-16 Added AccountCreatedEvent and AccountCreatedSubscriber
 * 2021-01-13 Added contact, circle and profile Controller
 * 2021-01-12 User Registrar_id no longer UNIQE, Added App\Domain\Account, Refactored Inviation and Registration

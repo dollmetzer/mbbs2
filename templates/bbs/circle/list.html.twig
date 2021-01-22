@@ -9,21 +9,38 @@
     <table class="table table-hover">
         <thead class="thead-dark">
         <tr>
-            <th scope="col">&nbsp;</th>
+            <th scope="col-3">&nbsp;</th>
+            <th scope="col-1">{% trans %}bbs.form.contacts{% endtrans %}</th>
             <th scope="col">{% trans %}admin.form.name{% endtrans %}</th>
-            <th scope="col">{% trans %}base.form.created{% endtrans %}</th>
+            <th scope="col-3">{% trans %}base.form.created{% endtrans %}</th>
         </tr>
         </thead>
         <tbody>
         {% for circle in circles %}
             <tr>
-                <td></td>
+                <td>
+                    <a href="{{ path('circle_show', {id : circle.id}) }}" class="btn btn-outline-dark" title="{% trans %}base.btn.view{% endtrans %}"><i class="fa-fw far fa-eye"></i></a>
+                    <a href="{{ path('circle_edit', {id : circle.id}) }}" class="btn btn-outline-dark" title="{% trans %}base.btn.edit{% endtrans %}"><i class="fa-fw far fa-edit"></i></a>
+                    {% if circle.isPrimary != true %}
+                    <a data-href="{{ path('circle_delete', {id : circle.id}) }}" class="btn btn-outline-dark" title="{% trans %}base.btn.delete{% endtrans %}" data-toggle="modal" data-target="#confirm-delete"><i class="fa-fw far fa-trash-alt"></i></a>
+                    {% endif %}
+                </td>
+                <td>{{ circle.contacts|length }}</td>
                 <td>{{ circle.name }}</td>
                 <td>{{ circle.createdOn|format_datetime('medium', 'none', locale='de') }}</td>
             </tr>
         {% endfor %}
         </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="4">
+                <a href="{{ path("circle_create") }}" class="btn btn-outline-dark" title="{% trans %}base.btn.create{% endtrans %}">{% trans %}bbs.btn.create_circle{% endtrans %}</a>
+            </td>
+        </tr>
+        </tfoot>
     </table>
+
+    {% include '_elements/modal_delete_confirmation.html.twig' %}
 
 {% endblock %}
 

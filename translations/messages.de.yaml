@@ -96,17 +96,20 @@ base:
     accountapplication: Benutzerkonto erstellen
 bbs:
   btn:
-    dummy: dummy
+    create_circle: Neuen Kreis anlegen
   error:
-    dummy: dummy
+    invalidcircle: Der angefragte Kreis ist nicht zulässig
+    protectedcircle: Der Kreis kann nicht gelöscht werden
   form:
-    dummy: dummy
+    circles: Kreise
+    contacts: Kontakte
   link:
     contacts: Kontakte
     circles: Kreise
     profile: Profil
   message:
     nocontacts: Sie haben noch keine Kontakte.
+    emptycircle: Keine Kontakte in diesem Kreis.
   text:
     newcontacts: Neue Kontakte
   title:

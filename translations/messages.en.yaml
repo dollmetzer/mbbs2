@@ -96,17 +96,20 @@ base:
     accountapplication: Create account
 bbs:
   btn:
-    dummy: dummy
+    create_circle: Create new circle
   error:
-    dummy: dummy
+    invalidcircle: The requested circle is not valid
+    protectedcircle: You can't delete this circle
   form:
-    primary: dummy
+    circles: Circles
+    contacts: Contacts
   link:
     contacts: Contacts
     circles: Circles
     profile: Profile
   message:
     nocontacts: You still have no contacts
+    emptycircle: No contacts in this circle
   text:
     newcontacts: New contacts
   title:
