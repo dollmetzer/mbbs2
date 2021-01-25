@@ -19,7 +19,9 @@
     <tbody>
     {% for contact in contacts %}
         <tr>
-            <td></td>
+            <td>
+                <a href="{{ path('contact_show', {id : contact.id}) }}" class="btn btn-outline-dark" title="{% trans %}base.btn.view{% endtrans %}"><i class="fa-fw far fa-eye"></i></a>
+            </td>
             <td>{{ contact.contact.handle }}</td>
             <td>{% for circle in contact.circles %}{{ circle.name }}{% endfor %}</td>
             <td>{{ contact.contact.createdOn|format_datetime('medium', 'none', locale='de') }}</td>

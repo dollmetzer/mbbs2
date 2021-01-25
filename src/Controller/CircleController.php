@@ -72,8 +72,10 @@ class CircleController extends AbstractController
 
     /**
      * @Route("circle/show/{id}", name="circle_show")
+     * @param int $id
+     * @return Response
      */
-    public function showAction(int $id)
+    public function showAction(int $id): Response
     {
         $repo = $this->entityManager->getRepository(Circle::class);
         $circle = $repo->find($id);
@@ -92,9 +94,11 @@ class CircleController extends AbstractController
 
     /**
      * @Route("circle/edit/{id}", name="circle_edit")
+     * @param Request $request
      * @param int $id
+     * @return Response
      */
-    public function editAction(Request $request, int $id)
+    public function editAction(Request $request, int $id): Response
     {
         $repo = $this->entityManager->getRepository(Circle::class);
         $circle = $repo->find($id);
@@ -113,6 +117,7 @@ class CircleController extends AbstractController
 
     /**
      * @Route("/circle/create", name="circle_create")
+     * @param Request $request
      * @return Response
      */
     public function createAction(Request $request): Response
@@ -122,7 +127,12 @@ class CircleController extends AbstractController
         return $this->circleFormProcess($request, $circle);
     }
 
-    private function circleFormProcess(Request $request, Circle $circle)
+    /**
+     * @param Request $request
+     * @param Circle $circle
+     * @return Response
+     */
+    private function circleFormProcess(Request $request, Circle $circle): Response
     {
         $form = $this->getCircleForm($circle);
         $form->handleRequest($request);
@@ -136,13 +146,6 @@ class CircleController extends AbstractController
             }
             $circle->setTimestamps();
 
-            /**
-            $circle = new Circle();
-            $circle->setName($data->getName());
-            $circle->setOwner($this->getUser());
-            $circle->setIsPrimary(false);
-            $circle->setTimestamps();
-*/
             $this->entityManager->persist($circle);
             $this->entityManager->flush();
 
@@ -155,7 +158,7 @@ class CircleController extends AbstractController
     }
 
     /**
-     * @param array $defaultData
+     * @param Circle $circle
      * @return FormInterface
      */
     private function getCircleForm(Circle $circle): FormInterface
@@ -177,8 +180,9 @@ class CircleController extends AbstractController
     /**
      * @Route("circle/delete/{id}", name="circle_delete")
      * @param int $id
+     * @return Response
      */
-    public function deleteAction(int $id)
+    public function deleteAction(int $id): Response
     {
         $repo = $this->entityManager->getRepository(Circle::class);
         $circle = $repo->find($id);
@@ -201,5 +205,4 @@ class CircleController extends AbstractController
 
         return $this->redirectToRoute('circle_list');
     }
-
 }

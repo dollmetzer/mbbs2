@@ -155,7 +155,7 @@ class Circle
     {
         foreach($this->contacts->getValues() as $associated) {
             if ($associated === $contact) {
-                $this->contacts->remove($contact);
+                $this->contacts->removeElement($contact);
             }
         }
         return $this;

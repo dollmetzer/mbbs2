@@ -97,6 +97,8 @@ base:
 bbs:
   btn:
     create_circle: Create new circle
+    addcircle: Add to circle
+    removecircle: Remove from circle
   error:
     invalidcircle: The requested circle is not valid
     protectedcircle: You can't delete this circle

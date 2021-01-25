@@ -5,5 +5,42 @@
 
 {% block body %}
     <h1>{% trans %}bbs.title.contacts{% endtrans %}</h1>
+
+    <p>{{ contact.contact.handle }}</p>
+    <p>{{ contact.createdOn|format_datetime('medium', 'none', locale='de') }}</p>
+    <p>{{ contact.updatedOn|format_datetime('medium', 'none', locale='de') }}</p>
+
+<table class="table">
+    <tr>
+        <th>{% trans %}bbs.title.circles{% endtrans %}</th>
+    </tr>
+    {% for circle in contact.circles %}
+    <tr>
+        <td><a href="{{ path('contact_removecircle', {contactid:contact.id, circleid:circle.id}) }}"
+               class="btn btn-danger" title="{% trans %}bbs.btn.removecircle{% endtrans %}"><i class="fa-fw far fa-trash-alt"></i></a>&nbsp;{{ circle.name }}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td>
+            <form class="form" action="">
+                <select class="form-select form-control" aria-label="Default select example">
+                    <option selected>{% trans %}bbs.btn.addcircle{% endtrans %}</option>
+                    {% for circle in allCircles %}
+                        <option value="{{ circle.id }}">{{ circle.name }}</option>
+                    {% endfor %}
+                </select>
+            </form>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+    $('.form-select').change(function () {
+        let circleid = $(this).val();
+        let url = '{{ path('contact_addcircle', {contactid:contact.id, circleid: '_circleid_'}) }}';
+        url = url.replace('_circleid_', circleid);
+        console.log(url);
+        document.location.href = url;
+    });
+</script>
 {% endblock %}
 

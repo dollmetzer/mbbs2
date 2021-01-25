@@ -54,7 +54,7 @@ class Contact
     private $contact;
 
     /**
-     * @ManyToMany(targetEntity="Circle", mappedBy="contacts")
+     * @ManyToMany(targetEntity="Circle", mappedBy="contacts", cascade="persist")
      * @JoinTable(name="circle_2_contact")
      * @var ArrayCollection<Circle, Circle>
      */

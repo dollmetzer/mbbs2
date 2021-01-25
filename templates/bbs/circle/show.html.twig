@@ -17,8 +17,8 @@
             {% for contact in circle.contacts %}
                 <tr>
                     <td class="col-3">
-                        <a href="#" class="btn btn-outline-dark"><i class="fas fa-user"></i></a>
-                        <a href="#" class="btn btn-outline-dark"><i class="far fa-times-circle"></i></a>
+                        <a href="#" class="btn btn-outline-dark"><i class="fa-fw fas fa-user"></i></a>
+                        <a href="#" class="btn btn-outline-dark"><i class="fa-fw far fa-times-circle"></i></a>
                         <a data-href="{{ path('circle_delete', {id : circle.id}) }}" class="btn btn-outline-dark" title="{% trans %}base.btn.delete{% endtrans %}" data-toggle="modal" data-target="#confirm-delete"><i class="fa-fw far fa-trash-alt"></i></a>
                     </td>
                     <td class="col">{{ contact.contact.handle }}</td>

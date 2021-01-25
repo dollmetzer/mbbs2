@@ -4,9 +4,15 @@
 namespace App\Controller;
 
 
+use App\Entity\Circle;
 use App\Entity\Contact;
+use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,6 +20,32 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ContactController extends AbstractController
 {
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        TranslatorInterface $translator,
+        LoggerInterface $logger
+    )
+    {
+        $this->entityManager = $entityManager;
+        $this->translator = $translator;
+        $this->logger = $logger;
+    }
+
     /**
      * @Route("/contact/list", name="contact_list")
      * @IsGranted("ROLE_USER")
@@ -47,7 +79,13 @@ class ContactController extends AbstractController
             return $this->redirectToRoute('contact_list');
         }
 
-        return $this->render("bbs/contact/show.html.twig", ['contact' => $contact]);
+        $circleRepo = $this->entityManager->getRepository(Circle::class);
+        $circles = $circleRepo->findBy(['owner' => $this->getUser()]);
+
+        return $this->render("bbs/contact/show.html.twig", [
+            'contact' => $contact,
+            'allCircles' => $circles
+        ]);
     }
 
     /**
@@ -64,13 +102,14 @@ class ContactController extends AbstractController
 
     /**
      * @Route("/contact/create", name="contact_create")
+     * @param Request $request
      * @return Response
      */
     public function createAction(Request $request): Response
     {
         $contact = new Contact();
 
-        return $this->contactFormProcess($request, $circle);
+        return $this->contactFormProcess($request, $contact);
     }
 
     private function contactFormProcess(Request $request, Contact $contact)
@@ -119,5 +158,79 @@ die();
                 ]
             )->add('send', SubmitType::class)
             ->getForm();;
+    }
+
+    /**
+     * @Route("/contact/addcircle/{contactid}/{circleid}", name="contact_addcircle")
+     * @param int $contactid
+     * @param int $circleid
+     * @return Response
+     */
+    public function addCircleAction(int $contactid, int $circleid): Response
+    {
+        $contactRepo = $this->entityManager->getRepository(Contact::class);
+        $contact = $contactRepo->find($contactid);
+        if (null === $contact) {
+            $this->addFlash('error', $this->translator->trans('bbs.error.invalidcontact'));
+            return $this->redirectToRoute('contact_list');
+        }
+        if ($contact->getOwner()->getId() !== $this->getUser()->getId()) {
+            $this->addFlash('error', $this->translator->trans('bbs.error.invalidcontact'));
+            return $this->redirectToRoute('contact_list');
+        }
+
+        $circleRepo = $this->entityManager->getRepository(Circle::class);
+        $circle = $circleRepo->find($circleid);
+        if (null === $circle) {
+            $this->addFlash('error', $this->translator->trans('bbs.error.invalidcontact'));
+            return $this->redirectToRoute('contact_show', ['id' => $contactid]);
+        }
+        if ($circle->getOwner()->getId() !== $this->getUser()->getId()) {
+            $this->addFlash('error', $this->translator->trans('bbs.error.invalidcontact'));
+            return $this->redirectToRoute('contact_show', ['id' => $contactid]);
+        }
+
+        $circle->addContact($contact);
+        $this->entityManager->persist($circle);
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute('contact_show', ['id' => $contactid]);
+    }
+
+    /**
+     * @Route("/contact/removecircle/{contactid}/{circleid}", name="contact_removecircle")
+     * @param int $contactid
+     * @param int $circleid
+     * @return Response
+     */
+    public function removeCircleAction(int $contactid, int $circleid): Response
+    {
+        $contactRepo = $this->entityManager->getRepository(Contact::class);
+        $contact = $contactRepo->find($contactid);
+        if (null === $contact) {
+            $this->addFlash('error', $this->translator->trans('bbs.error.invalidcontact'));
+            return $this->redirectToRoute('contact_list');
+        }
+        if ($contact->getOwner()->getId() !== $this->getUser()->getId()) {
+            $this->addFlash('error', $this->translator->trans('bbs.error.invalidcontact'));
+            return $this->redirectToRoute('contact_list');
+        }
+
+        $circleRepo = $this->entityManager->getRepository(Circle::class);
+        $circle = $circleRepo->find($circleid);
+        if (null === $circle) {
+            $this->addFlash('error', $this->translator->trans('bbs.error.invalidcontact'));
+            return $this->redirectToRoute('contact_show', ['id' => $contactid]);
+        }
+        if ($circle->getOwner()->getId() !== $this->getUser()->getId()) {
+            $this->addFlash('error', $this->translator->trans('bbs.error.invalidcontact'));
+            return $this->redirectToRoute('contact_show', ['id' => $contactid]);
+        }
+
+        $circle->removeContact($contact);
+        $this->entityManager->persist($circle);
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute('contact_show', ['id' => $contactid]);
     }
 }

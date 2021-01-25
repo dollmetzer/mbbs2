@@ -4,25 +4,11 @@
             {% include '_elements/nav_admin.html.twig' %}
         {% endif %}
 
+        {% include '_elements/nav_contacts.html.twig' %}
 
-
-        <li class="nav-item">
-            <a class="nav-link{% if nav_top == 'bbs_contacts' %} active{% endif %}" href="{{ path('contact_list') }}"><i class="fas fa-user-friends"></i>&nbsp;{% trans %}bbs.link.contacts{% endtrans %}</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link{% if nav_top == 'bbs_circles' %} active{% endif %}" href="{{ path('circle_list') }}"><i class="far fa-circle"></i>&nbsp;{% trans %}bbs.link.circles{% endtrans %}</a>
-        </li>
         <li class="nav-item">
             <a class="nav-link{% if nav_top == 'bbs_profile' %} active{% endif %}" href="{{ path('profile_own') }}"><i class="far fa-id-card"></i>&nbsp;{% trans %}bbs.link.profile{% endtrans %}</a>
         </li>
-
-
-
-        {% if feature_invitation %}
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('account_invite') }}"><i class="fas fa-user-plus"></i>&nbsp;{% trans %}base.link.account.invite{% endtrans %}</a>
-        </li>
-        {% endif %}
         <li class="nav-item">
             <a class="nav-link" href="{{ path('account_logout') }}"><i class="fas fa-sign-out-alt"></i>&nbsp;{% trans %}base.link.account.logout{% endtrans %} [{{ app.user.handle }}]</a>
         </li>

@@ -97,6 +97,8 @@ base:
 bbs:
   btn:
     create_circle: Neuen Kreis anlegen
+    addcircle: Zu Kreis hinzufügen
+    removecircle: Aus Kreis entfernen
   error:
     invalidcircle: Der angefragte Kreis ist nicht zulässig
     protectedcircle: Der Kreis kann nicht gelöscht werden
