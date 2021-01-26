@@ -6,6 +6,8 @@
 
         {% include '_elements/nav_contacts.html.twig' %}
 
+        {% include '_elements/nav_messaging.html.twig' %}
+
         <li class="nav-item">
             <a class="nav-link{% if nav_top == 'bbs_profile' %} active{% endif %}" href="{{ path('profile_own') }}"><i class="far fa-id-card"></i>&nbsp;{% trans %}bbs.link.profile{% endtrans %}</a>
         </li>

@@ -1,8 +1,15 @@
 <?php
-
+/**
+ * M B B S 2   -   B u l l e t i n   B o a r d   S y s t e m
+ * ---------------------------------------------------------
+ * A small BBS package for mobile use
+ *
+ * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
+ * @copyright (c) 2014-2020, Dirk Ollmetzer
+ * @license GNU GENERAL PUBLIC LICENSE Version 3
+ */
 
 namespace App\Controller;
-
 
 use App\Entity\Circle;
 use App\Entity\Contact;
@@ -14,10 +21,15 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * Class ContactController
+ *
+ * @package App\Controller
+ */
 class ContactController extends AbstractController
 {
     /**
@@ -112,7 +124,12 @@ class ContactController extends AbstractController
         return $this->contactFormProcess($request, $contact);
     }
 
-    private function contactFormProcess(Request $request, Contact $contact)
+    /**
+     * @param Request $request
+     * @param Contact $contact
+     * @return Response
+     */
+    private function contactFormProcess(Request $request, Contact $contact): Response
     {
         $form = $this->getContactForm([]);
         $form->handleRequest($request);
@@ -144,7 +161,7 @@ die();
      * @param array $defaultData
      * @return FormInterface
      */
-    private function getCircleForm(array $defaultData): FormInterface
+    private function getContactForm(array $defaultData): FormInterface
     {
         return $this->createFormBuilder($defaultData)
             ->add(

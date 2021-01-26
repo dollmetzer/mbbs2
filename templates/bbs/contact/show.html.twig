@@ -1,4 +1,4 @@
-{% set nav_top = 'bbs_contacts' %}
+{% set nav_top = 'bbs_contact' %}
 {% extends 'base.html.twig' %}
 
 {% block title %}{% trans %}bbs.title.contacts{% endtrans %}{% endblock %}
@@ -6,9 +6,23 @@
 {% block body %}
     <h1>{% trans %}bbs.title.contacts{% endtrans %}</h1>
 
-    <p>{{ contact.contact.handle }}</p>
-    <p>{{ contact.createdOn|format_datetime('medium', 'none', locale='de') }}</p>
-    <p>{{ contact.updatedOn|format_datetime('medium', 'none', locale='de') }}</p>
+<table class="table table-hover">
+    <tr>
+        <th>{% trans %}admin.form.name{% endtrans %}</th>
+        <td>{{ contact.contact.handle }}</td>
+    </tr>
+    <tr>
+        <th>{% trans %}bbs.form.created{% endtrans %}</th>
+        <td>{{ contact.createdOn|format_datetime('medium', 'none', locale='de') }}</td>
+    </tr>
+    <tr>
+        <th>{% trans %}bbs.form.updated{% endtrans %}</th>
+        <td>{{ contact.updatedOn|format_datetime('medium', 'none', locale='de') }}</td>
+    </tr>
+</table>
+
+
+
 
 <table class="table">
     <tr>

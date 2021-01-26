@@ -11,26 +11,25 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * Class ProfileController
- *
- * @package App\Controller
- */
-class ProfileController extends AbstractController
+class MessageController
 {
     /**
-     * @Route("/profile", name="profile_own")
-     * @return Response
+     * @Route("/message/mail/list", name="message_mail_list")
      */
-    public function listAction(): Response
+    public function mailListAction()
     {
-        return $this->render("bbs/profile/show.html.twig");
+        die('mailListAction');
     }
 
+    /**
+     * @Route("/message/discussion/list", name="message_discussion_list")
+     */
+    public function discussionListAction()
+    {
+        die('discussionListAction');
+    }
 }

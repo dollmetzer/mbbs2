@@ -1,5 +1,6 @@
 Progress
 ========
+* 2021-01-26 Added Navigation message
 * 2021-01-25 Rearranged contact navi. Added methods Contact addcircle and removecircle
 * 2021-01-22 Added Circle list, create, edit and delete
 * 2021-01-16 Added AccountCreatedEvent and AccountCreatedSubscriber

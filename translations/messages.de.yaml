@@ -105,10 +105,16 @@ bbs:
   form:
     circles: Kreise
     contacts: Kontakte
+    name: Name
+    created: Angelegt
+    updated: Geändert
   link:
     contacts: Kontakte
     circles: Kreise
     profile: Profil
+    messages: Nachrichten
+    mail: Mail
+    discussion: Unterhaltung
   message:
     nocontacts: Sie haben noch keine Kontakte.
     emptycircle: Keine Kontakte in diesem Kreis.
