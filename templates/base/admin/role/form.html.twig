@@ -1,11 +1,12 @@
 {% set nav_top = 'admin' %}
 {% set nav_main = 'admin_role' %}
+{% trans_default_domain 'base' %}
 {% extends 'base.html.twig' %}
 
-{% block title %}{% trans %}admin.title.roles{% endtrans %}{% endblock %}
+{% block title %}{% trans %}title.admin.roles{% endtrans %}{% endblock %}
 
 {% block body %}
-<h1>{% trans %}admin.title.roles{% endtrans %}</h1>
+<h1>{% trans %}title.admin.roles{% endtrans %}</h1>
 
     {{ form(form) }}
 

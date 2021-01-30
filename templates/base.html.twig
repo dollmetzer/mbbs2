@@ -1,3 +1,4 @@
+{% trans_default_domain 'base' %}
 <!doctype html>
 <html lang="en" class="h-100">
 <head>
@@ -38,8 +39,8 @@
             {% include '_elements/nav_main.html.twig' %}
             {% if searchFormUrl is defined %}
             <form action="{{ searchFormUrl }}" class="form-inline mt-2 mt-md-0" method="POST">
-                <input name="searchterm" class="form-control mr-sm-2" type="text" placeholder="{% trans %}base.btn.search{% endtrans %}" aria-label="Search" {% if searchTerm is defined %}value="{{ searchTerm }}"{% endif %}>
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">{% trans %}base.btn.search{% endtrans %}</button>
+                <input name="searchterm" class="form-control mr-sm-2" type="text" placeholder="{% trans %}btn.search{% endtrans %}" aria-label="Search" {% if searchTerm is defined %}value="{{ searchTerm }}"{% endif %}>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">{% trans %}btn.search{% endtrans %}</button>
             </form>
             {% endif %}
         </div>
@@ -65,9 +66,9 @@
 <div class="container">
     <nav class="navbar navbar-expand-lg" style="position:relative">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><a class="nav-link" href="{{ path('index_terms') }}">{% trans %}base.link.terms{% endtrans %}</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ path('index_privacy') }}">{% trans %}base.link.privacy{% endtrans %}</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ path('index_imprint') }}">{% trans %}base.link.imprint{% endtrans %}</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ path('index_terms') }}">{% trans %}link.terms{% endtrans %}</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ path('index_privacy') }}">{% trans %}link.privacy{% endtrans %}</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ path('index_imprint') }}">{% trans %}link.imprint{% endtrans %}</a></li>
             <li class="nav-item"><p style="margin:.5rem;">[
                     <a href="{{ path('index_set_language', {lang:'de'}) }}">DE</a> |
                     <a href="{{ path('index_set_language', {lang:'en'}) }}">EN</a>

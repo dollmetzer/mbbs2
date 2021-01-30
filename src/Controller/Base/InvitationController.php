@@ -167,7 +167,7 @@ class InvitationController extends AbstractController
                 $invitation = $this->getInvitation($code);
             } catch(Exception $e) {
                 $this->logger->info($e->getMessage());
-                $this->addFlash('error', $this->translator->trans($e->getMessage()));
+                $this->addFlash('error', $this->translator->trans($e->getMessage(), [], 'base'));
                 return $this->redirectToRoute('account_invitation');
             }
 
@@ -193,7 +193,7 @@ class InvitationController extends AbstractController
             $invitation = $this->getInvitation($code);
         } catch(Exception $e) {
             $this->logger->info($e->getMessage());
-            $this->addFlash('error', $this->translator->trans($e->getMessage()));
+            $this->addFlash('error', $this->translator->trans($e->getMessage(), [], 'base'));
             return $this->redirectToRoute('account_invitation');
         }
 
@@ -216,7 +216,7 @@ class InvitationController extends AbstractController
         $invitedBy = $this->session->get('invitedBy');
 
         if (!$invitedBy) {
-            $this->addFlash('error', $this->translator->trans('base.error.invitation.invalid'));
+            $this->addFlash('error', $this->translator->trans('error.invitation.invalid', [], 'base'));
             return $this->redirectToRoute('index_index');
         }
 
@@ -232,20 +232,20 @@ class InvitationController extends AbstractController
 
             $password = $data['password'];
             if ($password !== $data['password2']) {
-                $this->addFlash('error', $this->translator->trans('base.message.differentpasswords'));
+                $this->addFlash('error', $this->translator->trans('message.differentpasswords', [], 'base'));
                 $isOk = false;
             }
 
             $handle = $data['handle'];
             $user = $repo->findOneBy(['handle' => $handle]);
             if ($user) {
-                $this->addFlash('error', $this->translator->trans('base.message.handleexists'));
+                $this->addFlash('error', $this->translator->trans('message.handleexists', [], 'base'));
                 $isOk = false;
             }
 
             $locale = $data['locale'];
             if (!in_array($locale, $locales)) {
-                $this->addFlash('error', $this->translator->trans('base.message.unsupportedlanguage'));
+                $this->addFlash('error', $this->translator->trans('message.unsupportedlanguage', [], 'base'));
                 $isOk = false;
             }
 
@@ -253,7 +253,7 @@ class InvitationController extends AbstractController
                 $registrar = $repo->find($invitedBy);
                 $user = $this->account->create($handle, $password, $locale, $registrar);
 
-                $this->addFlash('notice', $this->translator->trans('base.message.accountcreated'));
+                $this->addFlash('notice', $this->translator->trans('message.accountcreated', [], 'base'));
                 return $this->redirectToRoute('account_login');
             }
         }
@@ -370,12 +370,12 @@ class InvitationController extends AbstractController
         $invitation = $repo->findOneBy(['code' => $code]);
 
         if(!$invitation) {
-            throw new Exception('base.error.invitation.invalid');
+            throw new Exception('error.invitation.invalid');
         }
 
         $now = new DateTimeImmutable('now');
         if($now > $invitation->getExpiration()) {
-            throw new Exception('base.error.invitation.invalid');
+            throw new Exception('error.invitation.invalid');
         }
         return $invitation;
     }

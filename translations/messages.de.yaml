@@ -2,95 +2,10 @@
 #
 # Do a regular check with
 # bin/console debug:translation de --domain=messages
-admin:
-  btn:
-    newuser: Neuen Nutzer anlegen
-    newrole: Neue Rolle anlegen
-    addrole: Rolle hinzufügen
-    removerole: Rolle entfernen
-  form:
-    name: Name
-    roles: Rollen
-    users: Anzahl Nutzer
-    protected: Geschützt
-    active: Aktiv
-    type: Typ
-    locale: Sprache
-    registrar: Angelegt&nbsp;von
-  link:
-  message:
-    unknownrole: Die gesuchte Rolle existiert nicht.
-    deletedrole: Die Rolle wurde gelöscht.
-    unknownuser: Der gesuchte Nutzer existiert nicht.
-    deleteduser: Der Nutzer wurde gelöscht.
-    failedassignroletouser: Die Rolle konnte dem Nutzer nicht zugeordnet werden.
-    faileddetachrolefromuser: Die Rolle konnte nicht entfernt werden.
-  title:
-    roles: Rollenverwaltung
-    users: Nutzerverwaltung
-base:
-  btn:
-    cancel: Abbruch
-    delete: Löschen
-    edit: Bearbeiten
-    view: Ansehen
-    create: Neu
-    search: Suche
-    yes: Ja
-    no: Nein
-    register: Registrieren
-    impersonate: Übernehmen
-    invite: Einladung erstellen
-  error:
-    invitation:
-      invalid: Der Einladungscode ist ungültig oder abgelaufen.
-  form:
-    created: Angelegt
-    updated: Geändert
-    username: Nutzername
-    password: Passwort
-    password2: Passwort (wdh.)
-    signin: Anmelden
-    invitationcode: Einladungscode
-    save: Speichern
-  link:
-    imprint: Impressum
-    privacy: Datenschutz
-    terms: AGB
-    administration: Verwaltung
-    all: Alle
-    admin:
-      users: Nutzer
-      roles: Rollen
-    account:
-      register: Registrieren
-      login: Anmelden
-      logout: Abmelden
-      invite: Einladen
-      invitation: Einladung annehmen
-      impersonation:
-        start: Benutzerübernahme
-        end: Benutzerübernahme beenden
-  message:
-    unsupportedlanguage: Die gewählte Sprache wird nicht unterstützt.
-    handlelength: Der Nutzername muss zwischen 4 und 32 Zeichen lang sein.
-    handleexists: Der Nutzername existiert bereits
-    differentpasswords: Das Passwort muss zweimal identisch eingegeben werden.
-    invitation: Bitte geben Sie Ihren Einladungscode ein, um ein Benutzerkonto zu erstellen.
-    invite: Erstellen Sie eine Einladung für ihre Freunde.
-    invitationcode: Der Einladungs Code
-    invitationuntil: Die Einladung ist gültig bis
-    accountcreated: Ihr Benutzerkonto ist erstellt. Sie können sich nun anmelden.
-  modal:
-    areyousure: Sind Sie sicher?
-    delete: Wollen Sie wirklich den Datensatz löschen?
-  title:
-    imprint: Impressum
-    privacy: Datenschutz
-    terms: AGB
-    login: Anmelden
-    register: Registrieren
-    impersonate: Benutzerübernahme
-    invite: Jemanden einladenv
-    invitation: Einladung annehmen
-    accountapplication: Benutzerkonto erstellen
+Handle: Benutzername
+Password: Passwort
+Locale: Sprache
+Is active: Aktiv
+Save: Speichern
+Name: Name
+Is protected: Geschützt

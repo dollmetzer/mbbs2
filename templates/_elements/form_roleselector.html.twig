@@ -1,12 +1,13 @@
+{% trans_default_domain 'base' %}
 <table class="table">
     <tr>
-        <th>{% trans %}admin.form.roles{% endtrans %}</th>
+        <th>{% trans %}form.roles{% endtrans %}</th>
     </tr>
     <tr>
     {% for role in roles %}
     <tr>
         <td><a href="{{ path(target_remove_role, {id:item.id, roleId:role.id}) }}"
-               class="btn btn-danger" title="{% trans %}admin.btn.removerole{% endtrans %}"><i class="fa-fw far fa-trash-alt"></i></a>&nbsp;{{ role.name }}</td>
+               class="btn btn-danger" title="{% trans %}btn.admin.removerole{% endtrans %}"><i class="fa-fw far fa-trash-alt"></i></a>&nbsp;{{ role.name }}</td>
     </tr>
     {% endfor %}
     </tr>
@@ -14,7 +15,7 @@
         <td>
             <form class="form" action="">
                 <select class="form-select form-control" aria-label="Default select example">
-                    <option selected>{% trans %}admin.btn.addrole{% endtrans %}</option>
+                    <option selected>{% trans %}btn.admin.addrole{% endtrans %}</option>
                     {% for role in allRoles %}
                         <option value="{{ role.id }}">{{ role.name }}</option>
                     {% endfor %}

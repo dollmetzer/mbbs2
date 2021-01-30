@@ -1,11 +1,12 @@
+{% trans_default_domain 'base' %}
 <li class="nav-item dropdown{% if nav_top == 'admin' %} active{% endif %}">
-    <a class="nav-link dropdown-toggle" href="#" data-toggle-target="menu-item-admin" aria-expanded="false"><i class="fas fa-cogs"></i>&nbsp;{% trans %}base.link.administration{% endtrans %}</a>
+    <a class="nav-link dropdown-toggle" href="#" data-toggle-target="menu-item-admin" aria-expanded="false"><i class="fas fa-cogs"></i>&nbsp;{% trans %}link.administration{% endtrans %}</a>
     <ul class="dropdown-menu" id="menu-item-admin" aria-labelledby="dropdown01">
         <li>
-            <a class="dropdown-item{% if nav_top == 'admin_user' %} active{% endif %}" href="{{ path('admin_user_list') }}"><i class="fas fa-users"></i>&nbsp;{% trans %}base.link.admin.users{% endtrans %}</a>
+            <a class="dropdown-item{% if nav_top == 'admin_user' %} active{% endif %}" href="{{ path('admin_user_list') }}"><i class="fas fa-users"></i>&nbsp;{% trans %}link.admin.users{% endtrans %}</a>
         </li>
         <li>
-            <a class="dropdown-item{% if nav_top == 'admin_role' %} active{% endif %}" href="{{ path('admin_role_list') }}"><i class="fas fa-user-tag"></i>&nbsp;{% trans %}base.link.admin.roles{% endtrans %}</a>
+            <a class="dropdown-item{% if nav_top == 'admin_role' %} active{% endif %}" href="{{ path('admin_role_list') }}"><i class="fas fa-user-tag"></i>&nbsp;{% trans %}link.admin.roles{% endtrans %}</a>
         </li>
     </ul>
 </li>

@@ -103,7 +103,7 @@ class AdminUserController extends AbstractController
         $user = $repository->find($id);
 
         if (empty($user)) {
-            $this->addFlash('error', $this->translator->trans('admin.message.unknownuser'));
+            $this->addFlash('error', $this->translator->trans('message.unknownuser', [], 'base'));
             return $this->redirectToRoute('admin_user_list');
         }
 
@@ -123,9 +123,9 @@ class AdminUserController extends AbstractController
             $this->entityManager->remove($user);
             $this->entityManager->flush();
 
-            $this->addFlash('success', $this->translator->trans('admin.message.deleteduser'));
+            $this->addFlash('success', $this->translator->trans('message.deleteduser', [], 'base'));
         } else {
-            $this->addFlash('error', $this->translator->trans('admin.message.unknownuser'));
+            $this->addFlash('error', $this->translator->trans('message.unknownuser', [], 'base'));
         }
         return $this->redirectToRoute('admin_user_list');
     }

@@ -1,31 +1,32 @@
 {% set nav_top = 'admin' %}
 {% set nav_main = 'admin_user' %}
+{% trans_default_domain 'base' %}
 {% extends 'base.html.twig' %}
 
-{% block title %}{% trans %}admin.title.users{% endtrans %}{% endblock %}
+{% block title %}{% trans %}title.admin.users{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>{% trans %}admin.title.users{% endtrans %}</h1>
+    <h1>{% trans %}title.admin.users{% endtrans %}</h1>
 
     <table class="table table-hover">
         <thead class="thead-dark">
         <tr>
             <th scope="col">&nbsp;</th>
-            <th scope="col">{% trans %}admin.form.name{% endtrans %}</th>
-            <th scope="col">{% trans %}admin.form.roles{% endtrans %}</th>
-            <th scope="col">{% trans %}admin.form.locale{% endtrans %}</th>
-            <th scope="col">{% trans %}admin.form.registrar{% endtrans %}</th>
-            <th scope="col">{% trans %}base.form.created{% endtrans %}</th>
-            <th scope="col">{% trans %}base.form.updated{% endtrans %}</th>
+            <th scope="col">{% trans %}form.name{% endtrans %}</th>
+            <th scope="col">{% trans %}form.roles{% endtrans %}</th>
+            <th scope="col">{% trans %}form.locale{% endtrans %}</th>
+            <th scope="col">{% trans %}form.registrar{% endtrans %}</th>
+            <th scope="col">{% trans %}form.created{% endtrans %}</th>
+            <th scope="col">{% trans %}form.updated{% endtrans %}</th>
         </tr>
         </thead>
         <tbody>
         {% for user in users %}
         <tr>
             <td>
-                <a href="{{ path('admin_user_show', {id : user.id}) }}" class="btn btn-outline-dark" title="{% trans %}base.btn.view{% endtrans %}"><i class="fa-fw far fa-eye"></i></a>
-                <a href="{{ path('admin_user_edit', {id : user.id}) }}" class="btn btn-outline-dark" title="{% trans %}base.btn.edit{% endtrans %}"><i class="fa-fw far fa-edit"></i></a>
-                <a data-href="{{ path('admin_user_delete', {id : user.id}) }}" class="btn btn-outline-dark" title="{% trans %}base.btn.delete{% endtrans %}" data-toggle="modal" data-target="#confirm-delete"><i class="fa-fw far fa-trash-alt"></i></a>
+                <a href="{{ path('admin_user_show', {id : user.id}) }}" class="btn btn-outline-dark" title="{% trans %}btn.view{% endtrans %}"><i class="fa-fw far fa-eye"></i></a>
+                <a href="{{ path('admin_user_edit', {id : user.id}) }}" class="btn btn-outline-dark" title="{% trans %}btn.edit{% endtrans %}"><i class="fa-fw far fa-edit"></i></a>
+                <a data-href="{{ path('admin_user_delete', {id : user.id}) }}" class="btn btn-outline-dark" title="{% trans %}btn.delete{% endtrans %}" data-toggle="modal" data-target="#confirm-delete"><i class="fa-fw far fa-trash-alt"></i></a>
             </td>
             <td>{{ user.username }}</td>
             <td>{% for role in user.roles %}
@@ -41,7 +42,7 @@
         <tfoot>
         <tr>
             <td colspan="7">
-                <a href="{{ path("admin_user_create") }}" class="btn btn-outline-dark" title="{% trans %}base.btn.create{% endtrans %}">{% trans %}admin.btn.newuser{% endtrans %}</a>
+                <a href="{{ path("admin_user_create") }}" class="btn btn-outline-dark" title="{% trans %}btn.create{% endtrans %}">{% trans %}btn.admin.newuser{% endtrans %}</a>
             </td>
         </tr>
         </tfoot>

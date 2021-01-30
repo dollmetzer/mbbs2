@@ -71,7 +71,7 @@ class IndexController extends AbstractController
         if (in_array($lang, $allowedLanguages)) {
             $request->getSession()->set('_locale', $lang);
         } else {
-            $this->addFlash('error', $translator->trans('base.message.unsupportedlanguage'));
+            $this->addFlash('error', $translator->trans('message.unsupportedlanguage', [], 'base'));
         }
 
         return $this->redirectToRoute('index_index');
