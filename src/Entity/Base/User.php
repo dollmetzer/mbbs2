@@ -70,7 +70,7 @@ class User implements UserInterface
 
     /**
      * @ManyToOne(targetEntity="User")
-     * @JoinColumn(name="registrar_id", referencedColumnName="id")
+     * @JoinColumn(name="registrar_id", referencedColumnName="id", nullable=true)
      * @var User
      */
     private $registrar;

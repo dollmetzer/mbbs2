@@ -11,10 +11,12 @@
 
 namespace App\Domain;
 
+use App\Events\AccountCreatedEvent;
 use App\Entity\Base\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Class Account
@@ -34,6 +36,11 @@ class Account
     private $entityManager;
 
     /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
+
+    /**
      * @var LoggerInterface
      */
     private $logger;
@@ -41,12 +48,13 @@ class Account
     public function __construct(
         UserPasswordEncoderInterface $passwordEncoder,
         EntityManagerInterface $entityManager,
+        EventDispatcherInterface $eventDispatcher,
         LoggerInterface $logger
     ) {
-
         $this->passwordEncoder = $passwordEncoder;
         $this->entityManager = $entityManager;
         $this->logger = $logger;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -54,8 +62,9 @@ class Account
      * @param string $password
      * @param string $locale
      * @param User|null $registrar
+     * @return User
      */
-    public function createUser(string $handle, string $password, string $locale, ?User $registrar = null): void
+    public function create(string $handle, string $password, string $locale, ?User $registrar = null): User
     {
         $user = new User();
         $user->setHandle($handle);
@@ -68,5 +77,10 @@ class Account
         $this->entityManager->flush();
 
         $this->logger->info('Account created', ['handle' => $user->getHandle(), 'id' => $user->getId()]);
+
+        $event = new AccountCreatedEvent($user);
+        $this->eventDispatcher->dispatch($event, AccountCreatedEvent::NAME);
+
+        return $user;
     }
 }
