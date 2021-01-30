@@ -9,9 +9,9 @@
  * @license GNU GENERAL PUBLIC LICENSE Version 3
  */
 
-namespace App\Events;
+namespace App\Events\Base;
 
-use App\Entity\User;
+use App\Entity\Base\User;
 use Symfony\Contracts\EventDispatcher\Event;
 
 /**

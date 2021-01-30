@@ -11,7 +11,7 @@
 
 namespace App\Controller\Base;
 
-use App\Domain\Account;
+use App\Domain\Base\Account;
 use App\Entity\Base\Invitation;
 use App\Entity\Base\User;
 use DateTimeImmutable;
@@ -97,7 +97,7 @@ class InvitationController extends AbstractController
             return $this->redirectToRoute('index_index');
         }
 
-        return $this->render('invitation/invite.html.twig', [
+        return $this->render('base/invitation/invite.html.twig', [
             'invitation' => null
         ]);
     }
@@ -144,7 +144,7 @@ class InvitationController extends AbstractController
             $this->session->set('invitationCode', $invitationCode);
         }
 
-        return $this->render('invitation/invite.html.twig', [
+        return $this->render('base/invitation/invite.html.twig', [
             'invitation' => $invitation
         ]);
     }
@@ -177,7 +177,7 @@ class InvitationController extends AbstractController
             $this->entityManager->flush();
             return $this->redirectToRoute('account_invitation_create_account');
         }
-        return $this->render('invitation/form.html.twig', [
+        return $this->render('base/invitation/form.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -258,7 +258,7 @@ class InvitationController extends AbstractController
             }
         }
 
-        return $this->render('invitation/account_application.html.twig', [
+        return $this->render('base/invitation/account_application.html.twig', [
             'form' => $form->createView()
         ]);
     }

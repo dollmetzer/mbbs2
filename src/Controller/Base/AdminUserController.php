@@ -72,7 +72,7 @@ class AdminUserController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(User::class);
         $users = $repository->findAll();
         return $this->render(
-            'admin/user/list.html.twig',
+            'base/admin/user/list.html.twig',
             [
                 'users' => $users,
                 'searchFormUrl' => $searchFormUrl
@@ -89,7 +89,7 @@ class AdminUserController extends AbstractController
     {
         $repository = $this->getDoctrine()->getRepository(User::class);
         $user = $repository->find($id);
-        return $this->render('admin/user/show.html.twig', ['user' => $user]);
+        return $this->render('base/admin/user/show.html.twig', ['user' => $user]);
     }
 
     /**
@@ -154,7 +154,7 @@ class AdminUserController extends AbstractController
         $users = $repository->findBy(['handle' => $searchTerm]);
 
         return $this->render(
-            'admin/user/list.html.twig',
+            'base/admin/user/list.html.twig',
             [
                 'users' => $users,
                 'searchFormUrl' => $searchFormUrl,
@@ -200,7 +200,7 @@ class AdminUserController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Role::class);
         $allRoles = $repository->findAll();
 
-        return $this->render('admin/user/form.html.twig', [
+        return $this->render('base/admin/user/form.html.twig', [
             'form' => $form->createView(),
             'user' => $user,
             'allRoles' => $allRoles,

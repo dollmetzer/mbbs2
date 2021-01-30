@@ -11,7 +11,7 @@
 
 namespace App\Controller\Base;
 
-use App\Domain\Account;
+use App\Domain\Base\Account;
 use App\Entity\Base\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -91,7 +91,7 @@ class AccountController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        return $this->render('base/security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
     /**
@@ -150,7 +150,7 @@ class AccountController extends AbstractController
             }
         }
 
-        return $this->render('security/register.html.twig', [
+        return $this->render('base/security/register.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -173,7 +173,7 @@ class AccountController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(User::class);
         $users = $repository->findAll();
 
-        return $this->render('security/impersonate.html.twig', ['users' => $users]);
+        return $this->render('base/security/impersonate.html.twig', ['users' => $users]);
     }
 
     /**
