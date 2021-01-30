@@ -11,7 +11,7 @@
 
 namespace App\Domain;
 
-use App\Entity\User;
+use App\Entity\Base\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;

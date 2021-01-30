@@ -9,11 +9,11 @@
  * @license GNU GENERAL PUBLIC LICENSE Version 3
  */
 
-namespace App\Controller;
+namespace App\Controller\Base;
 
 use App\Domain\Account;
-use App\Entity\Invitation;
-use App\Entity\User;
+use App\Entity\Base\Invitation;
+use App\Entity\Base\User;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;

@@ -9,9 +9,9 @@
  * @license GNU GENERAL PUBLIC LICENSE Version 3
  */
 
-namespace App\Controller;
+namespace App\Controller\Base;
 
-use App\Entity\Role;
+use App\Entity\Base\Role;
 use App\Form\Type\AdminRoleType;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;

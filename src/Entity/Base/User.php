@@ -9,8 +9,9 @@
  * @license GNU GENERAL PUBLIC LICENSE Version 3
  */
 
-namespace App\Entity;
+namespace App\Entity\Base;
 
+use App\Entity\Timestampable;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
