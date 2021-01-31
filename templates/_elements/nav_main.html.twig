@@ -10,7 +10,7 @@
         {% include '_elements/nav_messaging.html.twig' %}
 
         <li class="nav-item">
-            <a class="nav-link{% if nav_top == 'bbs_profile' %} active{% endif %}" href="{{ path('profile_own') }}"><i class="far fa-id-card"></i>&nbsp;{% trans %}bbs.link.profile{% endtrans %}</a>
+            <a class="nav-link{% if nav_top == 'bbs_profile' %} active{% endif %}" href="{{ path('profile_own') }}"><i class="far fa-id-card"></i>&nbsp;{% trans %}link.profile{% endtrans %}</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ path('account_logout') }}"><i class="fas fa-sign-out-alt"></i>&nbsp;{% trans %}link.account.logout{% endtrans %} [{{ app.user.handle }}]</a>

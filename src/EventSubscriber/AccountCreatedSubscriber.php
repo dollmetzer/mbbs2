@@ -13,10 +13,10 @@ namespace App\EventSubscriber;
 
 use App\Domain\Bbs\Contact;
 use App\Entity\Bbs\Circle;
+use App\Events\Base\AccountCreatedEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use App\Events\Base\AccountCreatedEvent;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -77,7 +77,7 @@ class AccountCreatedSubscriber implements EventSubscriberInterface
 
         $circle = new Circle();
         $circle->setOwner($user);
-        $circle->setName($this->translator->trans('bbs.text.newcontacts', [], 'messages', $user->getLocale()));
+        $circle->setName($this->translator->trans('text.newcontacts', [], 'bbs', $user->getLocale()));
         $circle->setIsPrimary(true);
         $this->entityManager->persist($circle);
         $this->entityManager->flush();

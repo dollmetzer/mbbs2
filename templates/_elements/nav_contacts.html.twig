@@ -1,5 +1,6 @@
+{% trans_default_domain 'bbs' %}
 <li class="nav-item dropdown{% if nav_top == 'bbs_contact' %} active{% endif %}">
-    <a class="nav-link dropdown-toggle" href="#" data-toggle-target="menu-item-contacts" aria-expanded="false"><i class="fas fa-user-friends"></i>&nbsp;{% trans %}bbs.link.contacts{% endtrans %}</a>
+    <a class="nav-link dropdown-toggle" href="#" data-toggle-target="menu-item-contacts" aria-expanded="false"><i class="fas fa-user-friends"></i>&nbsp;{% trans %}link.contacts{% endtrans %}</a>
     <ul class="dropdown-menu" id="menu-item-contacts" aria-labelledby="dropdown01">
         {% if feature_invitation %}
             <li>
@@ -7,10 +8,10 @@
             </li>
         {% endif %}
         <li>
-            <a class="dropdown-item{% if nav_top == 'bbs_contacts' %} active{% endif %}" href="{{ path('contact_list') }}"><i class="fas fa-user-friends"></i>&nbsp;{% trans %}bbs.link.contacts{% endtrans %}</a>
+            <a class="dropdown-item{% if nav_top == 'bbs_contacts' %} active{% endif %}" href="{{ path('contact_list') }}"><i class="fas fa-user-friends"></i>&nbsp;{% trans %}link.contacts{% endtrans %}</a>
         </li>
         <li>
-            <a class="dropdown-item{% if nav_top == 'bbs_circles' %} active{% endif %}" href="{{ path('circle_list') }}"><i class="far fa-circle"></i>&nbsp;{% trans %}bbs.link.circles{% endtrans %}</a>
+            <a class="dropdown-item{% if nav_top == 'bbs_circles' %} active{% endif %}" href="{{ path('circle_list') }}"><i class="far fa-circle"></i>&nbsp;{% trans %}link.circles{% endtrans %}</a>
         </li>
     </ul>
 </li>

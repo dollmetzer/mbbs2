@@ -1,10 +1,11 @@
 {% set nav_top = 'bbs_contact' %}
+{% trans_default_domain 'bbs' %}
 {% extends 'base.html.twig' %}
 
-{% block title %}{% trans %}bbs.title.contacts{% endtrans %}{% endblock %}
+{% block title %}{% trans %}title.contacts{% endtrans %}{% endblock %}
 
 {% block body %}
-    <h1>{% trans %}bbs.title.contacts{% endtrans %}</h1>
+    <h1>{% trans %}title.contacts{% endtrans %}</h1>
 
 <table class="table table-hover">
     <tr>
@@ -26,19 +27,19 @@
 
 <table class="table">
     <tr>
-        <th>{% trans %}bbs.title.circles{% endtrans %}</th>
+        <th>{% trans %}title.circles{% endtrans %}</th>
     </tr>
     {% for circle in contact.circles %}
     <tr>
         <td><a href="{{ path('contact_removecircle', {contactid:contact.id, circleid:circle.id}) }}"
-               class="btn btn-danger" title="{% trans %}bbs.btn.removecircle{% endtrans %}"><i class="fa-fw far fa-trash-alt"></i></a>&nbsp;{{ circle.name }}</td>
+               class="btn btn-danger" title="{% trans %}btn.removecircle{% endtrans %}"><i class="fa-fw far fa-trash-alt"></i></a>&nbsp;{{ circle.name }}</td>
     </tr>
     {% endfor %}
     <tr>
         <td>
             <form class="form" action="">
                 <select class="form-select form-control" aria-label="Default select example">
-                    <option selected>{% trans %}bbs.btn.addcircle{% endtrans %}</option>
+                    <option selected>{% trans %}btn.addcircle{% endtrans %}</option>
                     {% for circle in allCircles %}
                         <option value="{{ circle.id }}">{{ circle.name }}</option>
                     {% endfor %}
