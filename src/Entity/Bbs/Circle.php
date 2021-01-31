@@ -9,8 +9,10 @@
  * @license GNU GENERAL PUBLIC LICENSE Version 3
  */
 
-namespace App\Entity;
+namespace App\Entity\Bbs;
 
+use App\Entity\Base\User;
+use App\Entity\Timestampable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -52,7 +54,7 @@ class Circle
     private $isPrimary=false;
 
     /**
-     * @ManyToOne(targetEntity="User")
+     * @ManyToOne(targetEntity="App\Entity\Base\User")
      * @JoinColumn(name="owner_id", referencedColumnName="id")
      * @var User
      */

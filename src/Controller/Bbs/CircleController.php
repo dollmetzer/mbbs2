@@ -9,9 +9,9 @@
  * @license GNU GENERAL PUBLIC LICENSE Version 3
  */
 
-namespace App\Controller;
+namespace App\Controller\Bbs;
 
-use App\Entity\Circle;
+use App\Entity\Bbs\Circle;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;

@@ -11,12 +11,12 @@
 
 namespace App\EventSubscriber;
 
-use App\Domain\Contact;
-use App\Entity\Circle;
+use App\Domain\Bbs\Contact;
+use App\Entity\Bbs\Circle;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use App\Events\AccountCreatedEvent;
+use App\Events\Base\AccountCreatedEvent;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 

@@ -9,39 +9,39 @@
  * @license GNU GENERAL PUBLIC LICENSE Version 3
  */
 
-namespace App\Events;
+namespace App\Events\Bbs;
 
-use App\Entity\User;
+use App\Entity\Bbs\Contact;
 use Symfony\Contracts\EventDispatcher\Event;
 
 /**
- * Class AccountCreatedEvent
+ * Class ContactAddedEvent
  *
  * @package App\Events
  */
-class AccountCreatedEvent extends Event
+class ContactAddedEvent extends Event
 {
-    const NAME = 'account.created';
+    const NAME = 'contact.added';
 
     /**
-     * @var User
+     * @var Contact
      */
-    private $user;
+    private $contact;
 
     /**
-     * AccountEvent constructor.
-     * @param User $user
+     * ContactAddedEvent constructor.
+     * @param Contact $contact
      */
-    public function __construct(User $user)
+    public function __construct(Contact $contact)
     {
-        $this->user = $user;
+        $this->contact = $contact;
     }
 
     /**
-     * @return User
+     * @return Contact
      */
-    public function getUser(): User
+    public function getContact(): Contact
     {
-        return $this->user;
+        return $this->contact;
     }
 }

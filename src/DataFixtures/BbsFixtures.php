@@ -11,8 +11,8 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\User;
-use App\Entity\Circle;
+use App\Entity\Base\User;
+use App\Entity\Bbs\Circle;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 

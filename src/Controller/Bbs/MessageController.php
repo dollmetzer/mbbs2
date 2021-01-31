@@ -9,7 +9,7 @@
  * @license GNU GENERAL PUBLIC LICENSE Version 3
  */
 
-namespace App\Controller;
+namespace App\Controller\Bbs;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

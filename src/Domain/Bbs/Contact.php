@@ -9,12 +9,12 @@
  * @license GNU GENERAL PUBLIC LICENSE Version 3
  */
 
-namespace App\Domain;
+namespace App\Domain\Bbs;
 
-use App\Entity\Circle;
-use App\Entity\Contact as ContactEntity;
-use App\Entity\User;
-use App\Events\ContactAddedEvent;
+use App\Entity\Bbs\Circle;
+use App\Entity\Bbs\Contact as ContactEntity;
+use App\Entity\Base\User;
+use App\Events\Bbs\ContactAddedEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
