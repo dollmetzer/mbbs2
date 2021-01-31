@@ -1,0 +1,38 @@
+{% set nav_top = 'admin' %}
+{% set nav_main = 'admin_role' %}
+{% trans_default_domain 'base' %}
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}title.admin.roles{% endtrans %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans %}title.admin.roles{% endtrans %}</h1>
+
+    {% if role %}
+    <table class="table table-striped">
+        <tr>
+            <td><strong>{% trans %}form.name{% endtrans %}</strong></td>
+            <td>{{ role.name }}</td>
+        </tr>
+        <tr>
+            <td><strong>{% trans %}form.protected{% endtrans %}</strong></td>
+            <td>{% if role.isProtected == true %}{% trans %}btn.yes{% endtrans %}{% else %}{% trans %}btn.no{% endtrans %}{% endif %}</td>
+        </tr>
+        <tr>
+            <td><strong>{% trans %}form.created{% endtrans %}</strong></td>
+            <td>{{ role.createdOn|format_datetime('medium', 'short', locale='de') }}</td>
+        </tr>
+        <tr>
+            <td><strong>{% trans %}form.updated{% endtrans %}</strong></td>
+            <td>{{ role.updatedOn|format_datetime('medium', 'short', locale='de') }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><a href="{{ path("admin_role_edit", {id : role.id}) }}" class="btn btn-outline-dark">{% trans %}btn.edit{% endtrans %}</a></td>
+        </tr>
+    </table>
+    {% else %}
+        <div class="alert alert-danger" role="alert">
+            {% trans %}message.unknownrole{% endtrans %}
+        </div>
+    {% endif %}
+{% endblock %}

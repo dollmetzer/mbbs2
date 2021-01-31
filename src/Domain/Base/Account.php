@@ -9,10 +9,10 @@
  * @license GNU GENERAL PUBLIC LICENSE Version 3
  */
 
-namespace App\Domain;
+namespace App\Domain\Base;
 
-use App\Entity\User;
-use App\Events\AccountCreatedEvent;
+use App\Events\Base\AccountCreatedEvent;
+use App\Entity\Base\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;

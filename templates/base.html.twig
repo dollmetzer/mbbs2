@@ -1,3 +1,4 @@
+{% trans_default_domain 'base' %}
 <!doctype html>
 <html lang="en" class="h-100">
 <head>
@@ -14,7 +15,7 @@
     <link rel="mask-icon" href="/img/favicons/safari-pinned-tab.svg" color="#563d7c">
     <link rel="icon" href="/img/favicons/favicon.ico">
 
-    <title>{% block title %}mbbs{% endblock %}</title>
+    <title>{% block title %}{{ system_name }}{% endblock %}</title>
 
     <!-- Bootstrap core, fontawsome and app CSS -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
@@ -30,7 +31,7 @@
 <header>
     <!-- Fixed navbar -->
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="{{ path('index_index') }}"><i class="fas fa-comments" title="mbbs"></i>&nbsp;mbbs</a>
+        <a class="navbar-brand" href="{{ path('index_index') }}"><i class="fas fa-comments" title="{{ system_name }}"></i>&nbsp;{{ system_name }}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -38,8 +39,8 @@
             {% include '_elements/nav_main.html.twig' %}
             {% if searchFormUrl is defined %}
             <form action="{{ searchFormUrl }}" class="form-inline mt-2 mt-md-0" method="POST">
-                <input name="searchterm" class="form-control mr-sm-2" type="text" placeholder="{% trans %}base.btn.search{% endtrans %}" aria-label="Search" {% if searchTerm is defined %}value="{{ searchTerm }}"{% endif %}>
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">{% trans %}base.btn.search{% endtrans %}</button>
+                <input name="searchterm" class="form-control mr-sm-2" type="text" placeholder="{% trans %}btn.search{% endtrans %}" aria-label="Search" {% if searchTerm is defined %}value="{{ searchTerm }}"{% endif %}>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">{% trans %}btn.search{% endtrans %}</button>
             </form>
             {% endif %}
         </div>
@@ -65,9 +66,9 @@
 <div class="container">
     <nav class="navbar navbar-expand-lg" style="position:relative">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><a class="nav-link" href="{{ path('index_terms') }}">{% trans %}base.link.terms{% endtrans %}</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ path('index_privacy') }}">{% trans %}base.link.privacy{% endtrans %}</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ path('index_imprint') }}">{% trans %}base.link.imprint{% endtrans %}</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ path('index_terms') }}">{% trans %}link.terms{% endtrans %}</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ path('index_privacy') }}">{% trans %}link.privacy{% endtrans %}</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ path('index_imprint') }}">{% trans %}link.imprint{% endtrans %}</a></li>
             <li class="nav-item"><p style="margin:.5rem;">[
                     <a href="{{ path('index_set_language', {lang:'de'}) }}">DE</a> |
                     <a href="{{ path('index_set_language', {lang:'en'}) }}">EN</a>

@@ -1,0 +1,12 @@
+{% set nav_top = 'account_register' %}
+{% trans_default_domain 'base' %}
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}title.register{% endtrans %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans %}title.register{% endtrans %}</h1>
+
+    {{ form(form) }}
+
+{% endblock %}

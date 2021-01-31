@@ -9,10 +9,10 @@
  * @license GNU GENERAL PUBLIC LICENSE Version 3
  */
 
-namespace App\Controller;
+namespace App\Controller\Base;
 
-use App\Entity\Role;
-use App\Entity\User;
+use App\Entity\Base\Role;
+use App\Entity\Base\User;
 use App\Form\Type\AdminUserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -72,7 +72,7 @@ class AdminUserController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(User::class);
         $users = $repository->findAll();
         return $this->render(
-            'admin/user/list.html.twig',
+            'base/admin/user/list.html.twig',
             [
                 'users' => $users,
                 'searchFormUrl' => $searchFormUrl
@@ -89,7 +89,7 @@ class AdminUserController extends AbstractController
     {
         $repository = $this->getDoctrine()->getRepository(User::class);
         $user = $repository->find($id);
-        return $this->render('admin/user/show.html.twig', ['user' => $user]);
+        return $this->render('base/admin/user/show.html.twig', ['user' => $user]);
     }
 
     /**
@@ -103,7 +103,7 @@ class AdminUserController extends AbstractController
         $user = $repository->find($id);
 
         if (empty($user)) {
-            $this->addFlash('error', $this->translator->trans('admin.message.unknownuser'));
+            $this->addFlash('error', $this->translator->trans('message.unknownuser', [], 'base'));
             return $this->redirectToRoute('admin_user_list');
         }
 
@@ -123,9 +123,9 @@ class AdminUserController extends AbstractController
             $this->entityManager->remove($user);
             $this->entityManager->flush();
 
-            $this->addFlash('success', $this->translator->trans('admin.message.deleteduser'));
+            $this->addFlash('success', $this->translator->trans('message.deleteduser', [], 'base'));
         } else {
-            $this->addFlash('error', $this->translator->trans('admin.message.unknownuser'));
+            $this->addFlash('error', $this->translator->trans('message.unknownuser', [], 'base'));
         }
         return $this->redirectToRoute('admin_user_list');
     }
@@ -154,7 +154,7 @@ class AdminUserController extends AbstractController
         $users = $repository->findBy(['handle' => $searchTerm]);
 
         return $this->render(
-            'admin/user/list.html.twig',
+            'base/admin/user/list.html.twig',
             [
                 'users' => $users,
                 'searchFormUrl' => $searchFormUrl,
@@ -200,7 +200,7 @@ class AdminUserController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Role::class);
         $allRoles = $repository->findAll();
 
-        return $this->render('admin/user/form.html.twig', [
+        return $this->render('base/admin/user/form.html.twig', [
             'form' => $form->createView(),
             'user' => $user,
             'allRoles' => $allRoles,

@@ -1,15 +1,16 @@
+{% trans_default_domain 'base' %}
 <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                {% trans %}base.modal.areyousure{% endtrans %}
+                {% trans %}modal.areyousure{% endtrans %}
             </div>
             <div class="modal-body">
-                {% trans %}base.modal.delete{% endtrans %}
+                {% trans %}modal.delete{% endtrans %}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}base.btn.cancel{% endtrans %}</button>
-                <a class="btn btn-danger btn-ok">{% trans %}base.btn.delete{% endtrans %}</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}btn.cancel{% endtrans %}</button>
+                <a class="btn btn-danger btn-ok">{% trans %}btn.delete{% endtrans %}</a>
             </div>
         </div>
     </div>

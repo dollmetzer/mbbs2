@@ -1,9 +1,12 @@
 Progress
 ========
+* 2021-01-30 Refactoring: Put everything in Base namespace to support module structure
 * 2021-01-26 Added Navigation message
 * 2021-01-25 Rearranged contact navi. Added methods Contact addcircle and removecircle
 * 2021-01-22 Added Circle list, create, edit and delete
+* 2021-01-19 Added AccountCreatedEvent, added functional test for IndexController
 * 2021-01-16 Added AccountCreatedEvent and AccountCreatedSubscriber
+* 2021-01-13 Picked fixes in navigation from main branch
 * 2021-01-13 Added contact, circle and profile Controller
 * 2021-01-12 User Registrar_id no longer UNIQE, Added App\Domain\Account, Refactored Inviation and Registration
 * 2021-01-10 Added Create Account (after Invitation)

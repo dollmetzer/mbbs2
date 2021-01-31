@@ -9,10 +9,10 @@
  * @license GNU GENERAL PUBLIC LICENSE Version 3
  */
 
-namespace App\Controller;
+namespace App\Controller\Base;
 
-use App\Domain\Account;
-use App\Entity\User;
+use App\Domain\Base\Account;
+use App\Entity\Base\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -91,7 +91,7 @@ class AccountController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        return $this->render('base/security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
     /**
@@ -125,7 +125,7 @@ class AccountController extends AbstractController
 
             $password = $data['password'];
             if ($password !== $data['password2']) {
-                $this->addFlash('error', $this->translator->trans('base.message.differentpasswords'));
+                $this->addFlash('error', $this->translator->trans('message.differentpasswords', [], 'base'));
                 $isOk = false;
             }
 
@@ -133,24 +133,24 @@ class AccountController extends AbstractController
             $handle = $data['handle'];
             $user = $repo->findOneBy(['handle' => $handle]);
             if ($user) {
-                $this->addFlash('error', $this->translator->trans('base.message.handleexists'));
+                $this->addFlash('error', $this->translator->trans('message.handleexists', [], 'base'));
                 $isOk = false;
             }
 
             $locale = $data['locale'];
             if (!in_array($locale, $locales)) {
-                $this->addFlash('error', $this->translator->trans('base.message.unsupportedlanguage'));
+                $this->addFlash('error', $this->translator->trans('message.unsupportedlanguage', [], 'base'));
                 $isOk = false;
             }
 
             if (true === $isOk) {
                 $this->account->create($handle, $password, $locale);
-                $this->addFlash('notice', $this->translator->trans('base.message.accountcreated'));
+                $this->addFlash('notice', $this->translator->trans('message.accountcreated', [], 'base'));
                 return $this->redirectToRoute('account_login');
             }
         }
 
-        return $this->render('security/register.html.twig', [
+        return $this->render('base/security/register.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -173,7 +173,7 @@ class AccountController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(User::class);
         $users = $repository->findAll();
 
-        return $this->render('security/impersonate.html.twig', ['users' => $users]);
+        return $this->render('base/security/impersonate.html.twig', ['users' => $users]);
     }
 
     /**

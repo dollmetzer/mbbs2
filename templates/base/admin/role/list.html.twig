@@ -1,0 +1,48 @@
+{% set nav_top = 'admin' %}
+{% set nav_main = 'admin_role' %}
+{% trans_default_domain 'base' %}
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}title.admin.roles{% endtrans %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans %}title.admin.roles{% endtrans %}</h1>
+
+    <table class="table table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">&nbsp;</th>
+            <th scope="col">{% trans %}form.name{% endtrans %}</th>
+            <th scope="col">{% trans %}form.users{% endtrans %}</th>
+            <th scope="col">{% trans %}form.created{% endtrans %}</th>
+            <th scope="col">{% trans %}form.updated{% endtrans %}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for role in roles %}
+            <tr>
+                <td>
+                    <a href="{{ path('admin_role_show', {id : role.id}) }}" class="btn btn-outline-dark" title="{% trans %}btn.view{% endtrans %}"><i class="fa-fw far fa-eye"></i></a>
+                    <a href="{{ path('admin_role_edit', {id : role.id}) }}" class="btn btn-outline-dark" title="{% trans %}btn.edit{% endtrans %}"><i class="fa-fw far fa-edit"></i></a>
+                    <a data-href="{{ path('admin_role_delete', {id : role.id}) }}" class="btn btn-outline-dark" title="{% trans %}btn.delete{% endtrans %}" data-toggle="modal" data-target="#confirm-delete"><i class="fa-fw far fa-trash-alt"></i></a>
+                </td>
+                <td>{{ role.name }}</td>
+                <td>{{ role.users|length }}</td>
+                <td>{{ role.createdOn|format_datetime('medium', 'short', locale='de') }}</td>
+                <td>{{ role.updatedOn|format_datetime('medium', 'short', locale='de') }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <a href="{{ path("admin_role_create") }}" class="btn btn-outline-dark" title="{% trans %}btn.create{% endtrans %}">{% trans %}btn.admin.newrole{% endtrans %}</a>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    {% include '_elements/modal_delete_confirmation.html.twig' %}
+
+{% endblock %}
+

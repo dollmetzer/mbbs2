@@ -9,11 +9,11 @@
  * @license GNU GENERAL PUBLIC LICENSE Version 3
  */
 
-namespace App\Controller;
+namespace App\Controller\Base;
 
-use App\Domain\Account;
-use App\Entity\Invitation;
-use App\Entity\User;
+use App\Domain\Base\Account;
+use App\Entity\Base\Invitation;
+use App\Entity\Base\User;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -24,13 +24,13 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Form\FormInterface;
 
 /**
  * Class InvitationController
@@ -97,7 +97,7 @@ class InvitationController extends AbstractController
             return $this->redirectToRoute('index_index');
         }
 
-        return $this->render('invitation/invite.html.twig', [
+        return $this->render('base/invitation/invite.html.twig', [
             'invitation' => null
         ]);
     }
@@ -144,7 +144,7 @@ class InvitationController extends AbstractController
             $this->session->set('invitationCode', $invitationCode);
         }
 
-        return $this->render('invitation/invite.html.twig', [
+        return $this->render('base/invitation/invite.html.twig', [
             'invitation' => $invitation
         ]);
     }
@@ -167,7 +167,7 @@ class InvitationController extends AbstractController
                 $invitation = $this->getInvitation($code);
             } catch(Exception $e) {
                 $this->logger->info($e->getMessage());
-                $this->addFlash('error', $this->translator->trans($e->getMessage()));
+                $this->addFlash('error', $this->translator->trans($e->getMessage(), [], 'base'));
                 return $this->redirectToRoute('account_invitation');
             }
 
@@ -177,13 +177,14 @@ class InvitationController extends AbstractController
             $this->entityManager->flush();
             return $this->redirectToRoute('account_invitation_create_account');
         }
-        return $this->render('invitation/form.html.twig', [
+        return $this->render('base/invitation/form.html.twig', [
             'form' => $form->createView()
         ]);
     }
 
     /**
      * @Route("account/accept/invitation/{code}", name="account_accept_invitation")
+     * @param string $code
      * @return Response
      */
     public function acceptInvitationAction(string $code): Response
@@ -192,7 +193,7 @@ class InvitationController extends AbstractController
             $invitation = $this->getInvitation($code);
         } catch(Exception $e) {
             $this->logger->info($e->getMessage());
-            $this->addFlash('error', $this->translator->trans($e->getMessage()));
+            $this->addFlash('error', $this->translator->trans($e->getMessage(), [], 'base'));
             return $this->redirectToRoute('account_invitation');
         }
 
@@ -215,7 +216,7 @@ class InvitationController extends AbstractController
         $invitedBy = $this->session->get('invitedBy');
 
         if (!$invitedBy) {
-            $this->addFlash('error', $this->translator->trans('base.error.invitation.invalid'));
+            $this->addFlash('error', $this->translator->trans('error.invitation.invalid', [], 'base'));
             return $this->redirectToRoute('index_index');
         }
 
@@ -231,20 +232,20 @@ class InvitationController extends AbstractController
 
             $password = $data['password'];
             if ($password !== $data['password2']) {
-                $this->addFlash('error', $this->translator->trans('base.message.differentpasswords'));
+                $this->addFlash('error', $this->translator->trans('message.differentpasswords', [], 'base'));
                 $isOk = false;
             }
 
             $handle = $data['handle'];
             $user = $repo->findOneBy(['handle' => $handle]);
             if ($user) {
-                $this->addFlash('error', $this->translator->trans('base.message.handleexists'));
+                $this->addFlash('error', $this->translator->trans('message.handleexists', [], 'base'));
                 $isOk = false;
             }
 
             $locale = $data['locale'];
             if (!in_array($locale, $locales)) {
-                $this->addFlash('error', $this->translator->trans('base.message.unsupportedlanguage'));
+                $this->addFlash('error', $this->translator->trans('message.unsupportedlanguage', [], 'base'));
                 $isOk = false;
             }
 
@@ -252,12 +253,12 @@ class InvitationController extends AbstractController
                 $registrar = $repo->find($invitedBy);
                 $user = $this->account->create($handle, $password, $locale, $registrar);
 
-                $this->addFlash('notice', $this->translator->trans('base.message.accountcreated'));
+                $this->addFlash('notice', $this->translator->trans('message.accountcreated', [], 'base'));
                 return $this->redirectToRoute('account_login');
             }
         }
 
-        return $this->render('invitation/account_application.html.twig', [
+        return $this->render('base/invitation/account_application.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -369,12 +370,12 @@ class InvitationController extends AbstractController
         $invitation = $repo->findOneBy(['code' => $code]);
 
         if(!$invitation) {
-            throw new Exception('base.error.invitation.invalid');
+            throw new Exception('error.invitation.invalid');
         }
 
         $now = new DateTimeImmutable('now');
         if($now > $invitation->getExpiration()) {
-            throw new Exception('base.error.invitation.invalid');
+            throw new Exception('error.invitation.invalid');
         }
         return $invitation;
     }

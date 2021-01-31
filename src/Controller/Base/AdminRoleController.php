@@ -9,9 +9,9 @@
  * @license GNU GENERAL PUBLIC LICENSE Version 3
  */
 
-namespace App\Controller;
+namespace App\Controller\Base;
 
-use App\Entity\Role;
+use App\Entity\Base\Role;
 use App\Form\Type\AdminRoleType;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -61,7 +61,7 @@ class AdminRoleController extends AbstractController
     {
         $repository = $this->getDoctrine()->getRepository(Role::class);
         $roles = $repository->findAll();
-        return $this->render('admin/role/list.html.twig', ['roles' => $roles]);
+        return $this->render('base/admin/role/list.html.twig', ['roles' => $roles]);
     }
 
     /**
@@ -73,7 +73,7 @@ class AdminRoleController extends AbstractController
     {
         $repository = $this->getDoctrine()->getRepository(Role::class);
         $role = $repository->find($id);
-        return $this->render('admin/role/show.html.twig', ['role' => $role]);
+        return $this->render('base/admin/role/show.html.twig', ['role' => $role]);
     }
 
     /**
@@ -140,7 +140,7 @@ class AdminRoleController extends AbstractController
             return $this->redirectToRoute('admin_role_list');
         }
 
-        return $this->render('admin/role/form.html.twig', [
+        return $this->render('base/admin/role/form.html.twig', [
             'form' => $form->createView()
         ]);
     }
