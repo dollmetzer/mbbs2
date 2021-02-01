@@ -1,5 +1,6 @@
 Progress
 ========
+* 2021-02-01 Added lastlogin to user. Ordered imports
 * 2021-01-30 Refactoring: Put everything in Base namespace to support module structure
 * 2021-01-19 Added AccountCreatedEvent, added functional test for IndexController
 * 2021-01-13 Picked fixes in navigation from main branch 

@@ -11,8 +11,8 @@
 
 namespace App\Domain\Base;
 
-use App\Events\Base\AccountCreatedEvent;
 use App\Entity\Base\User;
+use App\Events\Base\AccountCreatedEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;

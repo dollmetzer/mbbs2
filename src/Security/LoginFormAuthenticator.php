@@ -12,6 +12,7 @@
 namespace App\Security;
 
 use App\Entity\Base\User;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -166,6 +167,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey): RedirectResponse
     {
         $this->setLocale($request);
+
+        $this->user->setLastlogin(new DateTimeImmutable('now'));
+        $this->entityManager->persist($this->user);
+        $this->entityManager->flush();
 
         $targetPath = $this->getTargetPath($request->getSession(), $providerKey);
         if ($targetPath) {

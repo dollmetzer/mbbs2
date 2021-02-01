@@ -13,6 +13,7 @@ namespace App\Entity\Base;
 
 use App\Entity\Timestampable;
 use App\Repository\UserRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -67,6 +68,12 @@ class User implements UserInterface
      * @var string
      */
     private $locale;
+
+    /**
+     * @ORM\Column(type="datetime_immutable", nullable=true)
+     * @var DateTimeImmutable
+     */
+    private $lastlogin;
 
     /**
      * @ManyToOne(targetEntity="User")
@@ -144,6 +151,22 @@ class User implements UserInterface
     public function setLocale(string $locale): void
     {
         $this->locale = $locale;
+    }
+
+    /**
+     * @return DateTimeImmutable|null
+     */
+    public function getLastlogin(): ?DateTimeImmutable
+    {
+        return $this->lastlogin;
+    }
+
+    /**
+     * @param DateTimeImmutable $lastlogin
+     */
+    public function setLastlogin(DateTimeImmutable $lastlogin): void
+    {
+        $this->lastlogin = $lastlogin;
     }
 
     /**
