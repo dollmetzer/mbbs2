@@ -6,8 +6,14 @@ btn:
   addcircle: Zu Kreis hinzufügen
   create_circle: Neuen Kreis erstellen
   removecircle: Von Kreis entfernen
+  view: Ansehen
 error: ~
-form: ~
+form:
+  name: Name
+  circles: Kreise
+  contacts: Kontakte
+  created: Erstellt
+  updated: Geändert
 link:
   contacts: Kontakte
   circles: Kreise
@@ -15,9 +21,14 @@ link:
   profile: Profil
   mail: Mail
   discussion: Diskussion
+  account:
+    invite: Einladen
 message:
   nocontacts: Sie haben keine Kontakte
+  emptycircle: Keine Kreise vorhanden
 text:
   newcontacts: Neue Kontakte
 title:
+  circles: Kreise
   contacts: Kontakte
+  profile: Profil

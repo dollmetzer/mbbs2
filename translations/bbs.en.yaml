@@ -6,18 +6,29 @@ btn:
   addcircle: Add to circles
   create_circle: Create new circle
   removecircle: remove from circle
+  view: View
 error: ~
-form: ~
+form:
+  name: Name
+  circles: Circles
+  contacts: Contacts
+  created: Created
+  updated: Updated
 link:
   contacts: Contacts
   circles: Circles
   messages: Messages
   profile: Profile
   mail: Mail
-  discussion: Diskussion
+  discussion: Discussions
+  account:
+    invite: Invite
 message:
-  nocontacts: Sie haben keine Kontakte
+  nocontacts: You don't have contacts
+  emptycircle: No circles found
 text:
   newcontacts: New Contacts
 title:
+  circles: Circles
   contacts: Contacts
+  profile: Profile

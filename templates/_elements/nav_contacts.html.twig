@@ -4,14 +4,14 @@
     <ul class="dropdown-menu" id="menu-item-contacts" aria-labelledby="dropdown01">
         {% if feature_invitation %}
             <li>
-                <a class="dropdown-item" href="{{ path('account_invite') }}"><i class="fas fa-user-plus"></i>&nbsp;{% trans %}base.link.account.invite{% endtrans %}</a>
+                <a class="dropdown-item" href="{{ path('account_invite') }}"><i class="fas fa-fw fa-user-plus"></i>&nbsp;{% trans %}link.account.invite{% endtrans %}</a>
             </li>
         {% endif %}
         <li>
-            <a class="dropdown-item{% if nav_top == 'bbs_contacts' %} active{% endif %}" href="{{ path('contact_list') }}"><i class="fas fa-user-friends"></i>&nbsp;{% trans %}link.contacts{% endtrans %}</a>
+            <a class="dropdown-item{% if nav_top == 'bbs_contacts' %} active{% endif %}" href="{{ path('contact_list') }}"><i class="fas fa-fw fa-user-friends"></i>&nbsp;{% trans %}link.contacts{% endtrans %}</a>
         </li>
         <li>
-            <a class="dropdown-item{% if nav_top == 'bbs_circles' %} active{% endif %}" href="{{ path('circle_list') }}"><i class="far fa-circle"></i>&nbsp;{% trans %}link.circles{% endtrans %}</a>
+            <a class="dropdown-item{% if nav_top == 'bbs_circles' %} active{% endif %}" href="{{ path('circle_list') }}"><i class="far fa-fw fa-circle"></i>&nbsp;{% trans %}link.circles{% endtrans %}</a>
         </li>
     </ul>
 </li>
