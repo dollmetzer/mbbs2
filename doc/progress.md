@@ -1,5 +1,6 @@
 Progress
 ========
+* 2021-02-04 Added ramsey/uuid and Profile entity
 * 2021-02-01 Refactoring Language Snippets
 * 2021-02-01 Added lastlogin to user. Ordered imports
 * 2021-01-30 Refactoring: Put everything in Base namespace to support module structure
