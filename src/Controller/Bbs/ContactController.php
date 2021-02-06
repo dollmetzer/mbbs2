@@ -66,8 +66,41 @@ class ContactController extends AbstractController
     public function listAction(): Response
     {
         $repo = $this->getDoctrine()->getRepository(Contact::class);
-        $contacts = $repo->findBy(['owner' => $this->getUser()]);
-
+//        $contacts = $repo->findBy(['owner' => $this->getUser()]);
+        $contacts = [
+            'A' => [
+                [
+                    'uuid' => '498372548873525684',
+                    'name' => 'Alexandra',
+                    'picture' => 'img/profile/Alexandra.jpg',
+                    'since' => '02.02.2021',
+                ],
+            ],
+            'D' => [
+                [
+                    'uuid' => '372548873525684498',
+                    'name' => 'Dirk',
+                    'picture' => 'img/profile/Dirk.jpg',
+                    'since' => '03.02.2021',
+                ],
+            ],
+            'J' => [
+                [
+                    'uuid' => '725488735256844983',
+                    'name' => 'Julia',
+                    'picture' => 'img/profile/Julia.jpg',
+                    'since' => '31.01.2021',
+                ],
+            ],
+            'S' => [
+                [
+                    'uuid' => '548873525684498372',
+                    'name' => 'Sarah',
+                    'picture' => 'img/profile/Sarah.jpg',
+                    'since' => '02.02.2021',
+                ],
+            ]
+        ];
         return $this->render("bbs/contact/list.html.twig", ['contacts' => $contacts]);
     }
 

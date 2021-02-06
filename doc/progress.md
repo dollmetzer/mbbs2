@@ -1,5 +1,6 @@
 Progress
 ========
+* 2021-02-06 Added Messenger "Top-Navigation"-Footer and Thread / Contacts Dummy
 * 2021-02-04 Added ramsey/uuid and Profile entity
 * 2021-02-01 Refactoring Language Snippets
 * 2021-02-01 Added lastlogin to user. Ordered imports
