@@ -36,6 +36,10 @@
         <!-- ###- symfony/mailer ### -->
     </php>
 
+    <extensions>
+        <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>
+    </extensions>
+
     <testsuites>
         <testsuite name="unit">
             <directory>tests/unit</directory>

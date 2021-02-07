@@ -14,6 +14,8 @@ namespace App\Entity\Bbs;
 use App\Entity\Timestampable;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 /**
  * Class Profile
@@ -48,9 +50,11 @@ class Profile
     ];
 
     /**
+     * @var UuidInterface
+     *
      * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true, nullable=false)
-     * @var string
+     * @ORM\Column(type="uuid", unique=true)
+     * Hint: No UUID generation strategy. Entity must bring the UUID from outside
      */
     private $uuid;
 
@@ -95,17 +99,28 @@ class Profile
     private $city;
 
     /**
-     * @return string
+     * Profile constructor.
+     * @param UuidInterface|null $uuid
      */
-    public function getUuid(): string
+    public function __construct(?UuidInterface $uuid = null)
+    {
+        if ($uuid) {
+            $this->uuid = $uuid;
+        }
+    }
+
+    /**
+     * @return UuidInterface|null
+     */
+    public function getUuid(): ?UuidInterface
     {
         return $this->uuid;
     }
 
     /**
-     * @param string $uuid
+     * @param UuidInterface $uuid
      */
-    public function setUuid(string $uuid): void
+    public function setUuid(UuidInterface $uuid): void
     {
         $this->uuid = $uuid;
     }
