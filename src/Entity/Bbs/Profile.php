@@ -11,8 +11,11 @@
 
 namespace App\Entity\Bbs;
 
+use App\Entity\Base\User;
 use App\Entity\Timestampable;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
 use InvalidArgumentException;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
@@ -97,6 +100,13 @@ class Profile
      * @var string
      */
     private $city;
+
+    /**
+     * @ManyToOne(targetEntity="App\Entity\Base\User")
+     * @JoinColumn(name="owner_id", referencedColumnName="id")
+     * @var User
+     */
+    private $owner;
 
     /**
      * Profile constructor.
@@ -241,5 +251,21 @@ class Profile
     public function setCity(string $city): void
     {
         $this->city = $city;
+    }
+
+    /**
+     * @return User
+     */
+    public function getOwner(): User
+    {
+        return $this->owner;
+    }
+
+    /**
+     * @param User $owner
+     */
+    public function setOwner(User $owner): void
+    {
+        $this->owner = $owner;
     }
 }

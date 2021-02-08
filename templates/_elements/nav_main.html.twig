@@ -5,11 +5,13 @@
             {% include '_elements/nav_admin.html.twig' %}
         {% endif %}
 
-        {% include '_elements/nav_contacts.html.twig' %}
-
         {% include '_elements/nav_messaging.html.twig' %}
 
+        {% include '_elements/nav_contacts.html.twig' %}
+
         {% include '_elements/nav_profile.html.twig' %}
+
+        {% include '_elements/nav_settings.html.twig' %}
 
         <li class="nav-item">
             <a class="nav-link" href="{{ path('account_logout') }}"><i class="fas fa-sign-out-alt"></i>&nbsp;{% trans %}link.account.logout{% endtrans %} [{{ app.user.handle }}]</a>

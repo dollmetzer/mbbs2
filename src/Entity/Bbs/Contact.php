@@ -41,16 +41,16 @@ class Contact
     private $id;
 
     /**
-     * @ManyToOne(targetEntity="App\Entity\Base\User")
-     * @JoinColumn(name="owner_id", referencedColumnName="id")
-     * @var User
+     * @ManyToOne(targetEntity="App\Entity\Bbs\Profile", cascade="persist")
+     * @JoinColumn(name="owner_uuid", referencedColumnName="uuid")
+     * @var Profile
      */
     private $owner;
 
     /**
-     * @ManyToOne(targetEntity="App\Entity\Base\User")
-     * @JoinColumn(name="contact_id", referencedColumnName="id")
-     * @var User
+     * @ManyToOne(targetEntity="App\Entity\Bbs\Profile", cascade="persist")
+     * @JoinColumn(name="contact_uuid", referencedColumnName="uuid")
+     * @var Profile
      */
     private $contact;
 
@@ -75,9 +75,9 @@ class Contact
     }
 
     /**
-     * @return User
+     * @return Profile
      */
-    public function getOwner(): User
+    public function getOwner(): Profile
     {
         return $this->owner;
     }
@@ -85,23 +85,23 @@ class Contact
     /**
      * @param User $owner
      */
-    public function setOwner(User $owner): void
+    public function setOwner(Profile $owner): void
     {
         $this->owner = $owner;
     }
 
     /**
-     * @return User
+     * @return Profile
      */
-    public function getContact(): User
+    public function getContact(): Profile
     {
         return $this->contact;
     }
 
     /**
-     * @param User $contact
+     * @param Profile $contact
      */
-    public function setContact(User $contact): void
+    public function setContact(Profile $contact): void
     {
         $this->contact = $contact;
     }

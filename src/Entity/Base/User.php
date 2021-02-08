@@ -77,7 +77,7 @@ class User implements UserInterface
 
     /**
      * @ManyToOne(targetEntity="User")
-     * @JoinColumn(name="registrar_id", referencedColumnName="id", nullable=true)
+     * @JoinColumn(name="registrar_id", referencedColumnName="id", onDelete="SET NULL", nullable=true)
      * @var User
      */
     private $registrar;

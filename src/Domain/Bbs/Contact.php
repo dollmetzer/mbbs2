@@ -14,9 +14,11 @@ namespace App\Domain\Bbs;
 use App\Entity\Base\User;
 use App\Entity\Bbs\Circle;
 use App\Entity\Bbs\Contact as ContactEntity;
+use App\Entity\Bbs\Profile;
 use App\Events\Bbs\ContactAddedEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
+use Ramsey\Uuid\Uuid;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -58,9 +60,17 @@ class Contact
      */
     public function add(User $owner, User $user): ContactEntity
     {
+        $profileRepo = $this->entityManager->getRepository(Profile::class);
+        $contactProfile = $profileRepo->findOneBy(['owner' => $user->getId()]);
+
+        $uuid = Uuid::uuid4();
+        $ownerProfile = new Profile($uuid);
+        $ownerProfile->setOwner($owner);
+        $ownerProfile->setDisplayname($owner->getHandle());
+
         $contact = new ContactEntity();
-        $contact->setOwner($owner);
-        $contact->setContact($user);
+        $contact->setOwner($ownerProfile);
+        $contact->setContact($contactProfile);
         $contact->setTimestamps();
         $this->entityManager->persist($contact);
 

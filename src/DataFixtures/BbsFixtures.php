@@ -13,8 +13,11 @@ namespace App\DataFixtures;
 
 use App\Entity\Base\User;
 use App\Entity\Bbs\Circle;
+use App\Entity\Bbs\Profile;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 class BbsFixtures extends Fixture
 {
@@ -32,6 +35,17 @@ class BbsFixtures extends Fixture
         $circle->setOwner($admin);
         $circle->setTimestamps();
         $manager->persist($circle);
+
+        $uuid = Uuid::uuid4();
+        $profile = new Profile($uuid);
+        $profile->setOwner($admin);
+        $profile->setGender('o');
+        $profile->setDisplayname('Administrator');
+        $profile->setRealname('Chris Eisenhauer');
+        $profile->setCity('Cloud City');
+        $profile->setMotto('To serve and moderate');
+        $profile->setTimestamps();
+        $manager->persist($profile);
 
         $manager->flush();
     }
