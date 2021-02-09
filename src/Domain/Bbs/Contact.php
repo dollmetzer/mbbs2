@@ -88,4 +88,15 @@ class Contact
 
         return $contact;
     }
+
+    public function getList(User $owner)
+    {
+        $profileRepo = $this->entityManager->getRepository(Profile::class);
+        $ownerProfile = $profileRepo->findOneBy(['owner' => $owner->getId()]);
+
+        $contactRepo = $this->entityManager->getRepository(ContactEntity::class);
+        $contacts = $contactRepo->findBy(['owner' => $ownerProfile->getUuid()]);
+
+        return $contacts;
+    }
 }

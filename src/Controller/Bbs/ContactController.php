@@ -11,6 +11,7 @@
 
 namespace App\Controller\Bbs;
 
+use App\Domain\Bbs\Contact as ContactDomain;
 use App\Entity\Bbs\Circle;
 use App\Entity\Bbs\Contact;
 use Doctrine\ORM\EntityManagerInterface;
@@ -47,8 +48,14 @@ class ContactController extends AbstractController
      */
     private $logger;
 
+    /**
+     * @var ContactDomain
+     */
+    private $contact;
+
     public function __construct(
         EntityManagerInterface $entityManager,
+        ContactDomain $contact,
         TranslatorInterface $translator,
         LoggerInterface $logger
     )
@@ -56,6 +63,7 @@ class ContactController extends AbstractController
         $this->entityManager = $entityManager;
         $this->translator = $translator;
         $this->logger = $logger;
+        $this->contact = $contact;
     }
 
     /**
@@ -65,8 +73,13 @@ class ContactController extends AbstractController
      */
     public function listAction(): Response
     {
-        $repo = $this->getDoctrine()->getRepository(Contact::class);
-//        $contacts = $repo->findBy(['owner' => $this->getUser()]);
+        $rawList = $this->contact->getList($this->getUser());
+        $list = [];
+        foreach($rawList as $entry) {
+            $letter = ucfirst(substr($entry->getContact()->getDisplayname(), 0, 1));
+            $list[$letter][] = $entry;
+        }
+
         $contacts = [
             'A' => [
                 [
@@ -101,7 +114,13 @@ class ContactController extends AbstractController
                 ],
             ]
         ];
-        return $this->render("bbs/contact/list.html.twig", ['contacts' => $contacts]);
+        return $this->render(
+            "bbs/contact/list.html.twig",
+            [
+                'contacts' => $contacts,
+                'list' => $list
+            ]
+        );
     }
 
     /**

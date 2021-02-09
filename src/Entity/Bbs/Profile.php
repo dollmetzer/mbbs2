@@ -77,6 +77,12 @@ class Profile
      * @ORM\Column(type="string", length=128, nullable=true)
      * @var string
      */
+    private $picture;
+
+    /**
+     * @ORM\Column(type="string", length=128, nullable=true)
+     * @var string
+     */
     private $motto;
 
     /**
@@ -165,6 +171,22 @@ class Profile
     public function setRealname(string $realname): void
     {
         $this->realname = $realname;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPicture(): string
+    {
+        return $this->picture;
+    }
+
+    /**
+     * @param string $picture
+     */
+    public function setPicture(string $picture): void
+    {
+        $this->picture = $picture;
     }
 
     /**

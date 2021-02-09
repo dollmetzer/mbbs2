@@ -5,6 +5,29 @@
 {% block title %}{% trans %}title.contacts{% endtrans %}{% endblock %}
 
 {% block body %}
+
+    {{ dump(list) }}
+
+    {% if list %}
+        {% for letter, entries in list %}
+            <div style="margin-bottom:10px; border-bottom:5px solid #6c757d; border-radius:0.25rem; padding:0px;">
+                <span style="margin:0;font-size:1.6rem; color:#6c757d; font-weight:500">{{ letter }}</span>
+            </div>
+            {% for contact in entries %}
+                <div class="card border-dark card-thread">
+                    <div class="card-header" style="height:64px;">
+                        <p style="margin-left:64px;"><b>{{ contact.contact.displayname }}</b><br/>
+                            {{ contact.createdOn|format_datetime('medium', 'short', locale='de') }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endfor %}
+    {% else %}
+        <p>{% trans %}message.nocontacts{% endtrans %}</p>
+    {% endif %}
+
+
+
     {% if contacts %}
         {% for letter, entries in contacts %}
             <div style="margin-bottom:10px; border-bottom:5px solid #6c757d; border-radius:0.25rem; padding:0px;">
@@ -13,8 +36,9 @@
             {% for contact in entries %}
                 <div class="card border-dark card-thread">
                     <div class="card-header" style="height:64px;">
-                        <img src="{{ asset(contact.picture) }}" style="position:absolute; top:0; left:0; width:64px; min-height:64px"/>
-                        <p style="margin-left:64px;"><b>{{ contact.name }}</b><br />{{ contact.since }}</p>
+                        <img src="{{ asset(contact.picture) }}"
+                             style="position:absolute; top:0; left:0; width:64px; min-height:64px"/>
+                        <p style="margin-left:64px;"><b>{{ contact.name }}</b><br/>{{ contact.since }}</p>
                     </div>
                 </div>
             {% endfor %}
