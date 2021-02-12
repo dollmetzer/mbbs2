@@ -176,15 +176,15 @@ class Profile
     /**
      * @return string
      */
-    public function getPicture(): string
+    public function getPicture(): ?string
     {
         return $this->picture;
     }
 
     /**
-     * @param string $picture
+     * @param string|null $picture
      */
-    public function setPicture(string $picture): void
+    public function setPicture(?string $picture): void
     {
         $this->picture = $picture;
     }
