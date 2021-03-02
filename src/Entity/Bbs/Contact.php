@@ -11,14 +11,9 @@
 
 namespace App\Entity\Bbs;
 
-use App\Entity\Base\User;
 use App\Entity\Timestampable;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
-use Doctrine\ORM\Mapping\JoinTable;
-use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
 
 /**
@@ -55,18 +50,6 @@ class Contact
     private $contact;
 
     /**
-     * @ManyToMany(targetEntity="Circle", mappedBy="contacts", cascade="persist")
-     * @JoinTable(name="circle_2_contact")
-     * @var ArrayCollection<Circle, Circle>
-     */
-    private $circles;
-
-    public function __construct()
-    {
-        $this->circles = new ArrayCollection();
-    }
-
-    /**
      * @return int
      */
     public function getId(): int
@@ -83,7 +66,7 @@ class Contact
     }
 
     /**
-     * @param User $owner
+     * @param Profile $owner
      */
     public function setOwner(Profile $owner): void
     {
@@ -104,40 +87,5 @@ class Contact
     public function setContact(Profile $contact): void
     {
         $this->contact = $contact;
-    }
-
-    /**
-     * @return ArrayCollection<Circle, Circle>
-     */
-    public function getCircles(): Collection
-    {
-        return $this->circles;
-    }
-
-    /**
-     * @param Circle $circle
-     * @return $this
-     */
-    public function addCircle(Circle $circle): self
-    {
-        foreach($this->circles->getValues() as $associated) {
-            if ($associated === $circle) return $this;
-        }
-        $this->circles->add($circle);
-        return $this;
-    }
-
-    /**
-     * @param Circle $circle
-     * @return $this
-     */
-    public function removeCircle(Circle $circle): self
-    {
-        foreach($this->circles->getValues() as $associated) {
-            if ($associated === $circle) {
-                $this->circles->remove($circle);
-            }
-        }
-        return $this;
     }
 }

@@ -75,13 +75,6 @@ class AccountCreatedSubscriber implements EventSubscriberInterface
     {
         $user = $event->getUser();
 
-        $circle = new Circle();
-        $circle->setOwner($user);
-        $circle->setName($this->translator->trans('text.newcontacts', [], 'bbs', $user->getLocale()));
-        $circle->setIsPrimary(true);
-        $this->entityManager->persist($circle);
-        $this->entityManager->flush();
-
         $registrar = $user->getRegistrar();
 
         if(null !== $registrar) {

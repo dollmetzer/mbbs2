@@ -29,13 +29,6 @@ class BbsFixtures extends Fixture
         $userRepo = $manager->getRepository(User::class);
         $admin = $userRepo->findOneBy(['handle' => 'admin']);
 
-        $circle = new Circle();
-        $circle->setIsPrimary(true);
-        $circle->setName('New contacts');
-        $circle->setOwner($admin);
-        $circle->setTimestamps();
-        $manager->persist($circle);
-
         $uuid = Uuid::uuid4();
         $profile = new Profile($uuid);
         $profile->setOwner($admin);

@@ -74,11 +74,6 @@ class Contact
         $contact->setTimestamps();
         $this->entityManager->persist($contact);
 
-        $circleRepo = $this->entityManager->getRepository(Circle::class);
-        $circle = $circleRepo->findOneBy(['owner' => $owner->getId(), 'isPrimary' => 1]);
-        $circle->addContact($contact);
-        $this->entityManager->persist($circle);
-
         $this->entityManager->flush();
 
         $this->logger->info('Added contact', ['owner' => $owner->getHandle(), 'contact' => $user->getHandle()]);
@@ -89,14 +84,12 @@ class Contact
         return $contact;
     }
 
-    public function getList(User $owner)
+    public function getList(User $owner): array
     {
         $profileRepo = $this->entityManager->getRepository(Profile::class);
         $ownerProfile = $profileRepo->findOneBy(['owner' => $owner->getId()]);
 
         $contactRepo = $this->entityManager->getRepository(ContactEntity::class);
-        $contacts = $contactRepo->findBy(['owner' => $ownerProfile->getUuid()]);
-
-        return $contacts;
+        return $contactRepo->findBy(['owner' => $ownerProfile->getUuid()]);
     }
 }
