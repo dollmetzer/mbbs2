@@ -13,9 +13,11 @@ namespace App\EventSubscriber;
 
 use App\Domain\Bbs\Contact;
 use App\Entity\Bbs\Circle;
+use App\Entity\Bbs\Profile;
 use App\Events\Base\AccountCreatedEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -74,8 +76,14 @@ class AccountCreatedSubscriber implements EventSubscriberInterface
     public function onAccountCreatedEvent(AccountCreatedEvent $event): void
     {
         $user = $event->getUser();
-
         $registrar = $user->getRegistrar();
+
+        $uuid = Uuid::uuid4();
+        $profile = new Profile($uuid);
+        $profile->setOwner($user);
+        $profile->setDisplayname($user->getHandle());
+        $this->entityManager->persist($profile);
+        $this->entityManager->flush();
 
         if(null !== $registrar) {
             $contact = new Contact($this->entityManager, $this->eventDispatcher, $this->logger);

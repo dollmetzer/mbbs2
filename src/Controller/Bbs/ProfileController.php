@@ -11,6 +11,8 @@
 
 namespace App\Controller\Bbs;
 
+use App\Entity\Bbs\Profile;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,11 +26,15 @@ class ProfileController extends AbstractController
 {
     /**
      * @Route("/profile", name="profile_own")
+     * @IsGranted("ROLE_USER")
      * @return Response
      */
     public function listAction(): Response
     {
-        return $this->render("bbs/profile/show.html.twig");
+        $user = $this->getUser();
+        $repo = $this->getDoctrine()->getRepository(Profile::class);
+        $profile = $repo->findOneBy(['owner' => $user->getId()]);
+        return $this->render("bbs/profile/show.html.twig", ['user' => $user, 'profile' => $profile]);
     }
 
 }

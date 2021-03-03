@@ -158,17 +158,17 @@ class Profile
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getRealname(): string
+    public function getRealname(): ?string
     {
         return $this->realname;
     }
 
     /**
-     * @param string $realname
+     * @param string|null $realname
      */
-    public function setRealname(string $realname): void
+    public function setRealname(?string $realname): void
     {
         $this->realname = $realname;
     }
@@ -190,25 +190,25 @@ class Profile
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getMotto(): string
+    public function getMotto(): ?string
     {
         return $this->motto;
     }
 
     /**
-     * @param string $motto
+     * @param null|string $motto
      */
-    public function setMotto(string $motto): void
+    public function setMotto(?string $motto): void
     {
         $this->motto = $motto;
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getGender(): string
+    public function getGender(): ?string
     {
         return $this->gender;
     }
@@ -225,9 +225,9 @@ class Profile
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getZodiac(): string
+    public function getZodiac(): ?string
     {
         return $this->zodiac;
     }

@@ -62,18 +62,13 @@ class Contact
     {
         $profileRepo = $this->entityManager->getRepository(Profile::class);
         $contactProfile = $profileRepo->findOneBy(['owner' => $user->getId()]);
-
-        $uuid = Uuid::uuid4();
-        $ownerProfile = new Profile($uuid);
-        $ownerProfile->setOwner($owner);
-        $ownerProfile->setDisplayname($owner->getHandle());
+        $ownerProfile = $profileRepo->findOneBy(['owner' => $owner->getId()]);
 
         $contact = new ContactEntity();
         $contact->setOwner($ownerProfile);
         $contact->setContact($contactProfile);
         $contact->setTimestamps();
         $this->entityManager->persist($contact);
-
         $this->entityManager->flush();
 
         $this->logger->info('Added contact', ['owner' => $owner->getHandle(), 'contact' => $user->getHandle()]);

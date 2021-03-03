@@ -6,7 +6,9 @@
 
 {% block body %}
     <div class="card border-dark card-thread">
-        <a href="#"><img src="{{ asset('icons/person-plus-fill.svg') }}"  width="32" height="32" />&nbsp;{% trans %}link.account.invite{% endtrans %}</a>
+        <div class="card-header">
+            <a href="{{ path('account_invite') }}"><img src="{{ asset('icons/person-plus-fill.svg') }}"  width="32" height="32" />&nbsp;{% trans %}link.account.invite{% endtrans %}</a>
+        </div>
     </div>
 
     {% if list %}

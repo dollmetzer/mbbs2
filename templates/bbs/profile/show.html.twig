@@ -6,5 +6,46 @@
 
 {% block body %}
     <h1>{% trans %}title.profile{% endtrans %}</h1>
-{% endblock %}
+
+<table class="table table-striped">
+    <tr>
+        {% if profile.picture %}
+            <td colspan="2"><img src="{{ asset(profile.picture) }}" /></td>
+        {% else %}
+            <td colspan="2">To Do: No Profile Picture</td>
+        {% endif %}
+    </tr>
+    <tr>
+        <td><strong>{% trans %}profile.handle{% endtrans %}</strong></td>
+        <td>{{ user.handle }}</td>
+    </tr>
+    <tr>
+        <td><strong>{% trans %}profile.displayname{% endtrans %}</strong></td>
+        <td>{{ profile.displayname }}</td>
+    </tr>
+    <tr>
+        <td><strong>{% trans %}profile.realname{% endtrans %}</strong></td>
+        <td>{{ profile.realname }}</td>
+    </tr>
+    <tr>
+        <td><strong>{% trans %}profile.motto{% endtrans %}</strong></td>
+        <td>{{ profile.motto }}</td>
+    </tr>
+    <tr>
+        <td><strong>{% trans %}profile.language{% endtrans %}</strong></td>
+        <td>{{ user.locale }}</td>
+    </tr>
+    <tr>
+        <td><strong>{% trans %}profile.gender{% endtrans %}</strong></td>
+        <td>{{ profile.gender }}</td>
+    </tr>
+    <tr>
+        <td><strong>{% trans %}profile.zodiac{% endtrans %}</strong></td>
+        <td>{{ profile.zodiac }}</td>
+    </tr>
+    <tr>
+        <td colspan="2"><a href=""><img src="{{ asset('icons/pencil-fill.svg') }}" width="32" height="32">&nbsp;{% trans %}edit{% endtrans %}</a></td>
+    </tr>
+</table>
+    {% endblock %}
 
