@@ -1,5 +1,6 @@
 Progress
 ========
+* 2021-03-07 Profile Page and Form
 * 2021-03-03 Create new Profile on Add Contact Bug removed. Added Raw Own Profile Page 
 * 2021-03-02 Removed Circles as unnecessary feature
 * 2021-02-09 WIP Contacts Page

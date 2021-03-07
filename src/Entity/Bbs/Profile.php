@@ -19,6 +19,7 @@ use Doctrine\ORM\Mapping\ManyToOne;
 use InvalidArgumentException;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Profile
@@ -87,12 +88,14 @@ class Profile
 
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @Assert\Choice(choices=Profile::ENUM_GENDER, message="Choose a valid gender."))
      * @var string
      */
     private $gender;
 
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @Assert\Choice(callback="getZodiacs")
      * @var string
      */
     private $zodiac;
@@ -230,6 +233,11 @@ class Profile
     public function getZodiac(): ?string
     {
         return $this->zodiac;
+    }
+
+    public function getZodiacs(): array
+    {
+        return self::ENUM_ZODIAC;
     }
 
     /**

@@ -14,8 +14,14 @@ namespace App\Controller\Bbs;
 use App\Entity\Bbs\Profile;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class ProfileController
@@ -25,16 +31,109 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProfileController extends AbstractController
 {
     /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
+   /**
      * @Route("/profile", name="profile_own")
      * @IsGranted("ROLE_USER")
      * @return Response
      */
-    public function listAction(): Response
+    public function showOwnAction(): Response
     {
         $user = $this->getUser();
         $repo = $this->getDoctrine()->getRepository(Profile::class);
         $profile = $repo->findOneBy(['owner' => $user->getId()]);
-        return $this->render("bbs/profile/show.html.twig", ['user' => $user, 'profile' => $profile]);
+        return $this->render("bbs/profile/showown.html.twig", ['profile' => $profile]);
     }
 
+    /**
+     * @Route("/profile/{uuid}", name="profile_show")
+     * @IsGranted("ROLE_USER")
+     * @return Response
+     */
+    public function showAction(string $uuid): Response
+    {
+        $repo = $this->getDoctrine()->getRepository(Profile::class);
+        $profile = $repo->find($uuid);
+        return $this->render("bbs/profile/show.html.twig", ['profile' => $profile]);
+    }
+
+    /**
+     * @Route("/profile/edit", name="profile_edit")
+     * @IsGranted("ROLE_USER")
+     * @return Response
+     */
+    public function editAction(Request $request): Response
+    {
+        $user = $this->getUser();
+        $repo = $this->getDoctrine()->getRepository(Profile::class);
+        $profile = $repo->findOneBy(['owner' => $user->getId()]);
+
+        $form = $this->getProfileForm($profile);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($data);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('profile_own');
+        }
+
+        return $this->render("bbs/profile/edit.html.twig", ['form' => $form->createView()]);
+    }
+
+    protected function getProfileForm(Profile $profile): FormInterface
+    {
+        $zodiacSigns = [];
+        foreach($profile::ENUM_ZODIAC as $sign) {
+            $text = $this->translator->trans('text.zodiac_' . $sign, [], 'bbs');
+            $zodiacSigns[$text] = $sign;
+        }
+
+        $genders = [];
+        foreach($profile::ENUM_GENDER as $gender) {
+            $text = $this->translator->trans('text.gender_'.$gender, [], 'bbs');
+            $genders[$text] = $gender;
+        }
+
+        return $this->createFormBuilder($profile)
+            ->add(
+                'displayname',
+                TextType::class,
+                [
+                    'attr' => [
+                        'minlength' => 4,
+                        'maxlength' => 32
+                    ]
+                ]
+            )->add(
+                'realname',
+                TextType::class,
+                []
+            )->add(
+                'motto',
+                TextType::class,
+                []
+            )->add(
+                'gender',
+                ChoiceType::class,
+                ['choices' => $genders]
+            )->add(
+                'zodiac',
+                ChoiceType::class,
+                ['choices' => $zodiacSigns]
+            )->add('send', SubmitType::class)
+            ->getForm();
+
+    }
 }

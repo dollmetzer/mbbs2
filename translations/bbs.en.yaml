@@ -14,6 +14,13 @@ form:
   contacts: Contacts
   created: Created
   updated: Updated
+  handle: Login Name
+  displayname: Display Name
+  realname: Real Name
+  motto: Motto
+  language: Language
+  gender: Gender
+  zodiac: Zodiac Sign
 link:
   contacts: Contacts
   circles: Circles
@@ -29,6 +36,25 @@ message:
   emptycircle: No circles found
 text:
   newcontacts: New Contacts
+  zodiac_: Not given
+  zodiac_Aries: Aries
+  zodiac_Taurus: Taurus
+  zodiac_Gemini: Gemini
+  zodiac_Cancer: Cancer
+  zodiac_Leo: Leo
+  zodiac_Virgo: Virgo
+  zodiac_Libra: Libra
+  zodiac_Scorpio: Scorpio
+  zodiac_Saggitarius: Saggitarius
+  zodiac_Capricornus: Capricornus
+  zodiac_Aquarius: Aquarius
+  zodiac_Pisces: Pisces
+  gender_: Not given
+  gender_f: Female
+  gender_m: Male
+  gender_o: Other
+  lang_en: English
+  lang_de: German
 title:
   circles: Circles
   contacts: Contacts

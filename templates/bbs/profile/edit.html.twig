@@ -1,0 +1,12 @@
+{% set nav_top = 'bbs_profile' %}
+{% trans_default_domain 'bbs' %}
+{% extends 'bbs.html.twig' %}
+
+{% block title %}{% trans %}title.profile{% endtrans %}{% endblock %}
+
+{% block body %}
+    <h1>{% trans %}title.profile{% endtrans %}</h1>
+
+    {{ form(form) }}
+
+{% endblock %}

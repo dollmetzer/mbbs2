@@ -14,6 +14,13 @@ form:
   contacts: Kontakte
   created: Erstellt
   updated: Geändert
+  handle: Login Name
+  displayname: Angezeigeter Name
+  realname: Echter Name
+  motto: Motto
+  language: Sprache
+  gender: Geschlecht
+  zodiac: Sternzeichen
 link:
   contacts: Kontakte
   circles: Kreise
@@ -29,6 +36,25 @@ message:
   emptycircle: Keine Kreise vorhanden
 text:
   newcontacts: Neue Kontakte
+  zodiac_: Nicht angegeben
+  zodiac_Aries: Widder
+  zodiac_Taurus: Stier
+  zodiac_Gemini: Zwilling
+  zodiac_Cancer: Krebs
+  zodiac_Leo: Löwe
+  zodiac_Virgo: Jungfrau
+  zodiac_Libra: Waage
+  zodiac_Scorpio: Scorpion
+  zodiac_Saggitarius: Schütze
+  zodiac_Capricornus: Steinbock
+  zodiac_Aquarius: Wassermann
+  zodiac_Pisces: Fische
+  gender_: Nicht angegeben
+  gender_f: Weiblich
+  gender_m: Männlich
+  gender_o: Anders
+  lang_en: Englisch
+  lang_de: Deutsch
 title:
   circles: Kreise
   contacts: Kontakte

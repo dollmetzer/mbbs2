@@ -8,11 +8,13 @@
     <h1>{% trans %}title.profile{% endtrans %}</h1>
 
     <table class="table table-striped">
-        {% if profile.picture %}
-            <tr>
+        <tr>
+            {% if profile.picture %}
                 <td colspan="2"><img src="{{ asset(profile.picture) }}"/></td>
-            </tr>
-        {% endif %}
+            {% else %}
+                <td colspan="2">To Do: No Profile Picture</td>
+            {% endif %}
+        </tr>
         <tr>
             <td><strong>{% trans %}form.handle{% endtrans %}</strong></td>
             <td>{{ profile.owner.handle }}</td>
@@ -45,5 +47,7 @@
             <td>{{ zodiac|trans }}</td>
         </tr>
     </table>
+
+    <a href="{{ path('profile_edit') }}" class="btn btn-primary"><i class="fas fa-pencil-alt"></i>&nbsp;{% trans from 'base' %}btn.edit{% endtrans %}</a>
 {% endblock %}
 

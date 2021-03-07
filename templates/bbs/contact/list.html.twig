@@ -5,11 +5,7 @@
 {% block title %}{% trans %}title.contacts{% endtrans %}{% endblock %}
 
 {% block body %}
-    <div class="card border-dark card-thread">
-        <div class="card-header">
-            <a href="{{ path('account_invite') }}"><img src="{{ asset('icons/person-plus-fill.svg') }}"  width="32" height="32" />&nbsp;{% trans %}link.account.invite{% endtrans %}</a>
-        </div>
-    </div>
+    <a href="{{ path('account_invite') }}" class="btn btn-primary"><i class="fas fa-user-plus"></i>&nbsp;{% trans %}link.account.invite{% endtrans %}</a>
 
     {% if list %}
         {% for letter, entries in list %}
@@ -17,6 +13,7 @@
                 <span style="margin:0;font-size:1.6rem; color:#6c757d; font-weight:500">{{ letter }}</span>
             </div>
             {% for contact in entries %}
+                <a href="{{ path('profile_show', {uuid:contact.contact.uuid}) }}">
                 <div class="card border-dark card-thread">
                     <div class="card-header" style="height:64px;">
                         <p style="margin-left:64px;">{% if contact.contact.picture %}<img src="{{ asset(contact.contact.picture) }}"
@@ -24,6 +21,7 @@
                             {{ contact.createdOn|format_datetime('medium', 'none', locale='de') }}</p>
                     </div>
                 </div>
+                </a>
             {% endfor %}
         {% endfor %}
     {% else %}
