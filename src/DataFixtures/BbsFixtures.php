@@ -12,12 +12,10 @@
 namespace App\DataFixtures;
 
 use App\Entity\Base\User;
-use App\Entity\Bbs\Circle;
 use App\Entity\Bbs\Profile;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
 
 class BbsFixtures extends Fixture
 {

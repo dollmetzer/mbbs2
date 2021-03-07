@@ -12,13 +12,11 @@
 namespace App\Domain\Bbs;
 
 use App\Entity\Base\User;
-use App\Entity\Bbs\Circle;
 use App\Entity\Bbs\Contact as ContactEntity;
 use App\Entity\Bbs\Profile;
 use App\Events\Bbs\ContactAddedEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
-use Ramsey\Uuid\Uuid;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**

@@ -12,7 +12,6 @@
 namespace App\EventSubscriber;
 
 use App\Domain\Bbs\Contact;
-use App\Entity\Bbs\Circle;
 use App\Entity\Bbs\Profile;
 use App\Events\Base\AccountCreatedEvent;
 use Doctrine\ORM\EntityManagerInterface;
