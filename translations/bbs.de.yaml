@@ -7,6 +7,9 @@ btn:
   create_circle: Neuen Kreis erstellen
   removecircle: Von Kreis entfernen
   view: Ansehen
+  picture:
+    upload: Bild hochladen
+    delete: Bild löschen
 error: ~
 form:
   name: Name

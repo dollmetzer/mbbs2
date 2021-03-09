@@ -11,7 +11,9 @@
 
 namespace App\Controller\Bbs;
 
+use App\Domain\Bbs\ProfilePicture;
 use App\Entity\Bbs\Profile;
+use App\Exception\FileUploadException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -54,7 +56,7 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/profile/{uuid}", name="profile_show")
+     * @Route("/profile/show/{uuid}", name="profile_show")
      * @IsGranted("ROLE_USER")
      * @return Response
      */
@@ -90,6 +92,28 @@ class ProfileController extends AbstractController
         }
 
         return $this->render("bbs/profile/edit.html.twig", ['form' => $form->createView()]);
+    }
+
+    /**
+     * @Route("/profile/picture/upload", name="profile_picture_upload")
+     * @IsGranted("ROLE_USER")
+     * @return Response
+     */
+    public function pictureUploadAction(Request $request, ProfilePicture $profilePicture): Response
+    {
+        if (null !== $request->files->get('profilepicture')) {
+            $user = $this->getUser();
+            $repo = $this->getDoctrine()->getRepository(Profile::class);
+            $profile = $repo->findOneBy(['owner' => $user->getId()]);
+
+            try {
+                $profilePicture->processUpload($request->files->get('profilepicture'));
+            } catch(FileUploadException $e) {
+                $this->addFlash('error', $this->translator->trans($e->getMessage()));
+            }
+        }
+
+        return $this->redirectToRoute('profile_own');
     }
 
     protected function getProfileForm(Profile $profile): FormInterface

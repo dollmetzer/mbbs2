@@ -7,6 +7,9 @@ btn:
   create_circle: Create new circle
   removecircle: remove from circle
   view: View
+  picture:
+    upload: Upload Picture
+    delete: Delete Picture
 error: ~
 form:
   name: Name
