@@ -107,7 +107,10 @@ class ProfileController extends AbstractController
             $profile = $repo->findOneBy(['owner' => $user->getId()]);
 
             try {
-                $profilePicture->processUpload($request->files->get('profilepicture'));
+                $profilePicture->processUpload(
+                    $request->files->get('profilepicture'),
+                    '/var/www/mbbs2/public/img/profile/test.jpg'
+                );
             } catch(FileUploadException $e) {
                 $this->addFlash('error', $this->translator->trans($e->getMessage()));
             }

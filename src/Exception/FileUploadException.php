@@ -20,7 +20,9 @@ use Exception;
  */
 class FileUploadException extends Exception
 {
-    const UPLOAD_ERROR = 'File upload failed';
-    const UPLOAD_WRONG_MIME_TYPE = 'Wrong file type. Only JPG is allowed';
-    const UPLOAD_PROCESSING_ERROR = "File processing failed";
+    const ERROR_NO_FILE_SENT = 'No file sent';
+    const ERROR_FILESIZE_EXCEEDED = 'Filesize exceeded';
+    const ERROR_UNKNOWN = 'Unknown error';
+    const ERROR_WRONG_MIME_TYPE = 'Wrong file type. Only JPG is allowed';
+    const ERROR_PROCESSING_FAILED = "File processing failed";
 }
