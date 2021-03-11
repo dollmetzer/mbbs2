@@ -9,19 +9,15 @@
 
     <table class="table table-striped">
         <tr>
-            {% if profile.picture %}
-                <td colspan="2">
-                    <img src="{{ asset(profile.picture) }}" id="show-picture" style="width:100%;"/>
-                </td>
-            {% else %}
-                <form action="{{ path('profile_picture_upload') }}" id="pictureupload" enctype="multipart/form-data" method="post">
-                <input type="hidden" name="test" value="dingens" />
-                    <td colspan="2">
-                    <input type="file" name="profilepicture" id="filebutton" hidden onchange="document.getElementById('pictureupload').submit();" />
-                    <label for="filebutton" class="btn btn-primary"><i class="far fa-image"></i>&nbsp;{% trans %}btn.picture.upload{% endtrans %}</label>
-                </td>
-                </form>
+            <td colspan="2">
+            {% if pictureUrl %}
+                <img src="{{ pictureUrl }}" id="show-picture" /><br />&nbsp;
             {% endif %}
+            <form action="{{ path('profile_picture_upload') }}" id="pictureupload" enctype="multipart/form-data" method="post">
+                <input type="file" name="profilepicture" id="filebutton" hidden onchange="document.getElementById('pictureupload').submit();" />
+                <label for="filebutton" class="btn btn-primary"><i class="far fa-image"></i>&nbsp;{% trans %}btn.picture.upload{% endtrans %}</label>
+            </form>
+            </td>
         </tr>
         <tr>
             <td><strong>{% trans %}form.handle{% endtrans %}</strong></td>

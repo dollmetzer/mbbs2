@@ -86,16 +86,30 @@ class ProfilePicture
         $scaleHeight = $originalHeight / $maxHeight;
 
         if ($scaleWidth > $scaleHeight) {
+            // landscape
             $newHeight = $maxHeight;
-            $newWidth = round($originalWidth * ($maxHeight / $originalHeight));
+            $newWidth = $maxHeight;
+
+            $offsetWidth = ($originalWidth - $originalHeight) / 2;
+            $offsetHeight = 0;
+
+            $sourceWidth = $originalHeight;
+            $sourceHeight = $originalHeight;
         } else {
+            // portait
             $newWidth = $maxWidth;
-            $newHeight = round($originalHeight * ($maxHeight / $originalWidth));
+            $newHeight = $maxWidth;
+
+            $offsetWidth = 0;
+            $offsetHeight = ($originalHeight - $originalWidth) / 2;
+
+            $sourceWidth = $originalWidth;
+            $sourceHeight = $originalWidth;
         }
 
         $sourceImage = \imagecreatefromjpeg($file->getPathname());
         $targetImage = \imagecreatetruecolor($newWidth, $newHeight);
-        \imagecopyresampled($targetImage, $sourceImage, 0,0,0,0, $newWidth, $newHeight, $originalWidth, $originalHeight);
+        \imagecopyresampled($targetImage, $sourceImage, 0,0, $offsetWidth, $offsetHeight, $newWidth, $newHeight, $sourceWidth, $sourceHeight);
 
         if (false === \imagejpeg($targetImage, $targetFile)) {
             throw new FileUploadException(FileUploadException::ERROR_PROCESSING_FAILED);

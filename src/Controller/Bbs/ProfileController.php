@@ -11,11 +11,13 @@
 
 namespace App\Controller\Bbs;
 
+use Symfony\Component\Asset\Package;
 use App\Domain\Bbs\ProfilePicture;
 use App\Entity\Bbs\Profile;
 use App\Exception\FileUploadException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -52,7 +54,14 @@ class ProfileController extends AbstractController
         $user = $this->getUser();
         $repo = $this->getDoctrine()->getRepository(Profile::class);
         $profile = $repo->findOneBy(['owner' => $user->getId()]);
-        return $this->render("bbs/profile/showown.html.twig", ['profile' => $profile]);
+
+        return $this->render(
+            "bbs/profile/showown.html.twig",
+            [
+                'profile' => $profile,
+                'pictureUrl' => $this->getPictureURL($profile)
+            ]
+        );
     }
 
     /**
@@ -107,9 +116,15 @@ class ProfileController extends AbstractController
             $profile = $repo->findOneBy(['owner' => $user->getId()]);
 
             try {
+                /*
                 $profilePicture->processUpload(
                     $request->files->get('profilepicture'),
-                    '/var/www/mbbs2/public/img/profile/test.jpg'
+                    '/var/www/mbbs2/public/img/profile/' . $profile->getUuid() . '.jpg'
+                );
+                */
+                $profilePicture->processUpload(
+                    $request->files->get('profilepicture'),
+                    $this->getPicturePath($profile->getUuid())
                 );
             } catch(FileUploadException $e) {
                 $this->addFlash('error', $this->translator->trans($e->getMessage()));
@@ -161,6 +176,19 @@ class ProfileController extends AbstractController
                 ['choices' => $zodiacSigns]
             )->add('send', SubmitType::class)
             ->getForm();
+    }
 
+    protected function getPictureURL(Profile $profile): string
+    {
+        if (empty($this->getPicturePath($profile))) {
+            return '';
+        }
+        $package = new Package(new EmptyVersionStrategy());
+        return $package->getUrl('img/profile/' . $profile->getUuid() . '.jpg');
+    }
+
+    protected function getPicturePath(Profile $profile): string
+    {
+        return realpath(__DIR__ . '/../../../public/img/profile/' . $profile->getUuid() . '.jpg');
     }
 }
