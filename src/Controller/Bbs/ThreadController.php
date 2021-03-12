@@ -11,6 +11,7 @@
 
 namespace App\Controller\Bbs;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,6 +25,7 @@ class ThreadController extends AbstractController
 {
     /**
      * @Route("/thread/list", name="bbs_thread_list")
+     * @IsGranted("ROLE_USER")
      */
     public function listAction(): Response
     {

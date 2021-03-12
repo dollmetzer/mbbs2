@@ -29,7 +29,10 @@ class IndexController extends AbstractController
      */
     public function indexAction(): Response
     {
-        return $this->render("index/index.html.twig");
+        if ($this->getUser()) {
+            return $this->redirectToRoute('bbs_thread_list');
+        }
+        return $this->redirectToRoute('account_login');
     }
 
     /**

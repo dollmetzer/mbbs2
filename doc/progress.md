@@ -1,5 +1,6 @@
 Progress
 ========
+* 2021-03-12 Profile picture upload. Added Index page switch.
 * 2021-03-09 Started profile picture upload 
 * 2021-03-07 Profile Page and Form
 * 2021-03-03 Create new Profile on Add Contact Bug removed. Added Raw Own Profile Page 

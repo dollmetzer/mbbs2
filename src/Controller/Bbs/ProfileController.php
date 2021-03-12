@@ -59,7 +59,6 @@ class ProfileController extends AbstractController
             "bbs/profile/showown.html.twig",
             [
                 'profile' => $profile,
-                'pictureUrl' => $this->getPictureURL($profile)
             ]
         );
     }
@@ -116,16 +115,14 @@ class ProfileController extends AbstractController
             $profile = $repo->findOneBy(['owner' => $user->getId()]);
 
             try {
-                /*
                 $profilePicture->processUpload(
                     $request->files->get('profilepicture'),
-                    '/var/www/mbbs2/public/img/profile/' . $profile->getUuid() . '.jpg'
+                    $this->getPicturePath($profile)
                 );
-                */
-                $profilePicture->processUpload(
-                    $request->files->get('profilepicture'),
-                    $this->getPicturePath($profile->getUuid())
-                );
+                $profile->setPicture('img/profile/' . $profile->getUuid() . '.jpg');
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($profile);
+                $em->flush();
             } catch(FileUploadException $e) {
                 $this->addFlash('error', $this->translator->trans($e->getMessage()));
             }
@@ -176,15 +173,6 @@ class ProfileController extends AbstractController
                 ['choices' => $zodiacSigns]
             )->add('send', SubmitType::class)
             ->getForm();
-    }
-
-    protected function getPictureURL(Profile $profile): string
-    {
-        if (empty($this->getPicturePath($profile))) {
-            return '';
-        }
-        $package = new Package(new EmptyVersionStrategy());
-        return $package->getUrl('img/profile/' . $profile->getUuid() . '.jpg');
     }
 
     protected function getPicturePath(Profile $profile): string

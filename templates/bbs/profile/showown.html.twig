@@ -10,8 +10,8 @@
     <table class="table table-striped">
         <tr>
             <td colspan="2">
-            {% if pictureUrl %}
-                <img src="{{ pictureUrl }}" id="show-picture" /><br />&nbsp;
+            {% if profile.picture %}
+                <img src="{{ asset(profile.picture) }}" id="show-picture" /><br />&nbsp;
             {% endif %}
             <form action="{{ path('profile_picture_upload') }}" id="pictureupload" enctype="multipart/form-data" method="post">
                 <input type="file" name="profilepicture" id="filebutton" hidden onchange="document.getElementById('pictureupload').submit();" />
