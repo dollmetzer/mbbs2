@@ -5,6 +5,8 @@
 {% block title %}{% trans %}title.chats{% endtrans %}{% endblock %}
 
 {% block body %}
+<a href="{{ path('message_create_thread') }}" class="btn btn-primary"><i class="fas fa-pencil-alt"></i>&nbsp;{% trans %}link.message.create{% endtrans %}</a><br />&nbsp;
+
 {% for thread in threads %}
 <div class="card border-dark card-thread">
     <div class="card-header" style="height:64px;">

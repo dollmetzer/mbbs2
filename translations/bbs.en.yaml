@@ -34,6 +34,8 @@ link:
   discussion: Discussions
   account:
     invite: Invite
+  message:
+    create: Write new Message
 message:
   nocontacts: You don't have contacts
   emptycircle: No circles found

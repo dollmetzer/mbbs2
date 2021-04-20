@@ -16,18 +16,18 @@ use Symfony\Component\Routing\Annotation\Route;
 class MessageController
 {
     /**
-     * @Route("/message/mail/list", name="message_mail_list")
+     * @Route("/message/new", name="message_create_thread")
      */
-    public function mailListAction()
+    public function createThreadAction(): void
     {
-        die('mailListAction');
+        die("message_create_thread");
     }
 
     /**
-     * @Route("/message/discussion/list", name="message_discussion_list")
+     * @Route("/message/new/{thread_id}", name="message_create_message")
      */
-    public function discussionListAction()
+    public function createMessageAction(string $thread_id): void
     {
-        die('discussionListAction');
+        die("message_create_thread $thread_id");
     }
 }

@@ -34,6 +34,8 @@ link:
   discussion: Diskussion
   account:
     invite: Einladen
+  message:
+    create: Neue Nachricht schreiben
 message:
   nocontacts: Sie haben keine Kontakte
   emptycircle: Keine Kreise vorhanden

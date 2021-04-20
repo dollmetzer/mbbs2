@@ -42,7 +42,7 @@ class ProfilePicture
         $this->logger = $logger;
     }
 
-    public function processUpload(UploadedFile $file, string $targetFile, int $maxWidth = 256, int $maxHeight = 256)
+    public function processUpload(UploadedFile $file, string $targetFile, int $maxWidth = 256, int $maxHeight = 256): void
     {
         $this->maxWidth = $maxWidth;
         $this->maxHeight = $maxHeight;
@@ -53,14 +53,14 @@ class ProfilePicture
         $this->getResizedPicture($file, $targetFile, $maxWidth, $maxHeight);
     }
 
-    protected function checkMimeType(UploadedFile $file)
+    protected function checkMimeType(UploadedFile $file): void
     {
         if ($file->getMimeType() !== 'image/jpeg') {
             throw new FileUploadException(FileUploadException::ERROR_WRONG_MIME_TYPE);
         }
     }
 
-    protected function checkError(UploadedFile $file)
+    protected function checkError(UploadedFile $file): void
     {
         switch ($file->getError()) {
             case UPLOAD_ERR_OK:
@@ -75,7 +75,7 @@ class ProfilePicture
         }
     }
 
-    protected function getResizedPicture(UploadedFile $file, string $targetFile, int $maxWidth, int $maxHeight)
+    protected function getResizedPicture(UploadedFile $file, string $targetFile, int $maxWidth, int $maxHeight): void
     {
         $size = getimagesize($file->getPathname());
 
