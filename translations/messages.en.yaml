@@ -119,6 +119,7 @@ item:
     stuff: Stuff
 workflow:
   btn:
+    export: Export all workflows
     newworkflow: Create new Workflow
     newstate: Create new State
     newtransition: Create new transition
@@ -157,7 +158,9 @@ workflow:
     imageprocessing:
       sent: The fotos are sent to the image processing.
       fetched: The edited images are returned from the image processing.
+    export: "Possible combination: Export a flexible workflow as config.yaml file for the Symfony workflow component."
   title:
     workflow: Workflows
     state: States
     transition: Transitions
+    export: Export workflow as config.yaml

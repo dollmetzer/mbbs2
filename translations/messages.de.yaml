@@ -119,6 +119,7 @@ item:
     stuff: Zeug
 workflow:
   btn:
+    export: Alle Workflows exportieren
     newworkflow: Neuen Workflow anlegen
     newstate: Neuen Zustand anlegen
     newtransition: Neuen Übergang anlegen
@@ -157,7 +158,9 @@ workflow:
     imageprocessing:
       sent: Die Fotos wurden zur Bildverarbeitung übertragen.
       fetched: Die bearbeiteten Fotos wurden von der Bildverarbeitung geliefert.
+    export: "Mögliche Kombination: flexibler Workflow kann nach Änderung als config.yaml für Symfony Workflow exportiert werden."
   title:
     workflow: Workflows
     state: Zustände
     transition: Übergänge
+    export: Workflow als config.yaml exportieren

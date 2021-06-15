@@ -13,6 +13,7 @@ namespace App\Controller;
 
 use App\Entity\Workflow;
 use App\Form\Type\AdminWorkflowType;
+use App\Workflow\Exporter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,12 +35,19 @@ class AdminWorkflowController extends AbstractController
     private $translator;
 
     /**
+     * @var Exporter
+     */
+    private $exporter;
+
+    /**
      * AdminWorkflowController constructor.
      * @param TranslatorInterface $translator
+     * @param Exporter $exporter
      */
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(TranslatorInterface $translator, Exporter $exporter)
     {
         $this->translator = $translator;
+        $this->exporter = $exporter;
     }
 
     /**
@@ -131,5 +139,17 @@ class AdminWorkflowController extends AbstractController
     public function workflowDeleteAction(int $id): void
     {
         die('no delete yet');
+    }
+
+    /**
+     * @Route("workflow/export", name="admin_workflow_export")
+     */
+    public function workflowExportAction(): Response
+    {
+        $config = $this->exporter->export();
+
+        return $this->render('admin/workflow/export.html.twig' , [
+            'config' => $config,
+        ]);
     }
 }
