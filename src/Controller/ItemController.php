@@ -46,12 +46,12 @@ class ItemController extends AbstractController
 
     /**
      * @Route("/item/list", name="item_list")
-     * @param WorkflowInterface $fotoPublishingStateMachine
+     * @param WorkflowInterface $photoPublishingStateMachine
      * @return Response
      */
-    public function itemListAction(WorkflowInterface $fotoPublishingStateMachine): Response
+    public function itemListAction(WorkflowInterface $photoPublishingStateMachine): Response
     {
-        $places = $fotoPublishingStateMachine->getDefinition()->getPlaces();
+        $places = $photoPublishingStateMachine->getDefinition()->getPlaces();
         $repository = $this->getDoctrine()->getRepository(Item::class);
         $items = $repository->findAll();
         return $this->render(
@@ -66,13 +66,13 @@ class ItemController extends AbstractController
 
     /**
      * @Route("/item/list/{place}", name="item_filtered_list")
-     * @param WorkflowInterface $fotoPublishingStateMachine
+     * @param WorkflowInterface $photoPublishingStateMachine
      * @param string $place
      * @return Response
      */
-    public function itemFilteredListAction(WorkflowInterface $fotoPublishingStateMachine, string $place): Response
+    public function itemFilteredListAction(WorkflowInterface $photoPublishingStateMachine, string $place): Response
     {
-        $places = $fotoPublishingStateMachine->getDefinition()->getPlaces();
+        $places = $photoPublishingStateMachine->getDefinition()->getPlaces();
         if(!in_array($place, $places)) {
             $this->addFlash('error', $this->translator->trans('workflow.message.unknownstate'));
             return $this->redirect($this->generateUrl('item_list'));
@@ -91,11 +91,11 @@ class ItemController extends AbstractController
 
     /**
      * @Route("/item/create", name="item_create")
-     * @param WorkflowInterface $fotoPublishingStateMachine
+     * @param WorkflowInterface $photoPublishingStateMachine
      * @param Request $request
      * @return Response
      */
-    public function itemCreateAction(WorkflowInterface $fotoPublishingStateMachine, Request $request): Response
+    public function itemCreateAction(WorkflowInterface $photoPublishingStateMachine, Request $request): Response
     {
         $item = new Item();
 
@@ -104,7 +104,7 @@ class ItemController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $item = $form->getData();
 
-            $initialPlace = $fotoPublishingStateMachine->getDefinition()->getInitialPlaces();
+            $initialPlace = $photoPublishingStateMachine->getDefinition()->getInitialPlaces();
             $item->setMarking($initialPlace[0]);
 
             $entityManager = $this->getDoctrine()->getManager();
@@ -132,16 +132,16 @@ class ItemController extends AbstractController
 
     /**
      * @Route("/item/transfer/{id}/{transition}", name="item_transfer")
-     * @param WorkflowInterface $fotoPublishingStateMachine
+     * @param WorkflowInterface $photoPublishingStateMachine
      * @param Request $request
      * @param Item $item
      * @param string $transition
      * @return string
      */
-    public function itemTransferAction(WorkflowInterface $fotoPublishingStateMachine, Request $request, Item $item, string $transition)
+    public function itemTransferAction(WorkflowInterface $photoPublishingStateMachine, Request $request, Item $item, string $transition)
     {
         try {
-            $fotoPublishingStateMachine->apply($item, $transition);
+            $photoPublishingStateMachine->apply($item, $transition);
             $this->getDoctrine()->getManager()->flush();
         } catch (ExceptionInterface $e) {
             //@todo ...

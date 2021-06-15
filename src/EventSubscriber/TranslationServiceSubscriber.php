@@ -62,8 +62,8 @@ class TranslationServiceSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            'workflow.foto_publishing.enter.QA' => 'onEnter',
-            'workflow.foto_publishing.leave.Vorbereitung' => 'onLeave',
+            'workflow.photo_publishing.enter.QA' => 'onEnter',
+            'workflow.photo_publishing.leave.Styling' => 'onLeave',
         ];
     }
 

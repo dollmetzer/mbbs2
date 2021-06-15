@@ -202,6 +202,6 @@ class StuffController extends AbstractController
     private function getWorkflow(): Workflow
     {
         $workflowRepository = $this->getDoctrine()->getRepository(Workflow::class);
-        return $workflowRepository->findOneBy(['name' => 'Foto Publishing']);
+        return $workflowRepository->findOneBy(['name' => 'Photo Publishing']);
     }
 }

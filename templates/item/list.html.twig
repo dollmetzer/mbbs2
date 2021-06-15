@@ -9,11 +9,18 @@
     <p>{% trans %}item.message.itemintro{% endtrans %}</p>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item{% if place is empty %} active{% endif %}"><a
-                        href="{{ path('item_list') }}">{% trans %}base.link.all{% endtrans %}</a></li>
+            {% if place is empty %}
+                <li class="breadcrumb-item active">{% trans %}base.link.all{% endtrans %}</li>
+            {% else %}
+                <li class="breadcrumb-item"><a href="{{ path('item_list') }}">{% trans %}base.link.all{% endtrans %}</a></li>
+            {% endif %}
+
             {% for item in places %}
-                <li class="breadcrumb-item{% if place == item %} active{% endif %}"><a
-                            href="{{ path('item_filtered_list', {place: item}) }}">{{ item }}</a></li>
+                {% if place == item %}
+                    <li class="breadcrumb-item active">{{ item }}</li>
+                {% else %}
+                    <li class="breadcrumb-item"><a href="{{ path('item_filtered_list', {place: item}) }}">{{ item }}</a></li>
+                {% endif %}
             {% endfor %}
         </ol>
     </nav>

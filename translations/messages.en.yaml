@@ -152,8 +152,8 @@ workflow:
     failedassignroletotransition: Failed assign role to transition.
     faileddetachrolefromtransition: Failed detach role from transition.
     translation:
-      sent: The original tests are sent to the translation service.
-      fetched: The translated texts are returned from the translation service.
+      sent: The original product texts are sent to the translation service.
+      fetched: The translated product texts are returned from the translation service.
     imageprocessing:
       sent: The fotos are sent to the image processing.
       fetched: The edited images are returned from the image processing.

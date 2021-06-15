@@ -55,11 +55,11 @@ class WorkflowFixture extends Fixture
         $roleContent->setTimestamps();
         $manager->persist($roleContent);
 
-        $roleFoto = new Role();
-        $roleFoto->setIsProtected(true);
-        $roleFoto->setName('ROLE_FOTO');
-        $roleFoto->setTimestamps();
-        $manager->persist($roleFoto);
+        $rolePhoto = new Role();
+        $rolePhoto->setIsProtected(true);
+        $rolePhoto->setName('ROLE_PHOTO');
+        $rolePhoto->setTimestamps();
+        $manager->persist($rolePhoto);
 
         $roleQA = new Role();
         $roleQA->setIsProtected(true);
@@ -75,10 +75,9 @@ class WorkflowFixture extends Fixture
             $userFoto,
             'Foto2020!'
         ));
-        $userFoto->setLocale('de');
+        $userFoto->setLocale('en');
         $userFoto->setTimestamps();
-        $userFoto->addRole($roleContent);
-        $userFoto->addRole($roleFoto);
+        $userFoto->addRole($rolePhoto);
         $userFoto->setIsActive(true);
         $manager->persist($userFoto);
 
@@ -88,7 +87,7 @@ class WorkflowFixture extends Fixture
             $userContent,
             'Content2020!'
         ));
-        $userContent->setLocale('de');
+        $userContent->setLocale('en');
         $userContent->setTimestamps();
         $userContent->addRole($roleContent);
         $userContent->addRole($roleQA);
@@ -98,7 +97,7 @@ class WorkflowFixture extends Fixture
 
         // WORKFLOW
         $workflow = new Workflow();
-        $workflow->setName('Foto Publishing');
+        $workflow->setName('Photo Publishing');
         $workflow->setTimestamps();
         $manager->persist($workflow);
         $manager->flush();
@@ -110,15 +109,15 @@ class WorkflowFixture extends Fixture
                 'on_enter' => '',
                 'on_leave' => '',
             ],
-            'Vorbereitung' => [
+            'Styling' => [
                 'on_enter' => '',
                 'on_leave' => 'App\Transition\TranslationService:sendOriginalTexts',
             ],
-            'Foto' => [
+            'Photo' => [
                 'on_enter' => '',
                 'on_leave' => 'App\Transition\ImageProcessing',
             ],
-            'Retusche' => [
+            'Retouching' => [
                 'on_enter' => 'App\Transition\ImageProcessing',
                 'on_leave' => '',
             ],
@@ -158,34 +157,34 @@ class WorkflowFixture extends Fixture
 
         // TRANSITIONS
         $transitionsData = [
-            'angeliefert' => [
+            'delivered' => [
                 'from' => 'Avise',
-                'to' => 'Vorbereitung',
+                'to' => 'Styling',
                 'role' => 'ROLE_CONTENT'
             ],
-            'gestylt' => [
-                'from' => 'Vorbereitung',
-                'to' => 'Foto',
+            'styled' => [
+                'from' => 'Styling',
+                'to' => 'Photo',
                 'role' => 'ROLE_CONTENT'
             ],
-            'fotografiert' => [
-                'from' => 'Foto',
-                'to' => 'Retusche',
-                'role' => 'ROLE_FOTO'
+            'photographed' => [
+                'from' => 'Photo',
+                'to' => 'Retouching',
+                'role' => 'ROLE_PHOTO'
             ],
-            'retuschiert' => [
-                'from' => 'Retusche',
+            'retouched' => [
+                'from' => 'Retouching',
                 'to' => 'QA',
-                'role' => 'ROLE_FOTO'
+                'role' => 'ROLE_PHOTO'
             ],
-            'akzeptiert' => [
+            'accepted' => [
                 'from' => 'QA',
                 'to' => 'Published',
                 'role' => 'ROLE_QA'
             ],
-            'zurückgewiesen' => [
+            'rejected' => [
                 'from' => 'QA',
-                'to' => 'Foto',
+                'to' => 'Photo',
                 'role' => 'ROLE_QA'
             ]
         ];
@@ -198,8 +197,8 @@ class WorkflowFixture extends Fixture
             $transition->setToState($states[$targets['to']]);
             if($targets['role'] == 'ROLE_CONTENT') {
                 $transition->addRole($roleContent);
-            } else if($targets['role'] == 'ROLE_FOTO') {
-                $transition->addRole($roleFoto);
+            } else if($targets['role'] == 'ROLE_PHOTO') {
+                $transition->addRole($rolePhoto);
             } elseif($targets['role'] == 'ROLE_QA') {
                 $transition->addRole($roleQA);
             }

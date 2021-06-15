@@ -1,6 +1,6 @@
 framework:
     workflows:
-        foto_publishing:
+        photo_publishing:
             type: 'state_machine'
             audit_trail:
                 enabled: true
@@ -11,33 +11,33 @@ framework:
             initial_marking: Avise
             places:
                 - Avise
-                - Vorbereitung
-                - Foto
-                - Retusche
+                - Styling
+                - Photo
+                - Retouching
                 - QA
                 - Published
             transitions:
-                angeliefert:
+                delivered:
                     guard: "is_granted('ROLE_CONTENT')"
                     from: Avise
-                    to: Vorbereitung
-                gestylt:
+                    to: Styling
+                styled:
                     guard: "is_granted('ROLE_CONTENT')"
-                    from: Vorbereitung
-                    to: Foto
-                fotografiert:
-                    guard: "is_granted('ROLE_FOTO')"
-                    from: Foto
-                    to: Retusche
-                retuschiert:
-                    guard: "is_granted('ROLE_FOTO')"
-                    from: Retusche
+                    from: Styling
+                    to: Photo
+                photographed:
+                    guard: "is_granted('ROLE_PHOTO')"
+                    from: Photo
+                    to: Retouching
+                retouched:
+                    guard: "is_granted('ROLE_PHOTO')"
+                    from: Retouching
                     to: QA
-                akzeptiert:
+                accepted:
                     guard: "is_granted('ROLE_QA')"
                     from: QA
                     to: Published
-                zurückgewiesen:
+                rejected:
                     guard: "is_granted('ROLE_QA')"
                     from: QA
-                    to: Foto
+                    to: Photo

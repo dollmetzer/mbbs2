@@ -62,8 +62,8 @@ class ImageProcessingSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            'workflow.foto_publishing.enter.Retusche' => 'onEnter',
-            'workflow.foto_publishing.leave.Foto' => 'onLeave',
+            'workflow.photo_publishing.enter.Retouching' => 'onEnter',
+            'workflow.photo_publishing.leave.Photo' => 'onLeave',
         ];
     }
 

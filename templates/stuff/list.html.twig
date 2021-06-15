@@ -9,15 +9,20 @@
     <p>{% trans %}item.message.stuffintro{% endtrans %}</p>
     <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-    <li class="breadcrumb-item{% if place is empty %} active{% endif %}"><a
-                href="{{ path('stuff_list') }}">{% trans %}base.link.all{% endtrans %}</a></li>
+        {% if place is empty %}
+            <li class="breadcrumb-item active">{% trans %}base.link.all{% endtrans %}</li>
+        {% else %}
+            <li class="breadcrumb-item"><a href="{{ path('stuff_list') }}">{% trans %}base.link.all{% endtrans %}</a></li>
+        {% endif %}
         {% for item in workflow.getStates %}
-            <li class="breadcrumb-item{% if place == item.name %} active{% endif %}"><a
-                        href="{{ path('stuff_filtered_list', {place: item.name}) }}">{{ item.name }}</a></li>
+            {% if place == item.name %}
+                <li class="breadcrumb-item active">{{ item.name }}</li>
+            {% else %}
+                <li class="breadcrumb-item"><a href="{{ path('stuff_filtered_list', {place: item.name}) }}">{{ item.name }}</a></li>
+            {% endif %}
         {% endfor %}
     </ol>
     </nav>
-
 
     <table class="table table-hover">
         <thead class="thead-dark">
