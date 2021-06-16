@@ -41,7 +41,7 @@ class Exporter
         $this->logger = $logger;
     }
 
-    public function export()
+    public function export(): string
     {
         $workflowRepository = $this->entityManager->getRepository(Workflow::class);
         $workflows = $workflowRepository->findAll();
@@ -49,7 +49,7 @@ class Exporter
         foreach ($workflows as $workflow) {
             $config .= "\t\t" . $workflow->getName() . "\n";
 
-            $config .= "\t\t\ttype: 'state_machine'\n";
+            $config .= "\t\t\ttype: '" . $workflow->getType() . "'\n";
 
             $config .= "\t\t\taudit_trail:\n\t\t\t\tenabled: ";
             if (true === $workflow->isAuditTrail()) {

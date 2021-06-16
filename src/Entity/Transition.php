@@ -59,7 +59,7 @@ class Transition
     /**
      * Access allowed for Roles
      *
-     * @ManyToMany(targetEntity="Role", inversedBy="transition")
+     * @ManyToMany(targetEntity="Role")
      * @JoinTable(name="transition_2_role",
      *      joinColumns={@ORM\JoinColumn(name="transition_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
@@ -84,9 +84,9 @@ class Transition
     }
 
     /**
-     * @return int
+     * @return null|int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
