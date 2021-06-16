@@ -29,7 +29,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * Class StuffController
  *
- * @IsGranted("ROLE_CONTENT")
+ * @IsGranted("ROLE_WORKFLOW")
  * @package App\Controller
  */
 class StuffController extends AbstractController

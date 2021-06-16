@@ -12,7 +12,7 @@
             </li>
         {% endif %}
 
-        {% if is_granted('ROLE_CONTENT') %}
+        {% if is_granted('ROLE_WORKFLOW') %}
         <li class="nav-item{% if nav_top == 'item' %} active{% endif %}">
             <a class="nav-link" href="{{ path('item_list') }}"><i class="fas fa-boxes"></i> {% trans %}item.link.items{% endtrans %}</a>
         </li>
@@ -20,7 +20,6 @@
             <a class="nav-link" href="{{ path('stuff_list') }}"><i class="fas fa-boxes"></i> {% trans %}item.link.stuff{% endtrans %}</a>
         </li>
         {% endif %}
-
 
         {% if feature_invitation %}
         <li class="nav-item">

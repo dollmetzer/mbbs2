@@ -13,8 +13,10 @@ namespace App\DataFixtures;
 
 use App\Entity\Role;
 use App\Entity\State;
+use App\Entity\Stuff;
 use App\Entity\Transition;
 use App\Entity\User;
+use App\Entity\Item;
 use App\Entity\Workflow;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -49,6 +51,12 @@ class WorkflowFixture extends Fixture
     public function load(ObjectManager $manager): void
     {
         // ROLES
+        $roleWorkflow = new Role();
+        $roleWorkflow->setIsProtected(true);
+        $roleWorkflow->setName('ROLE_WORKFLOW');
+        $roleWorkflow->setTimestamps();
+        $manager->persist($roleWorkflow);
+
         $roleContent = new Role();
         $roleContent->setIsProtected(true);
         $roleContent->setName('ROLE_CONTENT');
@@ -78,6 +86,7 @@ class WorkflowFixture extends Fixture
         $userFoto->setLocale('en');
         $userFoto->setTimestamps();
         $userFoto->addRole($rolePhoto);
+        $userFoto->addRole($roleWorkflow);
         $userFoto->setIsActive(true);
         $manager->persist($userFoto);
 
@@ -91,6 +100,7 @@ class WorkflowFixture extends Fixture
         $userContent->setTimestamps();
         $userContent->addRole($roleContent);
         $userContent->addRole($roleQA);
+        $userContent->addRole($roleWorkflow);
         $userContent->setIsActive(true);
         $manager->persist($userContent);
 
@@ -205,5 +215,48 @@ class WorkflowFixture extends Fixture
             $manager->persist($transition);
             $manager->flush();
         }
+
+        // items
+        $item_1 = new Item();
+        $item_1->setName('T-Shirt black');
+        $item_1->setIdentifier('ptb-001');
+        $item_1->setMarking('Avise');
+        $manager->persist($item_1);
+
+        $item_2 = new Item();
+        $item_2->setName('Jeans, blue');
+        $item_2->setIdentifier('jb-001');
+        $item_2->setMarking('Avise');
+        $manager->persist($item_2);
+
+        $item_3 = new Item();
+        $item_3->setName('Socks, white');
+        $item_3->setIdentifier('sw-001');
+        $item_3->setMarking('Avise');
+        $manager->persist($item_3);
+
+        // stuff
+        $stuff_1 = new Stuff();
+        $stuff_1->setName('T-Shirt black');
+        $stuff_1->setIdentifier('ptb-001');
+        $stuff_1->setState($initialState);
+        $stuff_1->setWorkflow($workflow);
+        $manager->persist($stuff_1);
+
+        $stuff_2 = new Stuff();
+        $stuff_2->setName('Jeans, blue');
+        $stuff_2->setIdentifier('jb-001');
+        $stuff_2->setState($initialState);
+        $stuff_2->setWorkflow($workflow);
+        $manager->persist($stuff_2);
+
+        $stuff_3 = new Stuff();
+        $stuff_3->setName('Socks, white');
+        $stuff_3->setIdentifier('sw-001');
+        $stuff_3->setState($initialState);
+        $stuff_3->setWorkflow($workflow);
+        $manager->persist($stuff_3);
+
+        $manager->flush();
     }
 }

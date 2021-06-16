@@ -25,7 +25,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * Class ItemController
  *
- * @IsGranted("ROLE_CONTENT")
+ * @IsGranted("ROLE_WORKFLOW")
  * @package App\Controller
  */
 class ItemController extends AbstractController
