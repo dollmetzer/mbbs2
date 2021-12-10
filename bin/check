@@ -7,7 +7,7 @@ printf "\nCheck projects code quality\n===========================\n"
 
 
 printf "\n\nChecking composer file\n----------------------\n"
-composer validate --strict
+  composer validate --strict
 
 
 printf "\n\nChecking platform requirements\n------------------------------\n"
@@ -42,6 +42,10 @@ vendor/phpmd/phpmd/src/bin/phpmd src/ text phpmd_ruleset.xml
 
 printf "\n\nStatic Analyzer\n---------------\n"
 vendor/bin/phpstan analyse --configuration=phpstan-sf.neon
+
+
+printf "\n\nCode Style Check\n---------------\n"
+vendor/bin/php-cs-fixer fix --diff --dry-run --config=.php-cs-fixer.dist.php src tests
 
 
 printf "\nUnit Tests\n----------\n"

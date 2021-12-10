@@ -50,6 +50,5 @@ class IndexControllerTest extends WebTestCase
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
         $this->assertEquals('/', $client->getResponse()->headers->get('Location'));
         $this->assertEquals(null, $client->getRequest()->getSession()->get('_locale'));
-
     }
 }

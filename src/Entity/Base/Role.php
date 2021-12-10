@@ -55,7 +55,8 @@ class Role
      */
     private $users;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->users = new ArrayCollection();
     }
 
@@ -113,8 +114,10 @@ class Role
      */
     public function addUser(User $user): self
     {
-        foreach($this->users->getValues() as $associated) {
-            if ($associated === $user) return $this;
+        foreach ($this->users->getValues() as $associated) {
+            if ($associated === $user) {
+                return $this;
+            }
         }
         $this->users->add($user);
         return $this;
@@ -126,7 +129,7 @@ class Role
      */
     public function removeUser(User $user): self
     {
-        foreach($this->users->getValues() as $associated) {
+        foreach ($this->users->getValues() as $associated) {
             if ($associated === $user) {
                 $this->users->remove($user);
             }

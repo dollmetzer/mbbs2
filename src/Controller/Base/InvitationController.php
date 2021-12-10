@@ -76,8 +76,7 @@ class InvitationController extends AbstractController
         TranslatorInterface $translator,
         EntityManagerInterface $entityManager,
         LoggerInterface $logger
-    )
-    {
+    ) {
         $this->session = $session;
         $this->logger = $logger;
         $this->translator = $translator;
@@ -130,7 +129,7 @@ class InvitationController extends AbstractController
 
         if (null === $invitation) {
             while (null === $invitation) {
-                $invitationCode = substr(md5(random_bytes(16)),0,16);
+                $invitationCode = substr(md5(random_bytes(16)), 0, 16);
                 echo "$invitationCode\n";
                 $invitation = $repo->findBy(['code' => $invitationCode]);
             }
@@ -165,7 +164,7 @@ class InvitationController extends AbstractController
 
             try {
                 $invitation = $this->getInvitation($code);
-            } catch(Exception $e) {
+            } catch (Exception $e) {
                 $this->logger->info($e->getMessage());
                 $this->addFlash('error', $this->translator->trans($e->getMessage(), [], 'base'));
                 return $this->redirectToRoute('account_invitation');
@@ -191,7 +190,7 @@ class InvitationController extends AbstractController
     {
         try {
             $invitation = $this->getInvitation($code);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             $this->logger->info($e->getMessage());
             $this->addFlash('error', $this->translator->trans($e->getMessage(), [], 'base'));
             return $this->redirectToRoute('account_invitation');
@@ -318,7 +317,7 @@ class InvitationController extends AbstractController
     private function getAccountForm(array $locales, array $defaultData): FormInterface
     {
         $choices = [];
-        foreach($locales as $item) {
+        foreach ($locales as $item) {
             $choices[$item] = $item;
         }
 
@@ -365,16 +364,17 @@ class InvitationController extends AbstractController
      * @return Invitation|object
      * @throws Exception
      */
-    private function getInvitation(string $code) {
+    private function getInvitation(string $code)
+    {
         $repo = $this->entityManager->getRepository(Invitation::class);
         $invitation = $repo->findOneBy(['code' => $code]);
 
-        if(!$invitation) {
+        if (!$invitation) {
             throw new Exception('error.invitation.invalid');
         }
 
         $now = new DateTimeImmutable('now');
-        if($now > $invitation->getExpiration()) {
+        if ($now > $invitation->getExpiration()) {
             throw new Exception('error.invitation.invalid');
         }
         return $invitation;

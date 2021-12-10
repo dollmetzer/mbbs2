@@ -66,8 +66,7 @@ class AccountController extends AbstractController
         TranslatorInterface $translator,
         EntityManagerInterface $entityManager,
         SessionInterface $session
-    )
-    {
+    ) {
         $this->translator = $translator;
         $this->passwordEncoder = $passwordEncoder;
         $this->session = $session;
@@ -184,7 +183,7 @@ class AccountController extends AbstractController
     private function getAccountForm(array $locales, array $defaultData): FormInterface
     {
         $choices = [];
-        foreach($locales as $item) {
+        foreach ($locales as $item) {
             $choices[$item] = $item;
         }
 

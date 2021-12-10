@@ -185,7 +185,7 @@ class User implements UserInterface
     public function getRoles(): array
     {
         $roles = ['ROLE_USER'];
-        foreach($this->roles->getValues() as $role) {
+        foreach ($this->roles->getValues() as $role) {
             $roles[] = $role->getName();
         }
         return $roles;
@@ -205,8 +205,10 @@ class User implements UserInterface
      */
     public function addRole(Role $role): self
     {
-        foreach($this->roles->getValues() as $associated) {
-            if ($associated === $role) return $this;
+        foreach ($this->roles->getValues() as $associated) {
+            if ($associated === $role) {
+                return $this;
+            }
         }
         $this->roles->add($role);
         return $this;
@@ -218,7 +220,7 @@ class User implements UserInterface
      */
     public function removeRole(Role $role): self
     {
-        foreach($this->roles->getValues() as $associated) {
+        foreach ($this->roles->getValues() as $associated) {
             if ($associated === $role) {
                 $this->roles->removeElement($role);
             }
