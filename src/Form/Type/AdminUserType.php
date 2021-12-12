@@ -5,7 +5,7 @@
  * A small BBS package for mobile use
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
- * @copyright (c) 2014-2020, Dirk Ollmetzer
+ * @copyright (c) 2014-2022, Dirk Ollmetzer
  * @license GNU GENERAL PUBLIC LICENSE Version 3
  */
 
@@ -47,20 +47,20 @@ class AdminUserType extends AbstractType
     {
         /** @var User $entity */
         $entity = $options['data'];
-        if(!$entity->getId() && !$entity->getPassword()) {
+        if (!$entity->getId() && !$entity->getPassword()) {
             $passwordRequired = true;
         } else {
             $passwordRequired = false;
         }
 
         $choices = [];
-        foreach($options['locales'] as $item) {
+        foreach ($options['locales'] as $item) {
             $choices[$item] = $item;
         }
 
         $builder->add(
             'handle',
-        TextType::class,
+            TextType::class,
             [
                 'attr' => [
                     'minlength' => 4,

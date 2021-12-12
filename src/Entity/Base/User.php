@@ -5,7 +5,7 @@
  * A small BBS package for mobile use
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
- * @copyright (c) 2014-2020, Dirk Ollmetzer
+ * @copyright (c) 2014-2022, Dirk Ollmetzer
  * @license GNU GENERAL PUBLIC LICENSE Version 3
  */
 
@@ -85,7 +85,7 @@ class User implements UserInterface
     /**
      * @ManyToMany(targetEntity="Role", inversedBy="users")
      * @JoinTable(name="user_2_role")
-     * @var ArrayCollection<Role, Role>
+     * @var ArrayCollection
      */
     private $roles;
 
@@ -185,14 +185,14 @@ class User implements UserInterface
     public function getRoles(): array
     {
         $roles = ['ROLE_USER'];
-        foreach($this->roles->getValues() as $role) {
+        foreach ($this->roles->getValues() as $role) {
             $roles[] = $role->getName();
         }
         return $roles;
     }
 
     /**
-     * @return Collection<Role, Role>
+     * @return Collection
      */
     public function getRawRoles(): Collection
     {
@@ -205,8 +205,10 @@ class User implements UserInterface
      */
     public function addRole(Role $role): self
     {
-        foreach($this->roles->getValues() as $associated) {
-            if ($associated === $role) return $this;
+        foreach ($this->roles->getValues() as $associated) {
+            if ($associated === $role) {
+                return $this;
+            }
         }
         $this->roles->add($role);
         return $this;
@@ -218,7 +220,7 @@ class User implements UserInterface
      */
     public function removeRole(Role $role): self
     {
-        foreach($this->roles->getValues() as $associated) {
+        foreach ($this->roles->getValues() as $associated) {
             if ($associated === $role) {
                 $this->roles->removeElement($role);
             }

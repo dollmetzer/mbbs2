@@ -1,11 +1,12 @@
 <?php
 
-
 namespace App\Tests\unit\Entity\Bbs;
 
 use App\Entity\Bbs\Profile;
 use Doctrine\Persistence\ObjectManager;
-use Ramsey\Uuid\Uuid;;
+use Ramsey\Uuid\Uuid;
+
+;
 // use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 

@@ -4,6 +4,7 @@ includes:
 parameters:
 	level: 6
 	checkMissingIterableValueType: false
+	checkGenericClassInNonGenericObjectType: false
 	bootstrapFiles:
 	    - %rootDir%/../../../vendor/autoload.php
 	    - %rootDir%/../../../bin/.phpunit/phpunit-7.5-0/vendor/autoload.php

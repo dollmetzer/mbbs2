@@ -109,7 +109,7 @@ class ProfilePicture
 
         $sourceImage = \imagecreatefromjpeg($file->getPathname());
         $targetImage = \imagecreatetruecolor($newWidth, $newHeight);
-        \imagecopyresampled($targetImage, $sourceImage, 0,0, $offsetWidth, $offsetHeight, $newWidth, $newHeight, $sourceWidth, $sourceHeight);
+        \imagecopyresampled($targetImage, $sourceImage, 0, 0, $offsetWidth, $offsetHeight, $newWidth, $newHeight, $sourceWidth, $sourceHeight);
 
         if (false === \imagejpeg($targetImage, $targetFile)) {
             throw new FileUploadException(FileUploadException::ERROR_PROCESSING_FAILED);

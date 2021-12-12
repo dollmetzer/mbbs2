@@ -22,7 +22,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SettingsController extends AbstractController
 {
-
     /**
      * @Route("settings", name="bbs_settings_show")
      * @return Response

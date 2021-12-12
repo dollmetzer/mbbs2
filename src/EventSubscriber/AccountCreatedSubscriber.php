@@ -53,8 +53,7 @@ class AccountCreatedSubscriber implements EventSubscriberInterface
         TranslatorInterface $translator,
         EventDispatcherInterface $eventDispatcher,
         LoggerInterface $logger
-    )
-    {
+    ) {
         $this->entityManager = $entityManager;
         $this->translator = $translator;
         $this->eventDispatcher = $eventDispatcher;
@@ -84,7 +83,7 @@ class AccountCreatedSubscriber implements EventSubscriberInterface
         $this->entityManager->persist($profile);
         $this->entityManager->flush();
 
-        if(null !== $registrar) {
+        if (null !== $registrar) {
             $contact = new Contact($this->entityManager, $this->eventDispatcher, $this->logger);
             $contact->add($user, $registrar);
             $contact->add($registrar, $user);

@@ -52,8 +52,7 @@ class ContactController extends AbstractController
         ContactDomain $contact,
         TranslatorInterface $translator,
         LoggerInterface $logger
-    )
-    {
+    ) {
         $this->entityManager = $entityManager;
         $this->translator = $translator;
         $this->logger = $logger;
@@ -69,7 +68,7 @@ class ContactController extends AbstractController
     {
         $rawList = $this->contact->getList($this->getUser());
         $list = [];
-        foreach($rawList as $entry) {
+        foreach ($rawList as $entry) {
             $letter = ucfirst(substr($entry->getContact()->getDisplayname(), 0, 1));
             $list[$letter][] = $entry;
         }
@@ -81,5 +80,4 @@ class ContactController extends AbstractController
             ]
         );
     }
-
 }

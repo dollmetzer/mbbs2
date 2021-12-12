@@ -21,7 +21,7 @@ use Symfony\Contracts\EventDispatcher\Event;
  */
 class ContactAddedEvent extends Event
 {
-    const NAME = 'contact.added';
+    public const NAME = 'contact.added';
 
     /**
      * @var Contact

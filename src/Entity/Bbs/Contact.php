@@ -11,7 +11,6 @@
 
 namespace App\Entity\Bbs;
 
-use App\Entity\Timestampable;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
@@ -25,8 +24,6 @@ use Doctrine\ORM\Mapping\ManyToOne;
  */
 class Contact
 {
-    use Timestampable;
-
     /**
      * @var integer
      * @ORM\Id
@@ -36,56 +33,10 @@ class Contact
     private $id;
 
     /**
-     * @ManyToOne(targetEntity="App\Entity\Bbs\Profile", cascade="persist")
-     * @JoinColumn(name="owner_uuid", referencedColumnName="uuid")
-     * @var Profile
-     */
-    private $owner;
-
-    /**
-     * @ManyToOne(targetEntity="App\Entity\Bbs\Profile", cascade="persist")
-     * @JoinColumn(name="contact_uuid", referencedColumnName="uuid")
-     * @var Profile
-     */
-    private $contact;
-
-    /**
      * @return int
      */
     public function getId(): int
     {
         return $this->id;
-    }
-
-    /**
-     * @return Profile
-     */
-    public function getOwner(): Profile
-    {
-        return $this->owner;
-    }
-
-    /**
-     * @param Profile $owner
-     */
-    public function setOwner(Profile $owner): void
-    {
-        $this->owner = $owner;
-    }
-
-    /**
-     * @return Profile
-     */
-    public function getContact(): Profile
-    {
-        return $this->contact;
-    }
-
-    /**
-     * @param Profile $contact
-     */
-    public function setContact(Profile $contact): void
-    {
-        $this->contact = $contact;
     }
 }

@@ -5,7 +5,7 @@
  * A small BBS package for mobile use
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
- * @copyright (c) 2014-2020, Dirk Ollmetzer
+ * @copyright (c) 2014-2022, Dirk Ollmetzer
  * @license GNU GENERAL PUBLIC LICENSE Version 3
  */
 
@@ -183,7 +183,7 @@ class AdminUserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
 
-            if ( empty($user->getPassword()) ) {
+            if (empty($user->getPassword())) {
                 $user->setPassword($oldPassword);
             } else {
                 $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));

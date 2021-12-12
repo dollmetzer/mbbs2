@@ -44,11 +44,11 @@ class ProfileController extends AbstractController
         $this->translator = $translator;
     }
 
-   /**
-     * @Route("/profile", name="profile_own")
-     * @IsGranted("ROLE_USER")
-     * @return Response
-     */
+    /**
+      * @Route("/profile", name="profile_own")
+      * @IsGranted("ROLE_USER")
+      * @return Response
+      */
     public function showOwnAction(): Response
     {
         $user = $this->getUser();
@@ -123,7 +123,7 @@ class ProfileController extends AbstractController
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($profile);
                 $em->flush();
-            } catch(FileUploadException $e) {
+            } catch (FileUploadException $e) {
                 $this->addFlash('error', $this->translator->trans($e->getMessage()));
             }
         }
@@ -134,13 +134,13 @@ class ProfileController extends AbstractController
     protected function getProfileForm(Profile $profile): FormInterface
     {
         $zodiacSigns = [];
-        foreach($profile::ENUM_ZODIAC as $sign) {
+        foreach ($profile::ENUM_ZODIAC as $sign) {
             $text = $this->translator->trans('text.zodiac_' . $sign, [], 'bbs');
             $zodiacSigns[$text] = $sign;
         }
 
         $genders = [];
-        foreach($profile::ENUM_GENDER as $gender) {
+        foreach ($profile::ENUM_GENDER as $gender) {
             $text = $this->translator->trans('text.gender_'.$gender, [], 'bbs');
             $genders[$text] = $gender;
         }

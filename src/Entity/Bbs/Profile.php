@@ -17,7 +17,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 use InvalidArgumentException;
-use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -32,13 +31,13 @@ class Profile
 {
     use Timestampable;
 
-    const ENUM_GENDER = [
+    public const ENUM_GENDER = [
         'f',    // female
         'm',    // male
         'o'     // other
     ];
 
-    const ENUM_ZODIAC = [
+    public const ENUM_ZODIAC = [
         'Aries',        // Widder
         'Taurus',       // Stier
         'Gemini',       // Zwilling
@@ -51,6 +50,21 @@ class Profile
         'Capricornus',  // Steinbock
         'Aquarius',     // Wassermann
         'Pisces'        // Fische
+    ];
+
+    public const HTML_ZODIAC = [
+        'Aries' => '9800',
+        'Taurus' => '9801',
+        'Gemini' => '9802',
+        'Cancer' => '9803',
+        'Leo' => '9804',
+        'Virgo' => '9805',
+        'Libra' => '9806',
+        'Scorpio' => '9807',
+        'Saggitarius' => '9808',
+        'Capricornus' => '9809',
+        'Aquarius' => '9810',
+        'Pisces' => '9811'
     ];
 
     /**
@@ -233,6 +247,14 @@ class Profile
     public function getZodiac(): ?string
     {
         return $this->zodiac;
+    }
+
+    public function getZodiacSign(): string
+    {
+        if (null !== $this->zodiac) {
+            return mb_chr(self::HTML_ZODIAC[$this->zodiac]);
+        }
+        return '&nbsp;';
     }
 
     public function getZodiacs(): array

@@ -5,7 +5,7 @@
  * A small BBS package for mobile use
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
- * @copyright (c) 2014-2020, Dirk Ollmetzer
+ * @copyright (c) 2014-2022, Dirk Ollmetzer
  * @license GNU GENERAL PUBLIC LICENSE Version 3
  */
 
@@ -13,6 +13,7 @@ namespace App\Entity\Base;
 
 use App\Entity\Timestampable;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
@@ -51,11 +52,12 @@ class Role
     /**
      * @ManyToMany(targetEntity="User", mappedBy="roles")
      * @JoinTable(name="user_2_role")
-     * @var ArrayCollection<User, User>
+     * @var ArrayCollection
      */
     private $users;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->users = new ArrayCollection();
     }
 
@@ -100,7 +102,7 @@ class Role
     }
 
     /**
-     * @return ArrayCollection<User, User>
+     * @return Collection
      */
     public function getUsers()
     {
@@ -113,8 +115,10 @@ class Role
      */
     public function addUser(User $user): self
     {
-        foreach($this->users->getValues() as $associated) {
-            if ($associated === $user) return $this;
+        foreach ($this->users->getValues() as $associated) {
+            if ($associated === $user) {
+                return $this;
+            }
         }
         $this->users->add($user);
         return $this;
@@ -126,9 +130,9 @@ class Role
      */
     public function removeUser(User $user): self
     {
-        foreach($this->users->getValues() as $associated) {
+        foreach ($this->users->getValues() as $associated) {
             if ($associated === $user) {
-                $this->users->remove($user);
+                $this->users->removeElement($user);
             }
         }
         return $this;

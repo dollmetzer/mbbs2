@@ -48,7 +48,7 @@
         {% set zodiac = 'text.zodiac_' ~ profile.zodiac %}
         <tr>
             <td><strong>{% trans %}form.zodiac{% endtrans %}</strong></td>
-            <td>{{ zodiac|trans }}</td>
+            <td>{{ profile.getZodiacSign }} {{ zodiac|trans }}</td>
         </tr>
     </table>
 

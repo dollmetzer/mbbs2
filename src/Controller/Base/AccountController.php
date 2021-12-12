@@ -5,7 +5,7 @@
  * A small BBS package for mobile use
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
- * @copyright (c) 2014-2020, Dirk Ollmetzer
+ * @copyright (c) 2014-2022, Dirk Ollmetzer
  * @license GNU GENERAL PUBLIC LICENSE Version 3
  */
 
@@ -66,8 +66,7 @@ class AccountController extends AbstractController
         TranslatorInterface $translator,
         EntityManagerInterface $entityManager,
         SessionInterface $session
-    )
-    {
+    ) {
         $this->translator = $translator;
         $this->passwordEncoder = $passwordEncoder;
         $this->session = $session;
@@ -184,7 +183,7 @@ class AccountController extends AbstractController
     private function getAccountForm(array $locales, array $defaultData): FormInterface
     {
         $choices = [];
-        foreach($locales as $item) {
+        foreach ($locales as $item) {
             $choices[$item] = $item;
         }
 
