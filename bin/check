@@ -49,4 +49,4 @@ vendor/bin/php-cs-fixer fix --diff --dry-run --config=.php-cs-fixer.dist.php src
 
 
 printf "\nUnit Tests\n----------\n"
-SYMFONY_DEPRECATIONS_HELPER=weak bin/phpunit tests/ -v
+SYMFONY_DEPRECATIONS_HELPER=disabled bin/phpunit tests/ -v

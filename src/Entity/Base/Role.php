@@ -13,6 +13,7 @@ namespace App\Entity\Base;
 
 use App\Entity\Timestampable;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
@@ -51,7 +52,7 @@ class Role
     /**
      * @ManyToMany(targetEntity="User", mappedBy="roles")
      * @JoinTable(name="user_2_role")
-     * @var ArrayCollection<User, User>
+     * @var ArrayCollection
      */
     private $users;
 
@@ -101,7 +102,7 @@ class Role
     }
 
     /**
-     * @return ArrayCollection<User, User>
+     * @return Collection
      */
     public function getUsers()
     {
@@ -131,7 +132,7 @@ class Role
     {
         foreach ($this->users->getValues() as $associated) {
             if ($associated === $user) {
-                $this->users->remove($user);
+                $this->users->removeElement($user);
             }
         }
         return $this;

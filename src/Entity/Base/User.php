@@ -85,7 +85,7 @@ class User implements UserInterface
     /**
      * @ManyToMany(targetEntity="Role", inversedBy="users")
      * @JoinTable(name="user_2_role")
-     * @var ArrayCollection<Role, Role>
+     * @var ArrayCollection
      */
     private $roles;
 
@@ -192,7 +192,7 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection<Role, Role>
+     * @return Collection
      */
     public function getRawRoles(): Collection
     {
