@@ -66,6 +66,7 @@ class ProfileController extends AbstractController
     /**
      * @Route("/profile/show/{uuid}", name="profile_show")
      * @IsGranted("ROLE_USER")
+     * @param string $uuid
      * @return Response
      */
     public function showAction(string $uuid): Response
@@ -78,6 +79,7 @@ class ProfileController extends AbstractController
     /**
      * @Route("/profile/edit", name="profile_edit")
      * @IsGranted("ROLE_USER")
+     * @param Request $request
      * @return Response
      */
     public function editAction(Request $request): Response
@@ -105,6 +107,8 @@ class ProfileController extends AbstractController
     /**
      * @Route("/profile/picture/upload", name="profile_picture_upload")
      * @IsGranted("ROLE_USER")
+     * @param Request $request
+     * @param ProfilePicture $profilePicture
      * @return Response
      */
     public function pictureUploadAction(Request $request, ProfilePicture $profilePicture): Response

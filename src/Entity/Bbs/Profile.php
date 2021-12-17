@@ -32,12 +32,21 @@ class Profile
     use Timestampable;
 
     public const ENUM_GENDER = [
-        'f',    // female
-        'm',    // male
-        'o'     // other
+        '-',   // unknown
+        'f',   // female
+        'm',   // male
+        'o'    // other
+    ];
+
+    public const HTML_GENDER = [
+        '-' => 32,
+        'f' => 9792,
+        'm' => 9794,
+        'o' => 9893
     ];
 
     public const ENUM_ZODIAC = [
+        '-',            // unknown
         'Aries',        // Widder
         'Taurus',       // Stier
         'Gemini',       // Zwilling
@@ -53,18 +62,19 @@ class Profile
     ];
 
     public const HTML_ZODIAC = [
-        'Aries' => '9800',
-        'Taurus' => '9801',
-        'Gemini' => '9802',
-        'Cancer' => '9803',
-        'Leo' => '9804',
-        'Virgo' => '9805',
-        'Libra' => '9806',
-        'Scorpio' => '9807',
-        'Saggitarius' => '9808',
-        'Capricornus' => '9809',
-        'Aquarius' => '9810',
-        'Pisces' => '9811'
+        '-' => 32,
+        'Aries' => 9800,
+        'Taurus' => 9801,
+        'Gemini' => 9802,
+        'Cancer' => 9803,
+        'Leo' => 9804,
+        'Virgo' => 9805,
+        'Libra' => 9806,
+        'Scorpio' => 9807,
+        'Saggitarius' => 9808,
+        'Capricornus' => 9809,
+        'Aquarius' => 9810,
+        'Pisces' => 9811
     ];
 
     /**
@@ -101,18 +111,18 @@ class Profile
     private $motto;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", nullable=false, options={"default" : ""})
      * @Assert\Choice(choices=Profile::ENUM_GENDER, message="Choose a valid gender."))
      * @var string
      */
-    private $gender;
+    private $gender = '-';
 
     /**
-     * @ORM\Column(type="string", nullable=true)
-     * @Assert\Choice(callback="getZodiacs")
+     * @ORM\Column(type="string", nullable=false, options={"default" : ""})
+     * @Assert\Choice(callback="getZodiacs", message="Choose a valid zodiac sign or ''")
      * @var string
      */
-    private $zodiac;
+    private $zodiac = '-';
 
     /**
      * @var string
@@ -230,6 +240,11 @@ class Profile
         return $this->gender;
     }
 
+    public function getGenderSign(): string
+    {
+        return mb_chr(self::HTML_GENDER[$this->gender]);
+    }
+
     /**
      * @param string $gender
      */
@@ -251,10 +266,7 @@ class Profile
 
     public function getZodiacSign(): string
     {
-        if (null !== $this->zodiac) {
-            return mb_chr(self::HTML_ZODIAC[$this->zodiac]);
-        }
-        return '&nbsp;';
+        return mb_chr(self::HTML_ZODIAC[$this->zodiac]);
     }
 
     public function getZodiacs(): array

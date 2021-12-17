@@ -41,7 +41,7 @@ message:
   emptycircle: Keine Kreise vorhanden
 text:
   newcontacts: Neue Kontakte
-  zodiac_: Nicht angegeben
+  zodiac_-: Nicht angegeben
   zodiac_Aries: Widder
   zodiac_Taurus: Stier
   zodiac_Gemini: Zwilling
@@ -54,7 +54,7 @@ text:
   zodiac_Capricornus: Steinbock
   zodiac_Aquarius: Wassermann
   zodiac_Pisces: Fische
-  gender_: Nicht angegeben
+  gender_-: Nicht angegeben
   gender_f: Weiblich
   gender_m: Männlich
   gender_o: Anders

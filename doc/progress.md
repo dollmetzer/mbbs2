@@ -1,5 +1,6 @@
 Progress
 ========
+* 2021-12-17 Added gender- and zodiac sign to own profile page
 * 2021-03-12 Profile picture upload. Added Index page switch.
 * 2021-03-09 Started profile picture upload 
 * 2021-03-07 Profile Page and Form

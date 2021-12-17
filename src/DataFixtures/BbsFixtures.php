@@ -30,7 +30,6 @@ class BbsFixtures extends Fixture
         $uuid = Uuid::uuid4();
         $profile = new Profile($uuid);
         $profile->setOwner($admin);
-        $profile->setGender('o');
         $profile->setDisplayname('Administrator');
         $profile->setRealname('Chris Eisenhauer');
         $profile->setCity('Cloud City');
