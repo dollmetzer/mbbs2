@@ -2,7 +2,7 @@
 /**
  * M B B S 2   -   B u l l e t i n   B o a r d   S y s t e m
  * ---------------------------------------------------------
- * A small BBS package for mobile use
+ * A small BBS package for mobile use.
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
  * @copyright (c) 2014-2022, Dirk Ollmetzer
@@ -19,20 +19,17 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * Class UserRepository
+ * Class UserRepository.
  *
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
  * @method User|null findOneBy(array $criteria, array $orderBy = null)
  * @method User[]    findAll()
  * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- * @package App\Repository
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
     /**
      * UserRepository constructor.
-     *
-     * @param ManagerRegistry $registry
      */
     public function __construct(ManagerRegistry $registry)
     {

@@ -2,7 +2,7 @@
 /**
  * M B B S 2   -   B u l l e t i n   B o a r d   S y s t e m
  * ---------------------------------------------------------
- * A small BBS package for mobile use
+ * A small BBS package for mobile use.
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
  * @copyright (c) 2014-2020, Dirk Ollmetzer
@@ -20,9 +20,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
- * Class Contact
- *
- * @package App\Domain
+ * Class Contact.
  */
 class Contact
 {
@@ -51,11 +49,6 @@ class Contact
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    /**
-     * @param User $owner
-     * @param User $user
-     * @return ContactEntity
-     */
     public function add(User $owner, User $user): ContactEntity
     {
         $profileRepo = $this->entityManager->getRepository(Profile::class);
@@ -83,6 +76,7 @@ class Contact
         $ownerProfile = $profileRepo->findOneBy(['owner' => $owner->getId()]);
 
         $contactRepo = $this->entityManager->getRepository(ContactEntity::class);
-        return $contactRepo->findBy(['owner' => $ownerProfile->getUuid()]);
+
+        return $contactRepo->findBy(['ownerProfile' => $ownerProfile->getId()]);
     }
 }

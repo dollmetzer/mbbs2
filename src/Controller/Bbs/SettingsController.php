@@ -2,7 +2,7 @@
 /**
  * M B B S 2   -   B u l l e t i n   B o a r d   S y s t e m
  * ---------------------------------------------------------
- * A small BBS package for mobile use
+ * A small BBS package for mobile use.
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
  * @copyright (c) 2014-2020, Dirk Ollmetzer
@@ -16,15 +16,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class SettingsController
- *
- * @package App\Controller\Bbs
+ * Class SettingsController.
  */
 class SettingsController extends AbstractController
 {
     /**
      * @Route("settings", name="bbs_settings_show")
-     * @return Response
      */
     public function showAction(): Response
     {

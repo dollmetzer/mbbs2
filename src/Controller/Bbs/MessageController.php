@@ -2,7 +2,7 @@
 /**
  * M B B S 2   -   B u l l e t i n   B o a r d   S y s t e m
  * ---------------------------------------------------------
- * A small BBS package for mobile use
+ * A small BBS package for mobile use.
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
  * @copyright (c) 2014-2020, Dirk Ollmetzer
@@ -20,7 +20,7 @@ class MessageController
      */
     public function createThreadAction(): void
     {
-        die("message_create_thread");
+        exit('message_create_thread');
     }
 
     /**
@@ -28,6 +28,6 @@ class MessageController
      */
     public function createMessageAction(string $thread_id): void
     {
-        die("message_create_thread $thread_id");
+        exit("message_create_thread $thread_id");
     }
 }

@@ -2,7 +2,7 @@
 /**
  * M B B S 2   -   B u l l e t i n   B o a r d   S y s t e m
  * ---------------------------------------------------------
- * A small BBS package for mobile use
+ * A small BBS package for mobile use.
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
  * @copyright (c) 2014-2022, Dirk Ollmetzer
@@ -18,9 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * Class IndexController
- *
- * @package App\Controller
+ * Class IndexController.
  */
 class IndexController extends AbstractController
 {
@@ -32,6 +30,7 @@ class IndexController extends AbstractController
         if ($this->getUser()) {
             return $this->redirectToRoute('bbs_thread_list');
         }
+
         return $this->redirectToRoute('account_login');
     }
 
@@ -61,15 +60,10 @@ class IndexController extends AbstractController
 
     /**
      * @Route("/lang/{lang}", name="index_set_language")
-     *
-     * @param Request $request
-     * @param TranslatorInterface $translator
-     * @param string $lang
-     * @return Response
      */
     public function setlangAction(Request $request, TranslatorInterface $translator, string $lang): Response
     {
-        $allowedLanguages = ['en','de'];
+        $allowedLanguages = ['en', 'de'];
         $lang = substr(strtolower($lang), 0, 2);
         if (in_array($lang, $allowedLanguages)) {
             $request->getSession()->set('_locale', $lang);

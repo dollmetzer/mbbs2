@@ -2,7 +2,7 @@
 /**
  * M B B S 2   -   B u l l e t i n   B o a r d   S y s t e m
  * ---------------------------------------------------------
- * A small BBS package for mobile use
+ * A small BBS package for mobile use.
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
  * @copyright (c) 2014-2022, Dirk Ollmetzer
@@ -19,83 +19,67 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * Class AdminUserController
+ * Class AdminUserController.
  *
  * @IsGranted("ROLE_ADMIN")
- * @package App\Controller
  */
 class AdminUserController extends AbstractController
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
-    /**
-     * @var UserPasswordEncoderInterface
-     */
-    private $passwordEncoder;
+    private TranslatorInterface $translator;
 
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
+    private UserPasswordHasherInterface $passwordHasher;
 
     /**
      * AdminUserController constructor.
-     * @param UserPasswordEncoderInterface $passwordEncoder
-     * @param EntityManagerInterface $entityManager
-     * @param TranslatorInterface $translator
      */
     public function __construct(
-        UserPasswordEncoderInterface $passwordEncoder,
+        UserPasswordHasherInterface $passwordHasher,
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator
     ) {
-        $this->passwordEncoder = $passwordEncoder;
         $this->entityManager = $entityManager;
         $this->translator = $translator;
+        $this->passwordHasher = $passwordHasher;
     }
 
     /**
      * @Route("/admin/user/list", name="admin_user_list")
-     * @return Response
      */
     public function userListAction(): Response
     {
         $searchFormUrl = $this->generateUrl('admin_user_search');
         $repository = $this->getDoctrine()->getRepository(User::class);
         $users = $repository->findAll();
+
         return $this->render(
             'base/admin/user/list.html.twig',
             [
                 'users' => $users,
-                'searchFormUrl' => $searchFormUrl
+                'searchFormUrl' => $searchFormUrl,
             ]
         );
     }
 
     /**
      * @Route("/admin/user/show/{id}", name="admin_user_show")
-     * @param int $id
-     * @return Response
      */
     public function userShowAction(int $id): Response
     {
         $repository = $this->getDoctrine()->getRepository(User::class);
         $user = $repository->find($id);
+
         return $this->render('base/admin/user/show.html.twig', ['user' => $user]);
     }
 
     /**
      * @Route("/admin/user/edit/{id}", name="admin_user_edit")
-     * @param int $id
-     * @return Response
      */
     public function userEditAction(int $id, Request $request): Response
     {
@@ -104,6 +88,7 @@ class AdminUserController extends AbstractController
 
         if (empty($user)) {
             $this->addFlash('error', $this->translator->trans('message.unknownuser', [], 'base'));
+
             return $this->redirectToRoute('admin_user_list');
         }
 
@@ -112,8 +97,6 @@ class AdminUserController extends AbstractController
 
     /**
      * @Route("/admin/user/delete/{id}", name="admin_user_delete")
-     * @param int $id
-     * @return Response
      */
     public function userDeleteAction(int $id): Response
     {
@@ -127,24 +110,22 @@ class AdminUserController extends AbstractController
         } else {
             $this->addFlash('error', $this->translator->trans('message.unknownuser', [], 'base'));
         }
+
         return $this->redirectToRoute('admin_user_list');
     }
 
     /**
      * @Route("admin/user/create", name="admin_user_create")
-     * @param Request $request
-     * @return Response
      */
     public function userCreateAction(Request $request): Response
     {
         $user = new User();
+
         return $this->userFormProcess($user, $request, false);
     }
 
     /**
      * @Route("admin/user/search", name="admin_user_search")
-     * @param Request $request
-     * @return Response
      */
     public function userSearchAction(Request $request): Response
     {
@@ -158,17 +139,11 @@ class AdminUserController extends AbstractController
             [
                 'users' => $users,
                 'searchFormUrl' => $searchFormUrl,
-                'searchTerm' => $searchTerm
+                'searchTerm' => $searchTerm,
             ]
         );
     }
 
-    /**
-     * @param User $user
-     * @param Request $request
-     * @param bool $showRoleSelector
-     * @return Response
-     */
     private function userFormProcess(User $user, Request $request, bool $showRoleSelector): Response
     {
         $locales = $this->getParameter('locales');
@@ -186,7 +161,7 @@ class AdminUserController extends AbstractController
             if (empty($user->getPassword())) {
                 $user->setPassword($oldPassword);
             } else {
-                $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
+                $user->setPassword($this->passwordHasher->hashPassword($user, $user->getPassword()));
                 $user->setRegistrar($this->getUser());
             }
 
@@ -205,15 +180,12 @@ class AdminUserController extends AbstractController
             'user' => $user,
             'allRoles' => $allRoles,
             'itemId' => $user->getId(),
-            'showRoleSelector' => $showRoleSelector
+            'showRoleSelector' => $showRoleSelector,
         ]);
     }
 
     /**
      * @Route("/admin/user/attachrole/{id}/{roleId}", name="admin_user_attach_role")
-     * @param int $id
-     * @param int $roleId
-     * @return Response
      */
     public function attachRole(int $id, int $roleId): Response
     {
@@ -232,14 +204,11 @@ class AdminUserController extends AbstractController
             $this->addFlash('error', $this->translator->trans('admin.message.failedassignroletouser'));
         }
 
-        return $this->redirectToRoute('admin_user_edit', ['id' =>$id]);
+        return $this->redirectToRoute('admin_user_edit', ['id' => $id]);
     }
 
     /**
      * @Route("/admin/user/removerole/{id}/{roleId}", name="admin_user_remove_role")
-     * @param int $id
-     * @param int $roleId
-     * @return Response
      */
     public function removeRole(int $id, int $roleId): Response
     {
@@ -258,6 +227,6 @@ class AdminUserController extends AbstractController
             $this->addFlash('error', $this->translator->trans('admin.message.faileddetachrolefromuser'));
         }
 
-        return $this->redirectToRoute('admin_user_edit', ['id' =>$id]);
+        return $this->redirectToRoute('admin_user_edit', ['id' => $id]);
     }
 }

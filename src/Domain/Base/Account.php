@@ -2,7 +2,7 @@
 /**
  * M B B S 2   -   B u l l e t i n   B o a r d   S y s t e m
  * ---------------------------------------------------------
- * A small BBS package for mobile use
+ * A small BBS package for mobile use.
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
  * @copyright (c) 2014-2022, Dirk Ollmetzer
@@ -15,60 +15,40 @@ use App\Entity\Base\User;
 use App\Events\Base\AccountCreatedEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
- * Class Account
- *
- * @package App\Domain
+ * Class Account.
  */
 class Account
 {
-    /**
-     * @var UserPasswordEncoderInterface
-     */
-    private $passwordEncoder;
+    private UserPasswordHasherInterface $passwordHasher;
 
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
-    /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
+    private EventDispatcherInterface$eventDispatcher;
 
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
+    private LoggerInterface $logger;
 
     public function __construct(
-        UserPasswordEncoderInterface $passwordEncoder,
+        UserPasswordHasherInterface $passwordHasher,
         EntityManagerInterface $entityManager,
         EventDispatcherInterface $eventDispatcher,
         LoggerInterface $logger
     ) {
-        $this->passwordEncoder = $passwordEncoder;
+        $this->passwordHasher = $passwordHasher;
         $this->entityManager = $entityManager;
         $this->logger = $logger;
         $this->eventDispatcher = $eventDispatcher;
+        $this->passwordHasher = $passwordHasher;
     }
 
-    /**
-     * @param string $handle
-     * @param string $password
-     * @param string $locale
-     * @param User|null $registrar
-     * @return User
-     */
     public function create(string $handle, string $password, string $locale, ?User $registrar = null): User
     {
         $user = new User();
         $user->setHandle($handle);
-        $user->setPassword($this->passwordEncoder->encodePassword($user, $password));
+        $user->setPassword($this->passwordHasher->hashPassword($user, $password));
         $user->setLocale($locale);
         $user->setRegistrar($registrar);
         $user->setIsActive(true);

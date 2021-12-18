@@ -2,7 +2,7 @@
 /**
  * M B B S 2   -   B u l l e t i n   B o a r d   S y s t e m
  * ---------------------------------------------------------
- * A small BBS package for mobile use
+ * A small BBS package for mobile use.
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
  * @copyright (c) 2014-2022, Dirk Ollmetzer
@@ -22,15 +22,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class AdminUserType
- *
- * @package App\Form\Type
+ * Class AdminUserType.
  */
 class AdminUserType extends AbstractType
 {
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -39,10 +34,6 @@ class AdminUserType extends AbstractType
         $resolver->setAllowedTypes('locales', 'array');
     }
 
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         /** @var User $entity */
@@ -64,8 +55,8 @@ class AdminUserType extends AbstractType
             [
                 'attr' => [
                     'minlength' => 4,
-                    'maxlength' => 32
-                ]
+                    'maxlength' => 32,
+                ],
             ]
         )->add(
             'password',
@@ -74,21 +65,21 @@ class AdminUserType extends AbstractType
                 'required' => $passwordRequired,
                 'attr' => [
                     'minlength' => 4,
-                    'maxlength' => 32
-                ]
+                    'maxlength' => 32,
+                ],
             ]
         )->add(
             'locale',
             ChoiceType::class,
             [
-                'choices' => $choices
+                'choices' => $choices,
             ]
         )->add(
             'isActive',
             CheckboxType::class,
             [
                 'data' => true,
-                'required' => false
+                'required' => false,
             ]
         )->add(
             'save',

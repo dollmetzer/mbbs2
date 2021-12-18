@@ -1,5 +1,8 @@
 Progress
 ========
+* 2021-12-18 Switch to PHP 7.4 and symfony codestyle 
+* 2021-12-18 Updated Login (switch from encoder to hasher and get rid of LoginFormAuthenticator)
+* 2021-12-18 Updated to Symfony 5.4
 * 2021-03-12 Profile picture upload. Added Index page switch.
 * 2021-03-09 Started profile picture upload 
 * 2021-03-07 Profile Page and Form

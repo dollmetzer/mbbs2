@@ -2,7 +2,7 @@
 /**
  * M B B S 2   -   B u l l e t i n   B o a r d   S y s t e m
  * ---------------------------------------------------------
- * A small BBS package for mobile use
+ * A small BBS package for mobile use.
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
  * @copyright (c) 2014-2022, Dirk Ollmetzer
@@ -15,9 +15,7 @@ use App\Entity\Base\User;
 use Symfony\Contracts\EventDispatcher\Event;
 
 /**
- * Class AccountCreatedEvent
- *
- * @package App\Events
+ * Class AccountCreatedEvent.
  */
 class AccountCreatedEvent extends Event
 {
@@ -30,16 +28,12 @@ class AccountCreatedEvent extends Event
 
     /**
      * AccountEvent constructor.
-     * @param User $user
      */
     public function __construct(User $user)
     {
         $this->user = $user;
     }
 
-    /**
-     * @return User
-     */
     public function getUser(): User
     {
         return $this->user;

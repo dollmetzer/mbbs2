@@ -2,7 +2,7 @@
 /**
  * M B B S 2   -   B u l l e t i n   B o a r d   S y s t e m
  * ---------------------------------------------------------
- * A small BBS package for mobile use
+ * A small BBS package for mobile use.
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
  * @copyright (c) 2014-2020, Dirk Ollmetzer
@@ -11,13 +11,11 @@
 
 namespace App\Controller\Bbs;
 
-use Symfony\Component\Asset\Package;
 use App\Domain\Bbs\ProfilePicture;
 use App\Entity\Bbs\Profile;
 use App\Exception\FileUploadException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -28,9 +26,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * Class ProfileController
- *
- * @package App\Controller
+ * Class ProfileController.
  */
 class ProfileController extends AbstractController
 {
@@ -45,10 +41,9 @@ class ProfileController extends AbstractController
     }
 
     /**
-      * @Route("/profile", name="profile_own")
-      * @IsGranted("ROLE_USER")
-      * @return Response
-      */
+     * @Route("/profile", name="profile_own")
+     * @IsGranted("ROLE_USER")
+     */
     public function showOwnAction(): Response
     {
         $user = $this->getUser();
@@ -56,7 +51,7 @@ class ProfileController extends AbstractController
         $profile = $repo->findOneBy(['owner' => $user->getId()]);
 
         return $this->render(
-            "bbs/profile/showown.html.twig",
+            'bbs/profile/showown.html.twig',
             [
                 'profile' => $profile,
             ]
@@ -66,19 +61,18 @@ class ProfileController extends AbstractController
     /**
      * @Route("/profile/show/{uuid}", name="profile_show")
      * @IsGranted("ROLE_USER")
-     * @return Response
      */
     public function showAction(string $uuid): Response
     {
         $repo = $this->getDoctrine()->getRepository(Profile::class);
         $profile = $repo->find($uuid);
-        return $this->render("bbs/profile/show.html.twig", ['profile' => $profile]);
+
+        return $this->render('bbs/profile/show.html.twig', ['profile' => $profile]);
     }
 
     /**
      * @Route("/profile/edit", name="profile_edit")
      * @IsGranted("ROLE_USER")
-     * @return Response
      */
     public function editAction(Request $request): Response
     {
@@ -99,13 +93,12 @@ class ProfileController extends AbstractController
             return $this->redirectToRoute('profile_own');
         }
 
-        return $this->render("bbs/profile/edit.html.twig", ['form' => $form->createView()]);
+        return $this->render('bbs/profile/edit.html.twig', ['form' => $form->createView()]);
     }
 
     /**
      * @Route("/profile/picture/upload", name="profile_picture_upload")
      * @IsGranted("ROLE_USER")
-     * @return Response
      */
     public function pictureUploadAction(Request $request, ProfilePicture $profilePicture): Response
     {
@@ -119,7 +112,7 @@ class ProfileController extends AbstractController
                     $request->files->get('profilepicture'),
                     $this->getPicturePath($profile)
                 );
-                $profile->setPicture('img/profile/' . $profile->getUuid() . '.jpg');
+                $profile->setPicture('img/profile/'.$profile->getUuid().'.jpg');
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($profile);
                 $em->flush();
@@ -135,7 +128,7 @@ class ProfileController extends AbstractController
     {
         $zodiacSigns = [];
         foreach ($profile::ENUM_ZODIAC as $sign) {
-            $text = $this->translator->trans('text.zodiac_' . $sign, [], 'bbs');
+            $text = $this->translator->trans('text.zodiac_'.$sign, [], 'bbs');
             $zodiacSigns[$text] = $sign;
         }
 
@@ -152,8 +145,8 @@ class ProfileController extends AbstractController
                 [
                     'attr' => [
                         'minlength' => 4,
-                        'maxlength' => 32
-                    ]
+                        'maxlength' => 32,
+                    ],
                 ]
             )->add(
                 'realname',
@@ -177,6 +170,6 @@ class ProfileController extends AbstractController
 
     protected function getPicturePath(Profile $profile): string
     {
-        return realpath(__DIR__ . '/../../../public/img/profile/' . $profile->getUuid() . '.jpg');
+        return realpath(__DIR__.'/../../../public/img/profile/'.$profile->getUuid().'.jpg');
     }
 }

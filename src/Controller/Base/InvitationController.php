@@ -2,7 +2,7 @@
 /**
  * M B B S 2   -   B u l l e t i n   B o a r d   S y s t e m
  * ---------------------------------------------------------
- * A small BBS package for mobile use
+ * A small BBS package for mobile use.
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
  * @copyright (c) 2014-2022, Dirk Ollmetzer
@@ -28,51 +28,31 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * Class InvitationController
- *
- * @package App\Controller
+ * Class InvitationController.
  */
 class InvitationController extends AbstractController
 {
-    /**
-     * @var SessionInterface
-     */
-    private $session;
+    private SessionInterface $session;
 
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
+    private LoggerInterface $logger;
 
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
+    private TranslatorInterface $translator;
 
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
+    private EntityManagerInterface$entityManager;
 
-    /**
-     * @var UserPasswordEncoderInterface
-     */
-    private $passwordEncoder;
+    private Account $account;
 
-    /**
-     * @var Account
-     */
-    private $account;
+    private UserPasswordHasherInterface $passwordHasher;
 
     public function __construct(
         SessionInterface $session,
         Account $account,
-        UserPasswordEncoderInterface $passwordEncoder,
+        UserPasswordHasherInterface $passwordHasher,
         TranslatorInterface $translator,
         EntityManagerInterface $entityManager,
         LoggerInterface $logger
@@ -81,14 +61,13 @@ class InvitationController extends AbstractController
         $this->logger = $logger;
         $this->translator = $translator;
         $this->entityManager = $entityManager;
-        $this->passwordEncoder = $passwordEncoder;
         $this->account = $account;
+        $this->passwordHasher = $passwordHasher;
     }
 
     /**
      * @Route("/account/invite", name="account_invite")
      * @IsGranted("ROLE_USER")
-     * @return Response
      */
     public function inviteAction(): Response
     {
@@ -97,14 +76,14 @@ class InvitationController extends AbstractController
         }
 
         return $this->render('base/invitation/invite.html.twig', [
-            'invitation' => null
+            'invitation' => null,
         ]);
     }
 
     /**
      * @Route("/account/create/invitation", name="account_create_invitation")
      * @IsGranted("ROLE_USER")
-     * @return Response
+     *
      * @throws Exception
      */
     public function createInvitationAction(): Response
@@ -144,14 +123,12 @@ class InvitationController extends AbstractController
         }
 
         return $this->render('base/invitation/invite.html.twig', [
-            'invitation' => $invitation
+            'invitation' => $invitation,
         ]);
     }
 
     /**
      * @Route("account/invitation", name="account_invitation")
-     * @param Request $request
-     * @return Response
      */
     public function invitationFormAction(Request $request): Response
     {
@@ -167,6 +144,7 @@ class InvitationController extends AbstractController
             } catch (Exception $e) {
                 $this->logger->info($e->getMessage());
                 $this->addFlash('error', $this->translator->trans($e->getMessage(), [], 'base'));
+
                 return $this->redirectToRoute('account_invitation');
             }
 
@@ -174,17 +152,17 @@ class InvitationController extends AbstractController
             $this->entityManager->remove($invitation);
             $this->entityManager->persist($invitation);
             $this->entityManager->flush();
+
             return $this->redirectToRoute('account_invitation_create_account');
         }
+
         return $this->render('base/invitation/form.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
     /**
      * @Route("account/accept/invitation/{code}", name="account_accept_invitation")
-     * @param string $code
-     * @return Response
      */
     public function acceptInvitationAction(string $code): Response
     {
@@ -193,6 +171,7 @@ class InvitationController extends AbstractController
         } catch (Exception $e) {
             $this->logger->info($e->getMessage());
             $this->addFlash('error', $this->translator->trans($e->getMessage(), [], 'base'));
+
             return $this->redirectToRoute('account_invitation');
         }
 
@@ -206,8 +185,6 @@ class InvitationController extends AbstractController
 
     /**
      * @Route("account/invitation/create/account", name="account_invitation_create_account")
-     * @param Request $request
-     * @return Response
      */
     public function createAccount(Request $request): Response
     {
@@ -216,6 +193,7 @@ class InvitationController extends AbstractController
 
         if (!$invitedBy) {
             $this->addFlash('error', $this->translator->trans('error.invitation.invalid', [], 'base'));
+
             return $this->redirectToRoute('index_index');
         }
 
@@ -253,19 +231,16 @@ class InvitationController extends AbstractController
                 $user = $this->account->create($handle, $password, $locale, $registrar);
 
                 $this->addFlash('notice', $this->translator->trans('message.accountcreated', [], 'base'));
+
                 return $this->redirectToRoute('account_login');
             }
         }
 
         return $this->render('base/invitation/account_application.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
-    /**
-     * @param array $defaultData
-     * @return FormInterface
-     */
     private function getInvitationForm(array $defaultData): FormInterface
     {
         return $this->createFormBuilder($defaultData)
@@ -275,8 +250,8 @@ class InvitationController extends AbstractController
                 [
                     'attr' => [
                         'minlength' => 4,
-                        'maxlength' => 4
-                    ]
+                        'maxlength' => 4,
+                    ],
                 ]
             )->add(
                 '2',
@@ -284,8 +259,8 @@ class InvitationController extends AbstractController
                 [
                     'attr' => [
                         'minlength' => 4,
-                        'maxlength' => 4
-                    ]
+                        'maxlength' => 4,
+                    ],
                 ]
             )->add(
                 '3',
@@ -293,8 +268,8 @@ class InvitationController extends AbstractController
                 [
                     'attr' => [
                         'minlength' => 4,
-                        'maxlength' => 4
-                    ]
+                        'maxlength' => 4,
+                    ],
                 ]
             )->add(
                 '4',
@@ -302,18 +277,13 @@ class InvitationController extends AbstractController
                 [
                     'attr' => [
                         'minlength' => 4,
-                        'maxlength' => 4
-                    ]
+                        'maxlength' => 4,
+                    ],
                 ]
             )->add('send', SubmitType::class)
             ->getForm();
     }
 
-    /**
-     * @param array $locales
-     * @param array $defaultData
-     * @return FormInterface
-     */
     private function getAccountForm(array $locales, array $defaultData): FormInterface
     {
         $choices = [];
@@ -328,8 +298,8 @@ class InvitationController extends AbstractController
                 [
                     'attr' => [
                         'minlength' => 4,
-                        'maxlength' => 32
-                    ]
+                        'maxlength' => 32,
+                    ],
                 ]
             )->add(
                 'password',
@@ -337,8 +307,8 @@ class InvitationController extends AbstractController
                 [
                     'attr' => [
                         'minlength' => 4,
-                        'maxlength' => 32
-                    ]
+                        'maxlength' => 32,
+                    ],
                 ]
             )->add(
                 'password2',
@@ -346,22 +316,22 @@ class InvitationController extends AbstractController
                 [
                     'attr' => [
                         'minlength' => 4,
-                        'maxlength' => 32
-                    ]
+                        'maxlength' => 32,
+                    ],
                 ]
             )->add(
                 'locale',
                 ChoiceType::class,
                 [
-                    'choices' => $choices
+                    'choices' => $choices,
                 ]
             )->add('send', SubmitType::class)
             ->getForm();
     }
 
     /**
-     * @param string $code
      * @return Invitation|object
+     *
      * @throws Exception
      */
     private function getInvitation(string $code)
@@ -377,6 +347,7 @@ class InvitationController extends AbstractController
         if ($now > $invitation->getExpiration()) {
             throw new Exception('error.invitation.invalid');
         }
+
         return $invitation;
     }
 }

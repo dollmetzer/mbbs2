@@ -2,7 +2,7 @@
 /**
  * M B B S 2   -   B u l l e t i n   B o a r d   S y s t e m
  * ---------------------------------------------------------
- * A small BBS package for mobile use
+ * A small BBS package for mobile use.
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
  * @copyright (c) 2014-2022, Dirk Ollmetzer
@@ -24,14 +24,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * Class AccountController
- *
- * @package App\Controller
+ * Class AccountController.
  */
 class AccountController extends AbstractController
 {
@@ -39,11 +36,6 @@ class AccountController extends AbstractController
      * @var TranslatorInterface
      */
     private $translator;
-
-    /**
-     * @var UserPasswordEncoderInterface
-     */
-    private $passwordEncoder;
 
     /**
      * @var SessionInterface
@@ -62,13 +54,11 @@ class AccountController extends AbstractController
 
     public function __construct(
         Account $account,
-        UserPasswordEncoderInterface $passwordEncoder,
         TranslatorInterface $translator,
         EntityManagerInterface $entityManager,
         SessionInterface $session
     ) {
         $this->translator = $translator;
-        $this->passwordEncoder = $passwordEncoder;
         $this->session = $session;
         $this->entityManager = $entityManager;
         $this->account = $account;
@@ -76,8 +66,6 @@ class AccountController extends AbstractController
 
     /**
      * @Route("/account/login", name="account_login")
-     * @param AuthenticationUtils $authenticationUtils
-     * @return Response
      */
     public function loginAction(AuthenticationUtils $authenticationUtils): Response
     {
@@ -103,8 +91,6 @@ class AccountController extends AbstractController
 
     /**
      * @Route("/account/register", name="account_register")
-     * @param Request $request
-     * @return Response
      */
     public function registerAction(Request $request): Response
     {
@@ -145,12 +131,13 @@ class AccountController extends AbstractController
             if (true === $isOk) {
                 $this->account->create($handle, $password, $locale);
                 $this->addFlash('notice', $this->translator->trans('message.accountcreated', [], 'base'));
+
                 return $this->redirectToRoute('account_login');
             }
         }
 
         return $this->render('base/security/register.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
@@ -159,7 +146,7 @@ class AccountController extends AbstractController
      */
     public function confirmAction(): void
     {
-        die('Not implemented yet');
+        exit('Not implemented yet');
     }
 
     /**
@@ -175,11 +162,6 @@ class AccountController extends AbstractController
         return $this->render('base/security/impersonate.html.twig', ['users' => $users]);
     }
 
-    /**
-     * @param array $locales
-     * @param array $defaultData
-     * @return FormInterface
-     */
     private function getAccountForm(array $locales, array $defaultData): FormInterface
     {
         $choices = [];
@@ -194,8 +176,8 @@ class AccountController extends AbstractController
                 [
                     'attr' => [
                         'minlength' => 4,
-                        'maxlength' => 32
-                    ]
+                        'maxlength' => 32,
+                    ],
                 ]
             )->add(
                 'password',
@@ -203,8 +185,8 @@ class AccountController extends AbstractController
                 [
                     'attr' => [
                         'minlength' => 4,
-                        'maxlength' => 32
-                    ]
+                        'maxlength' => 32,
+                    ],
                 ]
             )->add(
                 'password2',
@@ -212,14 +194,14 @@ class AccountController extends AbstractController
                 [
                     'attr' => [
                         'minlength' => 4,
-                        'maxlength' => 32
-                    ]
+                        'maxlength' => 32,
+                    ],
                 ]
             )->add(
                 'locale',
                 ChoiceType::class,
                 [
-                    'choices' => $choices
+                    'choices' => $choices,
                 ]
             )->add('send', SubmitType::class)
             ->getForm();

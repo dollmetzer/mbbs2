@@ -2,7 +2,7 @@
 /**
  * M B B S 2   -   B u l l e t i n   B o a r d   S y s t e m
  * ---------------------------------------------------------
- * A small BBS package for mobile use
+ * A small BBS package for mobile use.
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
  * @copyright (c) 2014-2022, Dirk Ollmetzer
@@ -15,33 +15,23 @@ use App\Entity\Base\Role;
 use App\Entity\Base\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
- * Class AppFixtures
- *
- * @package App\DataFixtures
+ * Class AppFixtures.
  */
 class BaseFixtures extends Fixture
 {
-    /**
-     * @var UserPasswordEncoderInterface
-     */
-    private $passwordEncoder;
+    private UserPasswordHasherInterface $passwordHasher;
 
     /**
      * AppFixtures constructor.
-     *
-     * @param UserPasswordEncoderInterface $passwordEncoder
      */
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
-        $this->passwordEncoder = $passwordEncoder;
+        $this->passwordHasher = $passwordHasher;
     }
 
-    /**
-     * @param ObjectManager $manager
-     */
     public function load(ObjectManager $manager): void
     {
         // ROLE
@@ -70,7 +60,7 @@ class BaseFixtures extends Fixture
         // User
         $user = new User();
         $user->setHandle('admin');
-        $user->setPassword($this->passwordEncoder->encodePassword(
+        $user->setPassword($this->passwordHasher->hashPassword(
             $user,
             'Admin2020!'
         ));

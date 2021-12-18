@@ -2,7 +2,7 @@
 /**
  * M B B S 2   -   B u l l e t i n   B o a r d   S y s t e m
  * ---------------------------------------------------------
- * A small BBS package for mobile use
+ * A small BBS package for mobile use.
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
  * @copyright (c) 2014-2022, Dirk Ollmetzer
@@ -18,16 +18,10 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * Class AdminRoleType
- *
- * @package App\Form\Type
+ * Class AdminRoleType.
  */
 class AdminRoleType extends AbstractType
 {
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -36,15 +30,15 @@ class AdminRoleType extends AbstractType
                 TextType::class,
                 [
                     'attr' => [
-                        'maxlength' => 32
-                    ]
+                        'maxlength' => 32,
+                    ],
                 ]
             )
             ->add(
                 'isProtected',
                 CheckboxType::class,
                 [
-                    'required' => false
+                    'required' => false,
                 ]
             )
             ->add(

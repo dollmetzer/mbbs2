@@ -2,7 +2,7 @@
 /**
  * M B B S 2   -   B u l l e t i n   B o a r d   S y s t e m
  * ---------------------------------------------------------
- * A small BBS package for mobile use
+ * A small BBS package for mobile use.
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
  * @copyright (c) 2014-2020, Dirk Ollmetzer
@@ -22,9 +22,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * Class AccountSubscriber
- *
- * @package App\EventSubscriber
+ * Class AccountSubscriber.
  */
 class AccountCreatedSubscriber implements EventSubscriberInterface
 {
@@ -68,9 +66,6 @@ class AccountCreatedSubscriber implements EventSubscriberInterface
         return [AccountCreatedEvent::NAME => 'onAccountCreatedEvent'];
     }
 
-    /**
-     * @param AccountCreatedEvent $event
-     */
     public function onAccountCreatedEvent(AccountCreatedEvent $event): void
     {
         $user = $event->getUser();
@@ -89,6 +84,6 @@ class AccountCreatedSubscriber implements EventSubscriberInterface
             $contact->add($registrar, $user);
         }
 
-        $this->logger->info('AccountSubscriber -> account created for ' . $event->getUser()->getHandle());
+        $this->logger->info('AccountSubscriber -> account created for '.$event->getUser()->getHandle());
     }
 }

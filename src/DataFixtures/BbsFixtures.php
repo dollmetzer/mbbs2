@@ -2,7 +2,7 @@
 /**
  * M B B S 2   -   B u l l e t i n   B o a r d   S y s t e m
  * ---------------------------------------------------------
- * A small BBS package for mobile use
+ * A small BBS package for mobile use.
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
  * @copyright (c) 2014-2020, Dirk Ollmetzer
@@ -15,20 +15,15 @@ use App\Entity\Base\User;
 use App\Entity\Bbs\Profile;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Ramsey\Uuid\Uuid;
 
 class BbsFixtures extends Fixture
 {
-    /**
-     * @param ObjectManager $manager
-     */
     public function load(ObjectManager $manager): void
     {
         $userRepo = $manager->getRepository(User::class);
         $admin = $userRepo->findOneBy(['handle' => 'admin']);
 
-        $uuid = Uuid::uuid4();
-        $profile = new Profile($uuid);
+        $profile = new Profile();
         $profile->setOwner($admin);
         $profile->setGender('o');
         $profile->setDisplayname('Administrator');

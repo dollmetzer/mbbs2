@@ -2,7 +2,7 @@
 /**
  * M B B S 2   -   B u l l e t i n   B o a r d   S y s t e m
  * ---------------------------------------------------------
- * A small BBS package for mobile use
+ * A small BBS package for mobile use.
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
  * @copyright (c) 2014-2022, Dirk Ollmetzer
@@ -19,18 +19,17 @@ use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
 
 /**
- * Class Role
+ * Class Role.
  *
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
- * @package App\Entity
  */
 class Role
 {
     use Timestampable;
 
     /**
-     * @var integer
+     * @var int
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -47,11 +46,12 @@ class Role
      * @var bool
      * @ORM\Column(type="boolean", options={"default":"0"})
      */
-    private $isProtected=false;
+    private $isProtected = false;
 
     /**
      * @ManyToMany(targetEntity="User", mappedBy="roles")
      * @JoinTable(name="user_2_role")
+     *
      * @var ArrayCollection
      */
     private $users;
@@ -61,41 +61,26 @@ class Role
         $this->users = new ArrayCollection();
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
     public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return bool
-     */
     public function isProtected(): bool
     {
         return $this->isProtected;
     }
 
-    /**
-     * @param bool $isProtected
-     */
     public function setIsProtected(bool $isProtected): void
     {
         $this->isProtected = $isProtected;
@@ -110,7 +95,6 @@ class Role
     }
 
     /**
-     * @param User $user
      * @return $this
      */
     public function addUser(User $user): self
@@ -121,11 +105,11 @@ class Role
             }
         }
         $this->users->add($user);
+
         return $this;
     }
 
     /**
-     * @param User $user
      * @return $this
      */
     public function removeUser(User $user): self
@@ -135,6 +119,7 @@ class Role
                 $this->users->removeElement($user);
             }
         }
+
         return $this;
     }
 }

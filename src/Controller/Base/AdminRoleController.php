@@ -2,7 +2,7 @@
 /**
  * M B B S 2   -   B u l l e t i n   B o a r d   S y s t e m
  * ---------------------------------------------------------
- * A small BBS package for mobile use
+ * A small BBS package for mobile use.
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
  * @copyright (c) 2014-2022, Dirk Ollmetzer
@@ -22,10 +22,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * Class AdminRoleController
+ * Class AdminRoleController.
  *
  * @IsGranted("ROLE_ADMIN")
- * @package App\Controller
  */
 class AdminRoleController extends AbstractController
 {
@@ -40,9 +39,6 @@ class AdminRoleController extends AbstractController
 
     /**
      * AdminRoleController constructor.
-     *
-     * @param EntityManagerInterface $entityManager
-     * @param TranslatorInterface $translator
      */
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -54,32 +50,28 @@ class AdminRoleController extends AbstractController
 
     /**
      * @Route("/admin/role/list", name="admin_role_list")
-     * @return Response
      */
     public function roleListAction(): Response
     {
         $repository = $this->getDoctrine()->getRepository(Role::class);
         $roles = $repository->findAll();
+
         return $this->render('base/admin/role/list.html.twig', ['roles' => $roles]);
     }
 
     /**
      * @Route("/admin/role/show/{id}", name="admin_role_show")
-     * @param int $id
-     * @return Response
      */
     public function roleShowAction(int $id): Response
     {
         $repository = $this->getDoctrine()->getRepository(Role::class);
         $role = $repository->find($id);
+
         return $this->render('base/admin/role/show.html.twig', ['role' => $role]);
     }
 
     /**
      * @Route("/admin/role/edit/{id}", name="admin_role_edit")
-     * @param int $id
-     * @param Request $request
-     * @return Response
      */
     public function roleEditAction(int $id, Request $request): Response
     {
@@ -88,6 +80,7 @@ class AdminRoleController extends AbstractController
 
         if (empty($role)) {
             $this->addFlash('error', $this->translator->trans('admin.message.unknownrole'));
+
             return $this->redirectToRoute('admin_role_list');
         }
 
@@ -96,8 +89,6 @@ class AdminRoleController extends AbstractController
 
     /**
      * @Route("/admin/role/delete/{id}", name="admin_role_delete")
-     * @param int $id
-     * @return Response
      */
     public function roleDeleteAction(int $id): Response
     {
@@ -110,17 +101,17 @@ class AdminRoleController extends AbstractController
         } else {
             $this->addFlash('error', $this->translator->trans('admin.message.unknownrole'));
         }
+
         return $this->redirectToRoute('admin_role_list');
     }
 
     /**
      * @Route("admin/role/create", name="admin_role_create")
-     * @param Request $request
-     * @return Response
      */
     public function roleCreateAction(Request $request): Response
     {
         $role = new Role();
+
         return $this->roleFormProcess($role, $request);
     }
 
@@ -140,7 +131,7 @@ class AdminRoleController extends AbstractController
         }
 
         return $this->render('base/admin/role/form.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 }

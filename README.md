@@ -63,3 +63,8 @@ Boolean controls if self registration (see above) needs a double opt-in via emai
     REGISTER_INVITATION (default is false)
 Boolean controls if a user can invite another user. 
    
+
+Development Hints
+-----------------
+- Set your IDE to PHP Version 7.4
+- Use code style symfony2 
