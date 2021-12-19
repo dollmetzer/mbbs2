@@ -43,7 +43,7 @@
         {% set gender = 'text.gender_' ~ profile.gender %}
         <tr>
             <td><strong>{% trans %}form.gender{% endtrans %}</strong></td>
-            <td>{{ gender|trans }}</td>
+            <td>{{ profile.getGenderSign }} {{ gender|trans }}</td>
         </tr>
         {% set zodiac = 'text.zodiac_' ~ profile.zodiac %}
         <tr>
