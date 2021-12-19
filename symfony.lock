@@ -38,9 +38,6 @@
     "doctrine/common": {
         "version": "3.2.0"
     },
-    "doctrine/data-fixtures": {
-        "version": "1.5.1"
-    },
     "doctrine/dbal": {
         "version": "3.2.0"
     },
@@ -61,18 +58,6 @@
             "config/packages/test/doctrine.yaml",
             "src/Entity/.gitignore",
             "src/Repository/.gitignore"
-        ]
-    },
-    "doctrine/doctrine-fixtures-bundle": {
-        "version": "3.4",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "3.0",
-            "ref": "1f5514cfa15b947298df4d771e694e578d4c204d"
-        },
-        "files": [
-            "src/DataFixtures/AppFixtures.php"
         ]
     },
     "doctrine/doctrine-migrations-bundle": {
@@ -140,7 +125,7 @@
         "version": "v1.0.5"
     },
     "laminas/laminas-code": {
-        "version": "4.5.0"
+        "version": "4.5.1"
     },
     "monolog/monolog": {
         "version": "2.3.5"
@@ -177,6 +162,9 @@
     },
     "phpspec/prophecy": {
         "version": "v1.15.0"
+    },
+    "phpstan/phpdoc-parser": {
+        "version": "1.2.0"
     },
     "phpstan/phpstan": {
         "version": "1.2.0"

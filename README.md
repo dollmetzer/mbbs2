@@ -20,7 +20,7 @@ Installation
 There are some Preconditions for an Installation of this software:
 
 * Apache 2 Webserver
-* PHP 7.2.5 or above
+* PHP 7.4 or above
 * Composer (PHP Dependency Manager)
 * MySQL Database server and client
 * GIT Version control system
