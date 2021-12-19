@@ -13,7 +13,7 @@
         <p>{% trans %}message.invitationcode{% endtrans%} : {{ invitation.code|slice(0,4) }} {{ invitation.code|slice(4,4) }} {{ invitation.code|slice(8,4) }} {{ invitation.code|slice(12,4) }}</p>
         <p>{% trans %}message.invitationuntil{% endtrans %} {{ invitation.expiration|format_datetime('medium', 'short', locale='de') }}</p>
         {% set url = url('account_accept_invitation', {code:invitation.code}) %}
-        <img src="{{ qr_code_data_uri(url, { writer: 'svg', size: 300 }) }}" />
+        <img src="{{ qr_code_data_uri(url) }}" />
     {% else %}
         <a href="{{ path('account_create_invitation') }}" class="btn btn-primary">{% trans %}btn.invite{% endtrans %}</a>
     {% endif %}

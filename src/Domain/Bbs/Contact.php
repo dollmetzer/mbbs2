@@ -5,7 +5,7 @@
  * A small BBS package for mobile use.
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
- * @copyright (c) 2014-2020, Dirk Ollmetzer
+ * @copyright (c) 2014-2022, Dirk Ollmetzer
  * @license GNU GENERAL PUBLIC LICENSE Version 3
  */
 
@@ -56,8 +56,8 @@ class Contact
         $ownerProfile = $profileRepo->findOneBy(['owner' => $owner->getId()]);
 
         $contact = new ContactEntity();
-        $contact->setOwner($ownerProfile);
-        $contact->setContact($contactProfile);
+        $contact->setOwnerProfile($ownerProfile);
+        $contact->setContactProfile($contactProfile);
         $contact->setTimestamps();
         $this->entityManager->persist($contact);
         $this->entityManager->flush();

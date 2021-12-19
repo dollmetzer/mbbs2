@@ -5,13 +5,13 @@
  * A small BBS package for mobile use.
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
- * @copyright (c) 2014-2020, Dirk Ollmetzer
+ * @copyright (c) 2014-2022, Dirk Ollmetzer
  * @license GNU GENERAL PUBLIC LICENSE Version 3
  */
 
 namespace App\Entity\Bbs;
 
-use App\Entity\Base\User;
+use App\Entity\Timestampable;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
@@ -24,6 +24,8 @@ use Doctrine\ORM\Mapping\ManyToOne;
  */
 class Contact
 {
+    use Timestampable;
+
     /**
      * @var int
      * @ORM\Id
@@ -36,22 +38,40 @@ class Contact
      * @ManyToOne(targetEntity="App\Entity\Bbs\Profile")
      * @JoinColumn(name="ownerprofile_id", referencedColumnName="id")
      *
-     * @var User
+     * @var Profile
      */
     private $ownerProfile;
+
+    /**
+     * @ManyToOne(targetEntity="App\Entity\Bbs\Profile")
+     * @JoinColumn(name="contactprofile_id", referencedColumnName="id")
+     *
+     * @var Profile
+     */
+    private $contactProfile;
 
     public function getId(): int
     {
         return $this->id;
     }
 
-    public function getOwnerProfile(): User
+    public function getOwnerProfile(): Profile
     {
         return $this->ownerProfile;
     }
 
-    public function setOwnerProfile(User $ownerProfile): void
+    public function setOwnerProfile(Profile $ownerProfile): void
     {
         $this->ownerProfile = $ownerProfile;
+    }
+
+    public function getContactProfile(): Profile
+    {
+        return $this->contactProfile;
+    }
+
+    public function setContactProfile(Profile $contactProfile): void
+    {
+        $this->contactProfile = $contactProfile;
     }
 }

@@ -1,4 +1,4 @@
-{% set nav_top = 'bbs_profile' %}
+{% set nav_top = 'bbs_contact' %}
 {% trans_default_domain 'bbs' %}
 {% extends 'bbs.html.twig' %}
 
@@ -13,10 +13,6 @@
                 <td colspan="2"><img src="{{ asset(profile.picture) }}"/></td>
             </tr>
         {% endif %}
-        <tr>
-            <td><strong>{% trans %}form.handle{% endtrans %}</strong></td>
-            <td>{{ profile.owner.handle }}</td>
-        </tr>
         <tr>
             <td><strong>{% trans %}form.displayname{% endtrans %}</strong></td>
             <td>{{ profile.displayname }}</td>
@@ -41,8 +37,8 @@
         </tr>
         {% set zodiac = 'text.zodiac_' ~ profile.zodiac %}
         <tr>
-            <td><strong>{{ profile.getZodiacSign }}  {% trans %}form.zodiac{% endtrans %}</strong></td>
-            <td>{{ zodiac|trans }}</td>
+            <td><strong>{% trans %}form.zodiac{% endtrans %}</strong></td>
+            <td>{{ profile.getZodiacSign }} {{ zodiac|trans }}</td>
         </tr>
     </table>
 {% endblock %}

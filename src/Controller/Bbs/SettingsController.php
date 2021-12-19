@@ -5,12 +5,13 @@
  * A small BBS package for mobile use.
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
- * @copyright (c) 2014-2020, Dirk Ollmetzer
+ * @copyright (c) 2014-2022, Dirk Ollmetzer
  * @license GNU GENERAL PUBLIC LICENSE Version 3
  */
 
 namespace App\Controller\Bbs;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,6 +23,7 @@ class SettingsController extends AbstractController
 {
     /**
      * @Route("settings", name="bbs_settings_show")
+     * @IsGranted("ROLE_USER")
      */
     public function showAction(): Response
     {

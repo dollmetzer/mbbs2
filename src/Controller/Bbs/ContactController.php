@@ -5,7 +5,7 @@
  * A small BBS package for mobile use.
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
- * @copyright (c) 2014-2020, Dirk Ollmetzer
+ * @copyright (c) 2014-2022, Dirk Ollmetzer
  * @license GNU GENERAL PUBLIC LICENSE Version 3
  */
 
@@ -66,7 +66,7 @@ class ContactController extends AbstractController
         $rawList = $this->contact->getList($this->getUser());
         $list = [];
         foreach ($rawList as $entry) {
-            $letter = ucfirst(substr($entry->getContact()->getDisplayname(), 0, 1));
+            $letter = ucfirst(substr($entry->getContactProfile()->getDisplayname(), 0, 1));
             $list[$letter][] = $entry;
         }
 

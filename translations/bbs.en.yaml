@@ -41,7 +41,7 @@ message:
   emptycircle: No circles found
 text:
   newcontacts: New Contacts
-  zodiac_: Not given
+  zodiac_n: Not given
   zodiac_Aries: Aries
   zodiac_Taurus: Taurus
   zodiac_Gemini: Gemini
@@ -54,7 +54,7 @@ text:
   zodiac_Capricornus: Capricornus
   zodiac_Aquarius: Aquarius
   zodiac_Pisces: Pisces
-  gender_: Not given
+  gender_n: Not given
   gender_f: Female
   gender_m: Male
   gender_o: Other
@@ -64,3 +64,4 @@ title:
   circles: Circles
   contacts: Contacts
   profile: Profile
+  settings: Settings

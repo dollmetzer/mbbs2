@@ -5,7 +5,7 @@
  * A small BBS package for mobile use.
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
- * @copyright (c) 2014-2020, Dirk Ollmetzer
+ * @copyright (c) 2014-2022, Dirk Ollmetzer
  * @license GNU GENERAL PUBLIC LICENSE Version 3
  */
 
@@ -59,13 +59,13 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/profile/show/{uuid}", name="profile_show")
+     * @Route("/profile/show/{id}", name="profile_show")
      * @IsGranted("ROLE_USER")
      */
-    public function showAction(string $uuid): Response
+    public function showAction(int $id): Response
     {
         $repo = $this->getDoctrine()->getRepository(Profile::class);
-        $profile = $repo->find($uuid);
+        $profile = $repo->find($id);
 
         return $this->render('bbs/profile/show.html.twig', ['profile' => $profile]);
     }
@@ -112,7 +112,7 @@ class ProfileController extends AbstractController
                     $request->files->get('profilepicture'),
                     $this->getPicturePath($profile)
                 );
-                $profile->setPicture('img/profile/'.$profile->getUuid().'.jpg');
+                $profile->setPicture('img/profile/'.$profile->getId().'.jpg');
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($profile);
                 $em->flush();
@@ -170,6 +170,6 @@ class ProfileController extends AbstractController
 
     protected function getPicturePath(Profile $profile): string
     {
-        return realpath(__DIR__.'/../../../public/img/profile/'.$profile->getUuid().'.jpg');
+        return realpath(__DIR__.'/../../../public/img/profile/'.$profile->getId().'.jpg');
     }
 }

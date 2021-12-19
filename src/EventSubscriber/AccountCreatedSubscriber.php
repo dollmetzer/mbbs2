@@ -5,7 +5,7 @@
  * A small BBS package for mobile use.
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
- * @copyright (c) 2014-2020, Dirk Ollmetzer
+ * @copyright (c) 2014-2022, Dirk Ollmetzer
  * @license GNU GENERAL PUBLIC LICENSE Version 3
  */
 
@@ -16,7 +16,7 @@ use App\Entity\Bbs\Profile;
 use App\Events\Base\AccountCreatedEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
-use Ramsey\Uuid\Uuid;
+
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -71,8 +71,7 @@ class AccountCreatedSubscriber implements EventSubscriberInterface
         $user = $event->getUser();
         $registrar = $user->getRegistrar();
 
-        $uuid = Uuid::uuid4();
-        $profile = new Profile($uuid);
+        $profile = new Profile();
         $profile->setOwner($user);
         $profile->setDisplayname($user->getHandle());
         $this->entityManager->persist($profile);

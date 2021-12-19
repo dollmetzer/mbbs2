@@ -5,7 +5,7 @@
  * A small BBS package for mobile use.
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
- * @copyright (c) 2014-2020, Dirk Ollmetzer
+ * @copyright (c) 2014-2022, Dirk Ollmetzer
  * @license GNU GENERAL PUBLIC LICENSE Version 3
  */
 
@@ -29,7 +29,7 @@ class ThreadController extends AbstractController
     {
         $threads = [
             [
-                'uuid' => '01928783987786',
+                'id' => '0198',
                 'type' => 'group',
                 'name' => 'The Good Old Boys',
                 'picture' => 'img/group/good_old_boys.jpg',
@@ -38,7 +38,7 @@ class ThreadController extends AbstractController
                 'teaser' => 'Zwei von drei User sin in d...',
             ],
             [
-                'uuid' => '10928783a9aa78',
+                'id' => '1092',
                 'type' => 'person',
                 'name' => 'Sarah',
                 'picture' => 'img/profile/Sarah.jpg',
@@ -47,7 +47,7 @@ class ThreadController extends AbstractController
                 'teaser' => 'Cool, wir freuen uns!',
             ],
             [
-                'uuid' => '92fe8783aa7801',
+                'id' => '9287',
                 'type' => 'person',
                 'name' => 'Dirk',
                 'picture' => 'img/profile/Dirk.jpg',
@@ -56,7 +56,7 @@ class ThreadController extends AbstractController
                 'teaser' => 'Neue 16K Demo von den ThompsonTwins ist am...',
             ],
             [
-                'uuid' => 'e8783aa780192f',
+                'id' => '8783',
                 'type' => 'person',
                 'name' => 'Alexandra',
                 'picture' => 'img/profile/Alexandra.jpg',
@@ -65,7 +65,7 @@ class ThreadController extends AbstractController
                 'teaser' => 'Neue Konzerttermine für das 2. Halbjahr. Hoffe, d...',
             ],
             [
-                'uuid' => '83aa780192fe87',
+                'id' => '8380',
                 'type' => 'person',
                 'name' => 'Julia',
                 'picture' => 'img/profile/Julia.jpg',
