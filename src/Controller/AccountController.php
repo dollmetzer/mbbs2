@@ -41,6 +41,10 @@ class AccountController extends AbstractController
      */
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): response
     {
+        if (true === $this->isGranted('ROLE_USER')) {
+            return $this->redirectToRoute('index_index');
+        }
+
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -57,6 +61,11 @@ class AccountController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email
+
+            $this->addFlash(
+                'info',
+                'Registration successful. You can sign in now.'
+            );
 
             return $this->redirectToRoute('index_index');
         }

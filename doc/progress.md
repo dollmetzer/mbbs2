@@ -1,5 +1,6 @@
 Progress
 ========
+* 2021-12-20 Build dummy pages and added access control
 * 2021-12-20 Added code quality check script
 * 2021-12-20 Basic Layout, Feature selfregister, login and logout.
 * 2021-12-20 Integrated bootstrap 5.1 frontend framework and bootstrap icons 1.7.2
