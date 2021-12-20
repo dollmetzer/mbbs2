@@ -1,5 +1,7 @@
 Progress
 ========
+* 2021-12-20 Basic Layout, Feature selfregister, login and logout.
+* 2021-12-20 Integrated bootstrap 5.1 frontend framework and bootstrap icons 1.7.2
 * 2021-12-19 Started rewrite for Symfony 5.4
 * 2021-03-12 Profile picture upload. Added Index page switch.
 * 2021-03-09 Started profile picture upload 

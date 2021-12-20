@@ -1,0 +1,44 @@
+{% trans_default_domain 'bbs' %}
+<footer class="fixed-bottom footer mt-auto bg-light">
+    <div class="container">
+        <div class="row justify-content-start">
+            <div class="col" style="text-align:center">
+                <a href="{{ path('chat_thread_list') }}" class="btn">
+                    {% if nav_top == 'message' %}
+                        <img src="{{ asset('icons/chat-dots-fill.svg') }}" width="32" height="32" title="{% trans %}link.messages{% endtrans %}" />
+                    {% else %}
+                        <img src="{{ asset('icons/chat-dots.svg') }}" width="32" height="32" title="{% trans %}link.messages{% endtrans %}" />
+                    {% endif %}
+                </a>
+            </div>
+            <div class="col" style="text-align:center">
+                <a href="{{ path('contact_list') }}" class="btn">
+                    {% if nav_top == 'contact' %}
+                        <img src="{{ asset('icons/people-fill.svg') }}" width="32" height="32" title="{% trans %}links.contacts{% endtrans %}" />
+                    {% else %}
+                        <img src="{{ asset('icons/people.svg') }}" width="32" height="32" title="{% trans %}link.contacts{% endtrans %}" />
+                    {% endif %}
+                </a>
+            </div>
+            <div class="col" style="text-align:center">
+                <a href="{{ path('profile_own') }}" class="btn">
+                    {% if nav_top == 'profile' %}
+                        <img src="{{ asset('icons/person-badge-fill.svg') }}" width="32" height="32" title="{% trans %}link.profile{% endtrans %}" />
+                    {% else %}
+                        <img src="{{ asset('icons/person-badge.svg') }}" width="32" height="32" title="{% trans %}link.profile{% endtrans %}" />
+                    {% endif %}
+                </a>
+            </div>
+            <div class="col" style="text-align:center">
+                <a href="{{ path('settings_list') }}" class="btn">
+                    {% if nav_top == 'settings' %}
+                        <img src="{{ asset('icons/gear-fill.svg') }}" width="32" height="32" title="{% trans %}link.settings{% endtrans %}" />
+                    {% else %}
+                        <img src="{{ asset('icons/gear.svg') }}" width="32" height="32" title="{% trans %}link.settings{% endtrans %}" />
+                    {% endif %}
+
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
