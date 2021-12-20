@@ -1,6 +1,8 @@
 {
     "type": "project",
-    "license": "proprietary",
+    "name": "dollmetzer/mbbs2",
+    "description": "mobile micro bbs 2",
+    "license": "GPL-3.0-only",
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
