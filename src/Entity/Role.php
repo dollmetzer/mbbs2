@@ -23,33 +23,30 @@ use Doctrine\ORM\Mapping\ManyToMany;
  */
 class Role
 {
+    use Timestampable;
+
     /**
-     * @var int
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
-     * @var string
      * @ORM\Column(type="string")
      */
-    private $name;
+    private string $name;
 
     /**
-     * @var bool
      * @ORM\Column(type="boolean", options={"default":"0"})
      */
-    private $isProtected = false;
+    private bool $isProtected = false;
 
     /**
      * @ManyToMany(targetEntity="User", mappedBy="roles")
      * @JoinTable(name="user_2_role")
-     *
-     * @var ArrayCollection
      */
-    private $users;
+    private ArrayCollection $users;
 
     public function __construct()
     {
@@ -81,17 +78,11 @@ class Role
         $this->isProtected = $isProtected;
     }
 
-    /**
-     * @return Collection
-     */
-    public function getUsers()
+    public function getUsers(): Collection
     {
         return $this->users;
     }
 
-    /**
-     * @return $this
-     */
     public function addUser(User $user): self
     {
         foreach ($this->users->getValues() as $associated) {
@@ -104,9 +95,6 @@ class Role
         return $this;
     }
 
-    /**
-     * @return $this
-     */
     public function removeUser(User $user): self
     {
         foreach ($this->users->getValues() as $associated) {

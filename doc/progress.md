@@ -1,5 +1,7 @@
 Progress
 ========
+* 2021-12-21 Added Account domain, AccountCreatedEvent, own orofile page
+* 2021-12-21 Added Profile entity and Timestampable trait to entities.
 * 2021-12-20 Build dummy pages and added access control
 * 2021-12-20 Added code quality check script
 * 2021-12-20 Basic Layout, Feature selfregister, login and logout.

@@ -3,5 +3,34 @@
 
 {% block content %}
     <h1>Your Profile</h1>
-    <p>profile:show:own</p>
+
+    <table class="table table-striped">
+        <tbody>
+        <tr>
+            <th>Display Name</th>
+            <td>{{ profile.displayname }}</td>
+        </tr>
+        <tr>
+            <th>Gender</th>
+            <td>{{ profile.gender }}</td>
+        </tr>
+        <tr>
+            <th>Zodiac Sign</th>
+            <td>{{ profile.zodiac }}</td>
+        </tr>
+        <tr>
+            <th>Motto</th>
+            <td>{{ profile.motto }}</td>
+        </tr>
+        <tr>
+            <th>Country</th>
+            <td>{{ profile.country }}</td>
+        </tr>
+        <tr>
+            <th>City</th>
+            <td>{{ profile.city }}</td>
+        </tr>
+        </tbody>
+    </table>
+
 {% endblock %}
