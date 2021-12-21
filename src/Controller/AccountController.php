@@ -92,7 +92,7 @@ class AccountController extends AbstractController
 
             $password = $data['password'];
             if ($password !== $data['password2']) {
-                $this->addFlash('error', $this->translator->trans('message.differentpasswords', [], 'base'));
+                $this->addFlash('error', $this->translator->trans('message.differentpasswords', [], 'app'));
                 $isOk = false;
             }
 
@@ -100,19 +100,19 @@ class AccountController extends AbstractController
             $username = $data['username'];
             $user = $repo->findOneBy(['username' => $username]);
             if ($user) {
-                $this->addFlash('error', $this->translator->trans('message.handleexists', [], 'base'));
+                $this->addFlash('error', $this->translator->trans('message.handleexists', [], 'app'));
                 $isOk = false;
             }
 
             $locale = $data['locale'];
             if (!in_array($locale, $locales)) {
-                $this->addFlash('error', $this->translator->trans('message.unsupportedlanguage', [], 'base'));
+                $this->addFlash('error', $this->translator->trans('message.unsupportedlanguage', [], 'app'));
                 $isOk = false;
             }
 
             if (true === $isOk) {
                 $this->account->create($username, $password, $locale);
-                $this->addFlash('notice', $this->translator->trans('message.accountcreated', [], 'base'));
+                $this->addFlash('info', $this->translator->trans('message.accountcreated', [], 'app'));
 
                 return $this->redirectToRoute('account_login');
             }

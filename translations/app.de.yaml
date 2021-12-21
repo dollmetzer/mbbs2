@@ -1,0 +1,27 @@
+# Language Snippets
+#
+# Do a regular check with
+# bin/console debug:translation de --domain=app
+link:
+  home: Startseite
+  terms: AGB
+  privacy: Datenschutz
+  imprint: Impressum
+  sign-in: Anmelden
+  sign-out: Abmelden
+  register: Registrieren
+  languages: Sprachen
+  messages: Nachrichten
+  contacts: Kontakte
+  profile: Profil
+  settings: Einstellungen
+
+text:
+  language_de: Deutsch
+  language_en: Englisch
+
+message:
+  differentpasswords: Das Passwort muss zweimal identisch eingegeben werden.
+  handleexists: Dieser Nutzername wird bereits verwendet.
+  unsupportedlanguage: Diese Sprache wird nicht unterstützt.
+  accountcreated: Nutzerkonto erfolgreich angelegt. Sie können sich nun anmelden.

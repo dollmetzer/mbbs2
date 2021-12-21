@@ -1,4 +1,4 @@
-{% trans_default_domain 'bbs' %}
+{% trans_default_domain 'app' %}
 <footer class="fixed-bottom footer mt-auto bg-light">
     <div class="container">
         <div class="row justify-content-start">
@@ -14,7 +14,7 @@
             <div class="col" style="text-align:center">
                 <a href="{{ path('contact_list') }}" class="btn">
                     {% if nav_top == 'contact' %}
-                        <img src="{{ asset('icons/people-fill.svg') }}" width="32" height="32" title="{% trans %}links.contacts{% endtrans %}" />
+                        <img src="{{ asset('icons/people-fill.svg') }}" width="32" height="32" title="{% trans %}link.contacts{% endtrans %}" />
                     {% else %}
                         <img src="{{ asset('icons/people.svg') }}" width="32" height="32" title="{% trans %}link.contacts{% endtrans %}" />
                     {% endif %}

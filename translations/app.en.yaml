@@ -1,0 +1,27 @@
+# Language Snippets
+#
+# Do a regular check with
+# bin/console debug:translation en --domain=app
+link:
+  home: Home
+  terms: Terms of use
+  privacy: Privacy
+  imprint: Imprint
+  sign-in: Sign In
+  sign-out: Sign Out
+  register: Register
+  languages: Languages
+  messages: Messages
+  contacts: Contacts
+  profile: Profile
+  settings: Settings
+
+text:
+  language_de: German
+  language_en: English
+
+message:
+  differentpasswords: Please enter the password twice.
+  handleexists: This username is already in use.
+  unsupportedlanguage: This language is not supported.
+  accountcreated: Account created successfull. You can sign in now.

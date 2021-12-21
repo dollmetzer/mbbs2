@@ -12,8 +12,10 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class IndexController extends AbstractController
 {
@@ -47,5 +49,21 @@ class IndexController extends AbstractController
     public function imprintAction(): Response
     {
         return $this->render('index/imprint.html.twig', []);
+    }
+
+    /**
+     * @Route("/language/set/{language}", name="index_set_language")
+     */
+    public function setlangAction(Request $request, TranslatorInterface $translator, string $language): Response
+    {
+        $allowedLanguages = $this->getParameter('locales');
+
+        if (in_array($language, $allowedLanguages)) {
+            $request->getSession()->set('_locale', $language);
+        } else {
+            $this->addFlash('error', $translator->trans('message.unsupportedlanguage', [], 'app'));
+        }
+
+        return $this->redirectToRoute('index_index');
     }
 }
