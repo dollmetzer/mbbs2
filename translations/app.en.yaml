@@ -2,6 +2,22 @@
 #
 # Do a regular check with
 # bin/console debug:translation en --domain=app
+btn:
+  create: New
+  delete: Delete
+  edit: Edit
+  view: View
+  picture:
+    upload: Picture Upload
+
+form:
+  displayname: Display Name
+  gender: Gender
+  zodiac-sign: Zodiac Sign
+  motto: Motto
+  country: Country
+  city: City
+
 link:
   home: Home
   terms: Terms of use
@@ -16,12 +32,37 @@ link:
   profile: Profile
   settings: Settings
 
-text:
-  language_de: German
-  language_en: English
-
 message:
   differentpasswords: Please enter the password twice.
   handleexists: This username is already in use.
   unsupportedlanguage: This language is not supported.
   accountcreated: Account created successfull. You can sign in now.
+
+text:
+  language_de: German
+  language_en: English
+  gender_n: Not Given
+  gender_f: Female
+  gender_m: Male
+  gender_o: Other
+  zodiac_n: Not given
+  zodiac_Aries: Aries
+  zodiac_Taurus: Taurus
+  zodiac_Gemini: Gemini
+  zodiac_Cancer: Cancer
+  zodiac_Leo: Leo
+  zodiac_Virgo: Virgo
+  zodiac_Libra: Libra
+  zodiac_Scorpio: Scorpio
+  zodiac_Saggitarius: Saggitarius
+  zodiac_Capricornus: Capricornus
+  zodiac_Aquarius: Aquarius
+  zodiac_Pisces: Pisces
+
+title:
+  messages: Messages
+  contacts: Contacts
+  profile:
+    own: Your Profile
+    edit: Edit Profile
+  settings: Settings

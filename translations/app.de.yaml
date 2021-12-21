@@ -2,6 +2,22 @@
 #
 # Do a regular check with
 # bin/console debug:translation de --domain=app
+btn:
+  create: Neu
+  delete: Löschen
+  edit: Bearbeiten
+  view: Ansehen
+  picture:
+    upload: Foto hochladen
+
+form:
+  displayname: Angezeigter Name
+  gender: Geschlecht
+  zodiac-sign: Sternzeichen
+  motto: Motto
+  country: Land
+  city: Stadt
+
 link:
   home: Startseite
   terms: AGB
@@ -16,12 +32,37 @@ link:
   profile: Profil
   settings: Einstellungen
 
-text:
-  language_de: Deutsch
-  language_en: Englisch
-
 message:
   differentpasswords: Das Passwort muss zweimal identisch eingegeben werden.
   handleexists: Dieser Nutzername wird bereits verwendet.
   unsupportedlanguage: Diese Sprache wird nicht unterstützt.
-  accountcreated: Nutzerkonto erfolgreich angelegt. Sie können sich nun anmelden.
+  accountcreated: Nutzerkonto erfolgreich angelegt. Du kannst dich nun anmelden.
+
+text:
+  language_de: Deutsch
+  language_en: Englisch
+  gender_n: Keine Angabe
+  gender_f: Weiblich
+  gender_m: Männlich
+  gender_o: Sonstiges
+  zodiac_n: Nicht angegeben
+  zodiac_Aries: Widder
+  zodiac_Taurus: Stier
+  zodiac_Gemini: Zwilling
+  zodiac_Cancer: Krebs
+  zodiac_Leo: Löwe
+  zodiac_Virgo: Jungfrau
+  zodiac_Libra: Waage
+  zodiac_Scorpio: Scorpion
+  zodiac_Saggitarius: Schütze
+  zodiac_Capricornus: Steinbock
+  zodiac_Aquarius: Wassermann
+  zodiac_Pisces: Fische
+
+title:
+  messages: Nachrichten
+  contacts: Kontakte
+  profile:
+    own: Dein Profil
+    edit: Profil bearbeiten
+  settings: Einstellungen
