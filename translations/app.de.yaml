@@ -9,6 +9,8 @@ btn:
   view: Ansehen
   picture:
     upload: Foto hochladen
+    change: Foto ändern
+    delete: Foto löschen
 
 form:
   displayname: Angezeigter Name

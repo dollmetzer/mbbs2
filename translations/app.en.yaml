@@ -9,6 +9,8 @@ btn:
   view: View
   picture:
     upload: Picture Upload
+    change: Change Picture
+    delete: Delete Picture
 
 form:
   displayname: Display Name
@@ -45,7 +47,7 @@ text:
   gender_f: Female
   gender_m: Male
   gender_o: Other
-  zodiac_n: Not given
+  zodiac_n: Not Given
   zodiac_Aries: Aries
   zodiac_Taurus: Taurus
   zodiac_Gemini: Gemini

@@ -11,6 +11,7 @@
 
 namespace App\Entity;
 
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 trait Timestampable
@@ -18,12 +19,12 @@ trait Timestampable
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
-    private ?\DateTimeImmutable $createdOn = null;
+    private ?DateTimeImmutable $createdOn = null;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
-    private ?\DateTimeImmutable $updatedOn = null;
+    private ?DateTimeImmutable $updatedOn = null;
 
     /**
      * @ORM\PreFlush
@@ -31,17 +32,17 @@ trait Timestampable
     public function setTimestamps(): void
     {
         if (null === $this->createdOn) {
-            $this->createdOn = new \DateTimeImmutable();
+            $this->createdOn = new DateTimeImmutable();
         }
-        $this->updatedOn = new \DateTimeImmutable();
+        $this->updatedOn = new DateTimeImmutable();
     }
 
-    public function getCreatedOn(): ?\DateTimeImmutable
+    public function getCreatedOn(): ?DateTimeImmutable
     {
         return $this->createdOn;
     }
 
-    public function getUpdatedOn(): ?\DateTimeImmutable
+    public function getUpdatedOn(): ?DateTimeImmutable
     {
         return $this->updatedOn;
     }

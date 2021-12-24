@@ -45,6 +45,7 @@ class Role
     /**
      * @ManyToMany(targetEntity="User", mappedBy="roles")
      * @JoinTable(name="user_2_role")
+     *
      * @var Collection
      */
     private $users;

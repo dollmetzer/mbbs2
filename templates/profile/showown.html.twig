@@ -9,18 +9,28 @@
         <tbody>
             <tr>
                 <td colspan="2">
-                    {% if profile.picture %}
-                        <img src="{{ asset(profile.picture) }}" id="show-picture" /><br />&nbsp;
+                    {% if pictureUrl %}
+                        <img src="{{ asset(pictureUrl) }}" id="show-picture" /><br />&nbsp;
+                        <form action="{{ path('profile_picture_upload') }}" id="pictureupload" enctype="multipart/form-data" method="post">
+                            <input type="file" name="profilepicture" id="filebutton" hidden onchange="document.getElementById('pictureupload').submit();" />
+                            <label for="filebutton" class="btn btn-primary"><i class="bi-image"></i>&nbsp;{% trans %}btn.picture.change{% endtrans %}</label>
+                            <a href="{{ path('profile_picture_delete') }}" class="btn btn-danger"><i class="bi-trash"></i>&nbsp;{% trans %}btn.picture.delete{% endtrans %}</a>
+                        </form>
+                    {% else %}
+                        <form action="{{ path('profile_picture_upload') }}" id="pictureupload" enctype="multipart/form-data" method="post">
+                            <input type="file" name="profilepicture" id="filebutton" hidden onchange="document.getElementById('pictureupload').submit();" />
+                            <label for="filebutton" class="btn btn-primary"><i class="bi-image"></i>&nbsp;{% trans %}btn.picture.upload{% endtrans %}</label>
+                        </form>
                     {% endif %}
-                    <form action="{{ path('profile_picture_upload') }}" id="pictureupload" enctype="multipart/form-data" method="post">
-                        <input type="file" name="profilepicture" id="filebutton" hidden onchange="document.getElementById('pictureupload').submit();" />
-                        <label for="filebutton" class="btn btn-primary"><i class="bi-image"></i>&nbsp;{% trans %}btn.picture.upload{% endtrans %}</label>
-                    </form>
                 </td>
             </tr>
             <tr>
                 <th>{% trans %}form.displayname{% endtrans %}</th>
                 <td>{{ profile.displayname }}</td>
+            </tr>
+            <tr>
+                <th>{% trans %}form.motto{% endtrans %}</th>
+                <td>{{ profile.motto }}</td>
             </tr>
             {% set gender = 'text.gender_' ~ profile.gender %}
             <tr>
@@ -31,10 +41,6 @@
             <tr>
                 <th>{% trans %}form.zodiac-sign{% endtrans %}</th>
                 <td>{{ zodiac|trans }}</td>
-            </tr>
-            <tr>
-                <th>{% trans %}form.motto{% endtrans %}</th>
-                <td>{{ profile.motto }}</td>
             </tr>
             <!-- tr>
                 <th>{% trans %}form.country{% endtrans %}</th>

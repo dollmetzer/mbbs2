@@ -45,17 +45,18 @@ class AppFixtures extends Fixture
         $roleModerator->setTimestamps();
         $manager->persist($roleModerator);
 
-        // User
-        $user = new User();
-        $user->setUsername('admin');
-        $user->setPassword($this->userPasswordHasher->hashPassword($user, self::ADMIN_PASSWORD));
-        $user->setLocale('en');
-        $user->addRole($roleAdmin);
-        $manager->persist($user);
+        // Admin User
+        $adminUser = new User();
+        $adminUser->setUsername('admin');
+        $adminUser->setPassword($this->userPasswordHasher->hashPassword($adminUser, self::ADMIN_PASSWORD));
+        $adminUser->setLocale('en');
+        $adminUser->addRole($roleAdmin);
+        $manager->persist($adminUser);
 
         // Profile
         $profile = new Profile();
-        $profile->setOwner($user);
+        $profile->setOwner($adminUser);
+        $profile->setDisplayname('Administrator');
         $manager->persist($profile);
 
         $manager->flush();

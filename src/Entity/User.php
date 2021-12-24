@@ -74,6 +74,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ManyToMany(targetEntity="Role", inversedBy="users")
      * @JoinTable(name="user_2_role")
+     *
      * @var Collection
      */
     private $roles;
