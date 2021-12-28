@@ -39,10 +39,16 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('account_login') }}">{% trans %}link.sign-in{% endtrans %}</a>
             </li>
+            {% if selfregister %}
             <li class="nav-item">
                 <a class="nav-link{% if nav_top == 'register' %} active{% endif %}" href="{{ path('account_register') }}">{% trans %}link.register{% endtrans %}</a>
             </li>
-
+            {% endif %}
+            {% if invitation %}
+                <li class="nav-item">
+                    <a class="nav-link{% if nav_top == 'invitatioin' %} active{% endif %}" href="{{ path('account_accept_invitation_form') }}">{% trans %}link.invitation{% endtrans %}</a>
+                </li>
+            {% endif %}
         {% endif %}
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">{% trans %}link.languages{% endtrans %}</a>

@@ -22,7 +22,7 @@ class ChatController extends AbstractController
      * @Route("/chat/thread/list", name="chat_thread_list")
      * @IsGranted("ROLE_USER")
      */
-    public function threadList(): Response
+    public function threadListAction(): Response
     {
         return $this->render('chat/threadlist.html.twig', []);
     }

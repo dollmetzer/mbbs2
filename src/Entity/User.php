@@ -63,13 +63,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
-    private ?DateTimeImmutable $lastlogin;
+    private ?DateTimeImmutable $lastlogin = null;
 
     /**
      * @ManyToOne(targetEntity="User")
      * @JoinColumn(name="registrar_id", referencedColumnName="id", onDelete="SET NULL", nullable=true)
      */
-    private ?User $registrar;
+    private ?User $registrar = null;
 
     /**
      * @ManyToMany(targetEntity="Role", inversedBy="users")

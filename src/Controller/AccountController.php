@@ -48,7 +48,7 @@ class AccountController extends AbstractController
     /**
      * @Route("/account/login", name="account_login")
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function loginAction(AuthenticationUtils $authenticationUtils): Response
     {
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
@@ -62,7 +62,7 @@ class AccountController extends AbstractController
     /**
      * @Route("/account/logout", name="account_logout", methods={"GET"})
      */
-    public function logout(): void
+    public function logoutAction(): void
     {
         // controller can be blank: it will never be called!
     }
@@ -70,7 +70,7 @@ class AccountController extends AbstractController
     /**
      * @Route("/account/register", name="account_register")
      */
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): response
+    public function registerAction(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): response
     {
         if (true === $this->isGranted('ROLE_USER')) {
             return $this->redirectToRoute('index_index');

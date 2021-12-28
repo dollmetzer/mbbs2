@@ -22,7 +22,7 @@ class SettingsController extends AbstractController
      * @Route("/settings", name="settings_list")
      * @IsGranted("ROLE_USER")
      */
-    public function list(): Response
+    public function listAction(): Response
     {
         return $this->render('settings/list.html.twig', []);
     }

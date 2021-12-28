@@ -132,7 +132,7 @@ class ProfileController extends AbstractController
     /**
      * @Route("profile/picture/delete", name="profile_picture_delete")
      */
-    public function pictureDelete(): Response
+    public function pictureDeleteAction(): Response
     {
         $user = $this->getUser();
         $repo = $this->doctrine->getRepository(Profile::class);

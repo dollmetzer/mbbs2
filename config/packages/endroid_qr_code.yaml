@@ -7,3 +7,7 @@ endroid_qr_code:
         errorCorrectionLevel: 'low'
         roundBlockSizeMode: 'margin'
         validateResult: false
+    invitation:
+        writer: Endroid\QrCode\Writer\SvgWriter
+        size: 300
+        encoding: 'UTF-8'

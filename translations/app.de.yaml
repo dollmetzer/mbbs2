@@ -3,22 +3,30 @@
 # Do a regular check with
 # bin/console debug:translation de --domain=app
 btn:
+  account:
+    sign-in: Anmelden
   create: Neu
   delete: Löschen
   edit: Bearbeiten
   view: Ansehen
+  send: Senden
   picture:
     upload: Foto hochladen
     change: Foto ändern
     delete: Foto löschen
+  invite: Einen Freund einladen
 
 form:
+  username: Nutzername
+  password: Passwort
   displayname: Angezeigter Name
   gender: Geschlecht
   zodiac-sign: Sternzeichen
   motto: Motto
   country: Land
   city: Stadt
+  invitationcode: Einladungscode
+  remember-me: Angemeldet bleiben
 
 link:
   home: Startseite
@@ -28,6 +36,7 @@ link:
   sign-in: Anmelden
   sign-out: Abmelden
   register: Registrieren
+  invitation: Einladung
   languages: Sprachen
   messages: Nachrichten
   contacts: Kontakte
@@ -39,6 +48,10 @@ message:
   handleexists: Dieser Nutzername wird bereits verwendet.
   unsupportedlanguage: Diese Sprache wird nicht unterstützt.
   accountcreated: Nutzerkonto erfolgreich angelegt. Du kannst dich nun anmelden.
+  invitation:
+    illegal-code: Keine passende Einladung gefunden.
+    expired-code: Die Einladung ist abgelaufen
+    accept: Nimm die Einladung von einem Freund an, indem Du den 16 stelligen Code eingibst.
 
 text:
   language_de: Deutsch
@@ -62,9 +75,14 @@ text:
   zodiac_Pisces: Fische
 
 title:
+  account:
+    sign-in: Anmelden
   messages: Nachrichten
   contacts: Kontakte
   profile:
     own: Dein Profil
     edit: Profil bearbeiten
   settings: Einstellungen
+  invitation:
+    accept: Einladung annehmen
+    accountapplication: Benutzerprofil anlegten

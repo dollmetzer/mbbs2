@@ -22,7 +22,7 @@ class ContactController extends AbstractController
      * @Route("/contact/list", name="contact_list")
      * @IsGranted("ROLE_USER")
      */
-    public function list(): Response
+    public function listAction(): Response
     {
         return $this->render('contact/list.html.twig', []);
     }

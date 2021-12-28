@@ -1,5 +1,6 @@
 Progress
 ========
+* 2021-12-17 Added invitation by QR Code
 * 2021-12-24 Profile Picture upload and delete
 * 2021-12-21 Added Fixtures, Language switching, Profile form
 * 2021-12-21 Added Account domain, AccountCreatedEvent, own profile page

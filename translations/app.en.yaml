@@ -3,22 +3,30 @@
 # Do a regular check with
 # bin/console debug:translation en --domain=app
 btn:
+  account:
+    sign-in: Sign-In
   create: New
   delete: Delete
   edit: Edit
   view: View
+  send: Send
   picture:
     upload: Picture Upload
     change: Change Picture
     delete: Delete Picture
+  invite: Invite A Friend
 
 form:
+  username: Username
+  password: Password
   displayname: Display Name
   gender: Gender
   zodiac-sign: Zodiac Sign
   motto: Motto
   country: Country
   city: City
+  invitationcode: Invitation code
+  remember-me: Remember Me
 
 link:
   home: Home
@@ -28,6 +36,7 @@ link:
   sign-in: Sign In
   sign-out: Sign Out
   register: Register
+  invitation: Invitation
   languages: Languages
   messages: Messages
   contacts: Contacts
@@ -39,6 +48,10 @@ message:
   handleexists: This username is already in use.
   unsupportedlanguage: This language is not supported.
   accountcreated: Account created successfull. You can sign in now.
+  invitation:
+    illegal-code: No matching invitation found.
+    expired-code: The invitation has expired.
+    accept: Accept the invitation of your friend by entering the 16 digit code.
 
 text:
   language_de: German
@@ -62,9 +75,14 @@ text:
   zodiac_Pisces: Pisces
 
 title:
+  account:
+    sign-in: Sign-In
   messages: Messages
   contacts: Contacts
   profile:
     own: Your Profile
     edit: Edit Profile
   settings: Settings
+  invitation:
+    accept: Accept Invitation
+    accountapplication: Create a new account
