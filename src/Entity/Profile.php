@@ -110,7 +110,7 @@ class Profile
 
     /**
      * @ManyToOne(targetEntity="App\Entity\User")
-     * @JoinColumn(name="owner_id", referencedColumnName="id")
+     * @JoinColumn(name="owner_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private User $owner;
 

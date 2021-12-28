@@ -89,7 +89,6 @@ class InvitationController extends AbstractController
         if (null === $invitation) {
             while (null === $invitation) {
                 $invitationCode = substr(md5(random_bytes(16)), 0, 16);
-                echo "$invitationCode\n";
                 $invitation = $repo->findBy(['code' => $invitationCode]);
             }
             $invitation = new InvitationEntity();
@@ -277,7 +276,7 @@ class InvitationController extends AbstractController
     {
         $choices = [];
         foreach ($locales as $item) {
-            $choices[$item] = $item;
+            $choices['text.language_'.$item] = $item;
         }
 
         return $this->createFormBuilder($defaultData, ['translation_domain' => 'app'])

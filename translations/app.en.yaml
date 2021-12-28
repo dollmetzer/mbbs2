@@ -52,6 +52,9 @@ message:
   unsupportedlanguage: This language is not supported.
   accountcreated: Account created successfull. You can sign in now.
   invitation:
+    code: Invitation code
+    until: Valid until
+    invite: This invitation can be accepted by scanning of the QR Code or by input of the 4x4 character code on the target device.<br />Please consider, that this invitation is valid only for a short period for security reasons.
     illegal-code: No matching invitation found.
     expired-code: The invitation has expired.
     accept: Accept the invitation of your friend by entering the 16 digit code.
@@ -88,5 +91,6 @@ title:
     edit: Edit Profile
   settings: Settings
   invitation:
+    invite: Invite Somebody
     accept: Accept Invitation
     accountapplication: Create a new account

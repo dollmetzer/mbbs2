@@ -52,6 +52,9 @@ message:
   unsupportedlanguage: Diese Sprache wird nicht unterstützt.
   accountcreated: Nutzerkonto erfolgreich angelegt. Du kannst dich nun anmelden.
   invitation:
+    code: Einladungscode
+    until: Gültig bis
+    invite: Diese Einladung kann per scannen des QR Codes oder durch Eingabe des 4x4 stelligen Einladungscodes auf dem Zielgerät angenommen werden.<br />Bitte beachte, dass die Einladung aus Sicherheitsgründen nur kurze Zeit gültig ist.
     illegal-code: Keine passende Einladung gefunden.
     expired-code: Die Einladung ist abgelaufen
     accept: Nimm die Einladung von einem Freund an, indem Du den 16 stelligen Code eingibst.
@@ -88,5 +91,6 @@ title:
     edit: Profil bearbeiten
   settings: Einstellungen
   invitation:
+    invite: Jemanden einladen
     accept: Einladung annehmen
     accountapplication: Benutzerprofil anlegten

@@ -3,16 +3,14 @@
 {% trans_default_domain 'app' %}
 
 {% block content %}
-Invitation Create
-    <h1>{% trans %}title.invite{% endtrans %}</h1>
+    <h1>{% trans %}title.invitation.invite{% endtrans %}</h1>
 
-    <p>{% trans %}message.invite{% endtrans %}</p>
+    <p>{% trans %}message.invitation.invite{% endtrans %}</p>
 
     {% if invitation %}
-        <p>{% trans %}message.invitationcode{% endtrans%} : {{ invitation.code|slice(0,4) }} {{ invitation.code|slice(4,4) }} {{ invitation.code|slice(8,4) }} {{ invitation.code|slice(12,4) }}</p>
-        <p>{% trans %}message.invitationuntil{% endtrans %} {{ invitation.expirationDateTime|format_datetime('medium', 'short', locale='de') }}</p>
+        <p>{% trans %}message.invitation.code{% endtrans%} : <pre>{{ invitation.code|slice(0,4) }} {{ invitation.code|slice(4,4) }} {{ invitation.code|slice(8,4) }} {{ invitation.code|slice(12,4) }}</pre></p>
+        <p>{% trans %}message.invitation.until{% endtrans %} <pre>{{ invitation.expirationDateTime|format_datetime('medium', 'short', locale='de') }}</pre></p>
         {% set url = url('account_accept_invitation', {code:invitation.code}) %}
-        <p>{{ url }}</p>
         <img src="{{ qr_code_data_uri(url, 'invitation') }}" />
     {% else %}
         <a href="{{ path('account_create_invitation') }}" class="btn btn-primary">{% trans %}btn.invite{% endtrans %}</a>

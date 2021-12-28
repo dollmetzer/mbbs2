@@ -46,7 +46,7 @@ class Account
         $user->setUsername($username);
         $user->setPassword($this->userPasswordHasher->hashPassword($user, $password));
         $user->setLocale($locale);
-        $user->setRegistrar($registrar);
+//        $user->setRegistrar($registrar);
         $user->setIsActive(true);
 
         $this->entityManager->persist($user);
