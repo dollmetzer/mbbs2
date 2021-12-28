@@ -159,11 +159,12 @@ class ProfileController extends AbstractController
             $genders[$text] = $gender;
         }
 
-        return $this->createFormBuilder($profile)
+        return $this->createFormBuilder($profile, ['translation_domain' => 'app'])
             ->add(
                 'displayname',
                 TextType::class,
                 [
+                    'label' => 'form.displayname',
                     'attr' => [
                         'minlength' => 4,
                         'maxlength' => 32,
@@ -173,16 +174,23 @@ class ProfileController extends AbstractController
                 'motto',
                 TextType::class,
                 [
+                    'label' => 'form.motto',
                     'required' => false,
                 ]
             )->add(
                 'gender',
                 ChoiceType::class,
-                ['choices' => $genders]
+                [
+                    'label' => 'form.gender',
+                    'choices' => $genders,
+                ]
             )->add(
                 'zodiac',
                 ChoiceType::class,
-                ['choices' => $zodiacSigns]
+                [
+                    'label' => 'form.zodiac-sign',
+                    'choices' => $zodiacSigns,
+                ]
             )->add('send', SubmitType::class)
             ->getForm();
     }

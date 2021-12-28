@@ -19,6 +19,8 @@ btn:
 form:
   username: Username
   password: Password
+  password2: Password (repeat)
+  language: Language
   displayname: Display Name
   gender: Gender
   zodiac-sign: Zodiac Sign
@@ -27,6 +29,7 @@ form:
   city: City
   invitationcode: Invitation code
   remember-me: Remember Me
+  register: Register
 
 link:
   home: Home
@@ -75,6 +78,7 @@ text:
   zodiac_Pisces: Pisces
 
 title:
+  register: Register
   account:
     sign-in: Sign-In
   messages: Messages

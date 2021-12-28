@@ -184,8 +184,9 @@ class InvitationController extends AbstractController
         }
 
         $locales = $this->getParameter('locales');
+        $currentLanguage = $request->getSession()->get('_locale');
 
-        $form = $this->getAccountForm($locales, []);
+        $form = $this->getAccountForm($locales, ['locale' => $currentLanguage]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -279,7 +280,7 @@ class InvitationController extends AbstractController
             $choices[$item] = $item;
         }
 
-        return $this->createFormBuilder($defaultData)
+        return $this->createFormBuilder($defaultData, ['translation_domain' => 'app'])
             ->add(
                 'username',
                 TextType::class,

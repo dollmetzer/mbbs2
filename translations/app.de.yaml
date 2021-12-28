@@ -19,6 +19,8 @@ btn:
 form:
   username: Nutzername
   password: Passwort
+  password2: Passwort (wdh.)
+  language: Sprache
   displayname: Angezeigter Name
   gender: Geschlecht
   zodiac-sign: Sternzeichen
@@ -27,6 +29,7 @@ form:
   city: Stadt
   invitationcode: Einladungscode
   remember-me: Angemeldet bleiben
+  register: Registrieren
 
 link:
   home: Startseite
@@ -75,6 +78,7 @@ text:
   zodiac_Pisces: Fische
 
 title:
+  register: Registrieren
   account:
     sign-in: Anmelden
   messages: Nachrichten

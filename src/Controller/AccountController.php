@@ -81,8 +81,9 @@ class AccountController extends AbstractController
         }
 
         $locales = $this->getParameter('locales');
+        $currentLanguage = $request->getSession()->get('_locale');
 
-        $form = $this->getAccountForm($locales, []);
+        $form = $this->getAccountForm($locales, ['locale' => $currentLanguage]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -127,14 +128,15 @@ class AccountController extends AbstractController
     {
         $choices = [];
         foreach ($locales as $item) {
-            $choices[$item] = $item;
+            $choices['text.language_'.$item] = $item;
         }
 
-        return $this->createFormBuilder($defaultData)
+        return $this->createFormBuilder($defaultData, ['translation_domain' => 'app'])
             ->add(
                 'username',
                 TextType::class,
                 [
+                    'label' => 'form.username',
                     'attr' => [
                         'minlength' => 4,
                         'maxlength' => 32,
@@ -144,6 +146,7 @@ class AccountController extends AbstractController
                 'password',
                 PasswordType::class,
                 [
+                    'label' => 'form.password',
                     'attr' => [
                         'minlength' => 4,
                         'maxlength' => 32,
@@ -153,6 +156,7 @@ class AccountController extends AbstractController
                 'password2',
                 PasswordType::class,
                 [
+                    'label' => 'form.password2',
                     'attr' => [
                         'minlength' => 4,
                         'maxlength' => 32,
@@ -162,6 +166,7 @@ class AccountController extends AbstractController
                 'locale',
                 ChoiceType::class,
                 [
+                    'label' => 'form.language',
                     'choices' => $choices,
                 ]
             )->add('send', SubmitType::class)
