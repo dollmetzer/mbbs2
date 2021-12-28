@@ -2,6 +2,9 @@
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'app' %}
 
+{% block title %}{% trans %}title.index{% endtrans %}{% endblock %}
+
 {% block content %}
+    <h1>{% trans %}title.index{% endtrans %}</h1>
     <p>index::index</p>
 {% endblock %}

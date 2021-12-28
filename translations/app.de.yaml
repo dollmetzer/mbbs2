@@ -81,6 +81,10 @@ text:
   zodiac_Pisces: Fische
 
 title:
+  index: Willkommen bei MBBS2
+  terms: AGB
+  privacy: Datenschutz
+  imprint: Impressum
   register: Registrieren
   account:
     sign-in: Anmelden

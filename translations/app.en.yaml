@@ -81,6 +81,10 @@ text:
   zodiac_Pisces: Pisces
 
 title:
+  index: Welcome to MBBS2
+  terms: Terms of use
+  privacy: Privacy
+  imprint: Imprint
   register: Register
   account:
     sign-in: Sign-In

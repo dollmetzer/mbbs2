@@ -32,12 +32,12 @@
 
         {% if app.user %}
             <li class="nav-item">
-                <a class="nav-link" href="{{ path('account_logout') }}">{% trans %}link.sign-out{% endtrans %} [{{ app.user.userIdentifier }}]</a>
+                <a class="nav-link" href="{{ path('account_logout') }}"><i class="bi-box-arrow-right"></i>&nbsp;{% trans %}link.sign-out{% endtrans %} [{{ app.user.userIdentifier }}]</a>
             </li>
 
         {% else %}
             <li class="nav-item">
-                <a class="nav-link" href="{{ path('account_login') }}">{% trans %}link.sign-in{% endtrans %}</a>
+                <a class="nav-link" href="{{ path('account_login') }}"><i class="bi-box-arrow-in-right"></i>&nbsp;{% trans %}link.sign-in{% endtrans %}</a>
             </li>
             {% if selfregister %}
             <li class="nav-item">

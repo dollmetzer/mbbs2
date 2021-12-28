@@ -2,7 +2,9 @@
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'app' %}
 
+{% block title %}{% trans %}title.terms{% endtrans %}{% endblock %}
+
 {% block content %}
-    <h1>Terms of use</h1>
+    <h1>{% trans %}title.terms{% endtrans %}</h1>
     <p>index::terms</p>
 {% endblock %}
