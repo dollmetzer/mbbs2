@@ -31,7 +31,7 @@ class Invitation
     public function getInvitation(string $code): InvitationEntity
     {
         $repo = $this->doctrine->getRepository(InvitationEntity::class);
-        /** @var InvitationEntity $invitation */
+        /** @var ?InvitationEntity $invitation */
         $invitation = $repo->findOneBy(['code' => $code]);
 
         if (null === $invitation) {

@@ -30,6 +30,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class InvitationController extends AbstractController
@@ -93,6 +94,7 @@ class InvitationController extends AbstractController
             }
             $invitation = new InvitationEntity();
             $invitation->setCode($invitationCode);
+            /* @phpstan-ignore-next-line */
             $invitation->setOriginator($this->getUser());
             $invitation->setExpirationDateTime(new DateTimeImmutable('+15 min'));
 
@@ -132,7 +134,7 @@ class InvitationController extends AbstractController
     /**
      * @Route("account/invitation/accept", name="account_accept_invitation_form")
      */
-    public function acceptFormAction(Request $request)
+    public function acceptFormAction(Request $request): Response
     {
         $form = $this->getInvitationForm([]);
         $form->handleRequest($request);
@@ -165,8 +167,13 @@ class InvitationController extends AbstractController
             return $this->redirectToRoute('account_invitation_create_account');
         }
 
+        $acceptedURL = $this->generateUrl('account_accept_invitation_form', [], UrlGeneratorInterface::ABSOLUTE_URL);
+        $acceptedURL = preg_replace('%/%', '\/', $acceptedURL);
+
         return $this->render('invitation/accept-form.html.twig', [
             'form' => $form->createView(),
+            'js' => ['js/jsQR.js'],
+            'acceptedURL' => $acceptedURL,
         ]);
     }
 
@@ -218,6 +225,7 @@ class InvitationController extends AbstractController
                 $this->account->create($username, $password, $locale, $registrar);
 
                 $this->addFlash('info', $this->translator->trans('message.accountcreated', [], 'app'));
+
                 return $this->redirectToRoute('account_login');
             }
         }

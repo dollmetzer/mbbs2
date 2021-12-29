@@ -16,6 +16,8 @@ btn:
     delete: Foto löschen
   invite: Einen Freund einladen
   invitation-accept: Einladung annehmen
+  readQRCode-on: QR Code scannen
+  readQRCode-off: Scannen anhalten
 
 form:
   username: Nutzername
@@ -58,7 +60,10 @@ message:
     invite: Diese Einladung kann per scannen des QR Codes oder durch Eingabe des 4x4 stelligen Einladungscodes auf dem Zielgerät angenommen werden.<br />Bitte beachte, dass die Einladung aus Sicherheitsgründen nur kurze Zeit gültig ist.
     illegal-code: Keine passende Einladung gefunden.
     expired-code: Die Einladung ist abgelaufen
-    accept: Nimm die Einladung von einem Freund an, indem Du den 16 stelligen Code eingibst.
+    accept: Nimm die Einladung von einem Freund an, indem Du einfach den QR Code von seinem Gerät scannst.
+    accept-code: Oder gibt den 4x4 stelligen Einladungscode in das nachfolgende Formular ein.
+    qrcode-accepted: QR Code erkannt. Springe zur Einladung.
+    qrcode-denied: Das ist kein gültiger Einladungscode,
 
 text:
   language_de: Deutsch

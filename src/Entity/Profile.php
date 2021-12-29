@@ -169,11 +169,7 @@ class Profile
 
     public function getZodiacSign(): string
     {
-        if (null !== $this->zodiac) {
-            return mb_chr(self::HTML_ZODIAC[$this->zodiac]);
-        }
-
-        return '&nbsp;';
+        return mb_chr(self::HTML_ZODIAC[$this->zodiac]);
     }
 
     public function getZodiacs(): array

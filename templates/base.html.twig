@@ -49,5 +49,10 @@
         {% include '_elements/_footer.html.twig' %}
 
         <script src="{{ asset("js/bootstrap.bundle.min.js") }}"></script>
+        {% if js is defined %}
+            {% for script in js %}
+                <script src="{{ asset(script) }}"></script>
+            {% endfor %}
+        {% endif %}
     </body>
 </html>

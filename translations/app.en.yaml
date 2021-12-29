@@ -16,6 +16,8 @@ btn:
     delete: Delete Picture
   invite: Invite A Friend
   invitation-accept: Accept invitation
+  readQRCode-on: scan QR code
+  readQRCode-off: Stop scanning
 
 form:
   username: Username
@@ -58,7 +60,10 @@ message:
     invite: This invitation can be accepted by scanning of the QR Code or by input of the 4x4 character code on the target device.<br />Please consider, that this invitation is valid only for a short period for security reasons.
     illegal-code: No matching invitation found.
     expired-code: The invitation has expired.
-    accept: Accept the invitation of your friend by entering the 16 digit code.
+    accept: Accept the invitation of your friend by scanning the QR code from his device.
+    accept-code: Or accept the invitation of your friend by entering the 16 digit code in the form below.
+    qrcode-accepted: Found valid QR code. Jumping to the invitation.
+    qrcode-denied: This is no valid invitation QR code.
 
 text:
   language_de: German

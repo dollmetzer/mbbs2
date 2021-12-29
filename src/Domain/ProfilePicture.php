@@ -12,50 +12,25 @@
 namespace App\Domain;
 
 use App\Exception\FileUploadException;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ProfilePicture
 {
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
-
-    /**
-     * @var int
-     */
-    private $maxWidth;
-
-    /**
-     * @var int
-     */
-    private $maxHeight;
-
-    public function __construct(LoggerInterface $logger)
+    public function processUpload(UploadedFile $file, string $targetFile, int $maxWidth = 256, int $maxHeight = 256): void
     {
-        $this->logger = $logger;
-    }
-
-    public function processUpload(UploadedFile $file, string $targetFile, int $maxWidth = 256, int $maxHeight = 256)
-    {
-        $this->maxWidth = $maxWidth;
-        $this->maxHeight = $maxHeight;
-
         $this->checkError($file);
         $this->checkMimeType($file);
-
         $this->getResizedPicture($file, $targetFile, $maxWidth, $maxHeight);
     }
 
-    protected function checkMimeType(UploadedFile $file)
+    protected function checkMimeType(UploadedFile $file): void
     {
         if ('image/jpeg' !== $file->getMimeType()) {
             throw new FileUploadException(FileUploadException::ERROR_WRONG_MIME_TYPE);
         }
     }
 
-    protected function checkError(UploadedFile $file)
+    protected function checkError(UploadedFile $file): void
     {
         switch ($file->getError()) {
             case UPLOAD_ERR_OK:
@@ -70,7 +45,7 @@ class ProfilePicture
         }
     }
 
-    protected function getResizedPicture(UploadedFile $file, string $targetFile, int $maxWidth, int $maxHeight)
+    protected function getResizedPicture(UploadedFile $file, string $targetFile, int $maxWidth, int $maxHeight): void
     {
         $size = getimagesize($file->getPathname());
 

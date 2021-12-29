@@ -68,10 +68,10 @@ class ProfileController extends AbstractController
     /**
      * @Route("/profile/show/{id}", name="profile_show")
      */
-    public function showAction($id): Response
+    public function showAction(int $id): Response
     {
         $repo = $this->doctrine->getRepository(Profile::class);
-        $profile = $repo->findOneBy($id);
+        $profile = $repo->findOneBy(['id' => $id]);
 
         return $this->render('/profile/show.html.twig',
             ['profile' => $profile]
@@ -112,6 +112,7 @@ class ProfileController extends AbstractController
     public function pictureUploadAction(Request $request, ProfilePicture $profilePicture): Response
     {
         if (null !== $request->files->get('profilepicture')) {
+            /** @var User $user */
             $user = $this->getUser();
             $repo = $this->doctrine->getRepository(Profile::class);
             $profile = $repo->findOneBy(['owner' => $user->getId()]);
@@ -134,6 +135,7 @@ class ProfileController extends AbstractController
      */
     public function pictureDeleteAction(): Response
     {
+        /** @var User $user */
         $user = $this->getUser();
         $repo = $this->doctrine->getRepository(Profile::class);
         $profile = $repo->findOneBy(['owner' => $user->getId()]);

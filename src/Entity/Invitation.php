@@ -26,10 +26,10 @@ class Invitation
 
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private int $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=16, unique=true)
@@ -47,7 +47,7 @@ class Invitation
      */
     private DateTimeImmutable $expirationDateTime;
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
