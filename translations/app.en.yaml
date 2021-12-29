@@ -15,6 +15,7 @@ btn:
     change: Change Picture
     delete: Delete Picture
   invite: Invite A Friend
+  invitation-accept: Accept invitation
 
 form:
   username: Username

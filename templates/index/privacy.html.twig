@@ -1,4 +1,5 @@
 {% set nav_top = 'privacy' %}
+{% set nav_sub = '-' %}
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'app' %}
 
@@ -6,5 +7,9 @@
 
 {% block content %}
     <h1>{% trans %}title.privacy{% endtrans %}</h1>
-    <p>index::privacy</p>
+    {% if app.request.locale == 'de' %}
+        <p>Bitte hier die Ausführungen zum Datenschutz hinterlegen, bevor der Service live geschaltet wird.</p>
+    {% else %}
+        <p>Please insert the explanations for privacy, before going live with this service.</p>
+    {% endif %}
 {% endblock %}

@@ -1,4 +1,5 @@
 {% set nav_top = 'imprint' %}
+{% set nav_sub = '-' %}
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'app' %}
 
@@ -6,5 +7,9 @@
 
 {% block content %}
     <h1>{% trans %}title.imprint{% endtrans %}</h1>
-    <p>index::imprint</p>
+    {% if app.request.locale == 'de' %}
+        <p>Bitte hier das Impressum hinterlegen, bevor der Service live geschaltet wird.</p>
+    {% else %}
+        <p>Please insert the imprint, before going live with this service.</p>
+    {% endif %}
 {% endblock %}

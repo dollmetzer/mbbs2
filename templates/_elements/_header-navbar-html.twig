@@ -21,13 +21,13 @@
         </li>
         -->
         <li class="nav-item">
-            <a class="nav-link{% if nav_top == 'terms' %} active{% endif %}" href="{{ path("index_terms") }}">{% trans %}link.terms{% endtrans %}</a>
+            <a class="nav-link{% if nav_top == 'terms' %} active{% endif %}" href="{{ path("index_terms") }}"><i class="bi-card-list"></i>&nbsp;{% trans %}link.terms{% endtrans %}</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link{% if nav_top == 'privacy' %} active{% endif %}" href="{{ path("index_privacy") }}">{% trans %}link.privacy{% endtrans %}</a>
+            <a class="nav-link{% if nav_top == 'privacy' %} active{% endif %}" href="{{ path("index_privacy") }}"><i class="bi-umbrella"></i>&nbsp;{% trans %}link.privacy{% endtrans %}</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link{% if nav_top == 'imprint' %} active{% endif %}" href="{{ path("index_imprint") }}">{% trans %}link.imprint{% endtrans %}</a>
+            <a class="nav-link{% if nav_top == 'imprint' %} active{% endif %}" href="{{ path("index_imprint") }}"><i class="bi-building"></i>&nbsp;{% trans %}link.imprint{% endtrans %}</a>
         </li>
 
         {% if app.user %}
@@ -37,21 +37,21 @@
 
         {% else %}
             <li class="nav-item">
-                <a class="nav-link" href="{{ path('account_login') }}"><i class="bi-box-arrow-in-right"></i>&nbsp;{% trans %}link.sign-in{% endtrans %}</a>
+                <a class="nav-link{% if nav_top == 'account-login' %} active{% endif %}" href="{{ path('account_login') }}"><i class="bi-box-arrow-in-right"></i>&nbsp;{% trans %}link.sign-in{% endtrans %}</a>
             </li>
             {% if selfregister %}
             <li class="nav-item">
-                <a class="nav-link{% if nav_top == 'register' %} active{% endif %}" href="{{ path('account_register') }}">{% trans %}link.register{% endtrans %}</a>
+                <a class="nav-link{% if nav_top == 'account-register' %} active{% endif %}" href="{{ path('account_register') }}"><i class="bi-clipboard-plus"></i>&nbsp;{% trans %}link.register{% endtrans %}</a>
             </li>
             {% endif %}
             {% if invitation %}
                 <li class="nav-item">
-                    <a class="nav-link{% if nav_top == 'invitatioin' %} active{% endif %}" href="{{ path('account_accept_invitation_form') }}">{% trans %}link.invitation{% endtrans %}</a>
+                    <a class="nav-link{% if nav_sub == 'invitation-accept' %} active{% endif %}" href="{{ path('account_accept_invitation_form') }}"><i class="bi-qr-code"></i>&nbsp;{% trans %}link.invitation{% endtrans %}</a>
                 </li>
             {% endif %}
         {% endif %}
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">{% trans %}link.languages{% endtrans %}</a>
+            <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi-flag"></i>&nbsp;{% trans %}link.languages{% endtrans %}</a>
             <ul class="dropdown-menu" aria-labelledby="dropdown04">
                 {% for language in languages %}
                     {% set langname = 'text.language_' ~ language %}
