@@ -1,5 +1,6 @@
 Progress
 ========
+* 2021-12-30 Changed registrar column in User to separate Registration entity
 * 2021-12-30 Update LastLogin timestamp of User on login 
 * 2021-12-29 Added on-page QR code scanning for invitations
 * 2021-12-28 Translated forms

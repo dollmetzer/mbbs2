@@ -12,6 +12,7 @@
 namespace App\EventSubscriber;
 
 use App\Entity\Profile;
+use App\Entity\Registration;
 use App\Events\AccountCreatedEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
@@ -49,7 +50,6 @@ class AccountCreatedSubscriber implements EventSubscriberInterface
     public function onAccountCreatedEvent(AccountCreatedEvent $event): void
     {
         $user = $event->getUser();
-        $registrar = $user->getRegistrar();
 
         $profile = new Profile();
         $profile->setOwner($user);
@@ -57,8 +57,12 @@ class AccountCreatedSubscriber implements EventSubscriberInterface
         $this->entityManager->persist($profile);
         $this->entityManager->flush();
 
+        $registrationRepo = $this->entityManager->getRepository(Registration::class);
+        $registration = $registrationRepo->findOneBy(['user' => $user]);
+        $registrar = $registration->getRegistrar();
+
         if (null !== $registrar) {
-            // todo: Add registrar as contact
+            // add registrar as contact
         }
     }
 }

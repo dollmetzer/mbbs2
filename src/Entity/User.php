@@ -16,10 +16,8 @@ use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
-use Doctrine\ORM\Mapping\ManyToOne;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -64,12 +62,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private ?DateTimeImmutable $lastlogin = null;
-
-    /**
-     * @ManyToOne(targetEntity="User")
-     * @JoinColumn(name="registrar_id", referencedColumnName="id", onDelete="SET NULL", nullable=true)
-     */
-    private ?User $registrar = null;
 
     /**
      * @ManyToMany(targetEntity="Role", inversedBy="users")
@@ -157,16 +149,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastlogin(DateTimeImmutable $lastlogin): void
     {
         $this->lastlogin = $lastlogin;
-    }
-
-    public function getRegistrar(): ?User
-    {
-        return $this->registrar;
-    }
-
-    public function setRegistrar(?User $registrar): void
-    {
-        $this->registrar = $registrar;
     }
 
     /**

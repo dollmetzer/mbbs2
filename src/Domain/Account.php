@@ -11,6 +11,7 @@
 
 namespace App\Domain;
 
+use App\Entity\Registration;
 use App\Entity\User;
 use App\Events\AccountCreatedEvent;
 use Doctrine\ORM\EntityManagerInterface;
@@ -46,10 +47,14 @@ class Account
         $user->setUsername($username);
         $user->setPassword($this->userPasswordHasher->hashPassword($user, $password));
         $user->setLocale($locale);
-//        $user->setRegistrar($registrar);
         $user->setIsActive(true);
-
         $this->entityManager->persist($user);
+
+        $registration = new Registration();
+        $registration->setUser($user);
+        $registration->setRegistrar($registrar);
+        $this->entityManager->persist($registration);
+
         $this->entityManager->flush();
 
         $this->logger->info('Account created', ['handle' => $user->getUserIdentifier(), 'id' => $user->getId()]);
