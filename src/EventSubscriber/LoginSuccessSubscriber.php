@@ -29,5 +29,8 @@ class LoginSuccessSubscriber implements EventSubscriberInterface
         $user->setLastlogin(new DateTimeImmutable());
         $this->entityManager->persist($user);
         $this->entityManager->flush();
+
+        $request = $event->getRequest();
+        $request->getSession()->set('_locale', $user->getLocale());
     }
 }
