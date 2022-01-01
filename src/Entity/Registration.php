@@ -46,57 +46,36 @@ class Registration
      */
     private ?User $registrar = null;
 
-    /**
-     * @return int|null
-     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @return DateTimeImmutable|null
-     */
     public function getCreatedOn(): ?DateTimeImmutable
     {
         return $this->createdOn;
     }
 
-    /**
-     * @param DateTimeImmutable|null $createdOn
-     */
     public function setCreatedOn(?DateTimeImmutable $createdOn): void
     {
         $this->createdOn = $createdOn;
     }
 
-    /**
-     * @return User
-     */
     public function getUser(): User
     {
         return $this->user;
     }
 
-    /**
-     * @param User $user
-     */
     public function setUser(User $user): void
     {
         $this->user = $user;
     }
 
-    /**
-     * @return User|null
-     */
     public function getRegistrar(): ?User
     {
         return $this->registrar;
     }
 
-    /**
-     * @param User|null $registrar
-     */
     public function setRegistrar(?User $registrar): void
     {
         $this->registrar = $registrar;

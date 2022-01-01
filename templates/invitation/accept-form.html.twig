@@ -37,15 +37,12 @@
     </div>
     </div>
 </form>
-
-
     <script>
         let scanning = false;
         let worker;
         let acceptedURL = '{{ acceptedURL }}';
 
         function checkForQrCode(video) {
-            // die Prüfung findet erst statt, wenn das Video läuft
             if (video.readyState !== video.HAVE_ENOUGH_DATA) {
                 return;
             }
@@ -54,14 +51,14 @@
             const height = qrReaderImage.height = video.videoHeight;
             const width = qrReaderImage.width = video.videoWidth;
 
-            // Standbild wird aus dem Video erzeugt
+            // capture picture from video stream
             qrReaderImage.getContext('2d').drawImage(video, 0, 0, width, height);
             const { data } = qrReaderImage.getContext('2d').getImageData(0, 0, width, height);
 
-            // Standbild wird in die QR-Funktion gegeben
+            // search qr code in captured picture
             const code = jsQR(data, width, height);
 
-            // es wurde ein QR-Code gefunden, also wird der Kontakt angelegt
+            // jump to page if qr code found and is a valid accept-URL
             if (code && code.data.length > 1) {
                 if (code.data.match(acceptedURL)) {
                     invitationAccepted()
@@ -83,7 +80,6 @@
             qrReaderVideo.srcObject = stream;
             qrReaderVideo.play();
 
-            // mit einem Intervall von 10 Millisekunden wird das Video auf QR-Codes geprüft
             worker = setInterval(() => checkForQrCode(qrReaderVideo), 250);
         }
 

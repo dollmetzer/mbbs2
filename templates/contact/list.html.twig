@@ -7,7 +7,42 @@
 
 {% block content %}
     <h1>{% trans %}title.contacts{% endtrans %}</h1>
-    <a href="{{ path("account_create_invitation") }}" class="btn btn-primary"><i class="bi bi-person-plus"></i>&nbsp;{% trans %}btn.invite{% endtrans %}</a>
-    <a href="{{ path("account_accept_invitation_form") }}" class="btn btn-primary"><i class="bi bi-qr-code-scan"></i>&nbsp;{% trans %}btn.invitation-accept{% endtrans %}</a>
-    <p>contact:list</p>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>{% trans %}form.username{% endtrans %}</th>
+            <th>{% trans %}form.since{% endtrans %}</th>
+            <th>&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if contacts %}
+        {% for contact in contacts %}
+            <tr>
+                <td>{{ contact.contact.displayname }}</td>
+                <td>{{ contact.createdOn|format_datetime('medium', 'none') }}</td>
+                <td><a href="{{ path("profile_show", {id:contact.contact.id}) }}" class="btn btn-outline-dark"><i class="bi-eye"></i></a></td>
+            </tr>
+        {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="3">{% trans %}text.contacts.empty{% endtrans %}</td>
+            </tr>
+        {% endif %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="3">
+                <a href="{{ path("account_create_invitation") }}" class="btn btn-primary"><i class="bi bi-person-plus"></i>&nbsp;{% trans %}btn.invite{% endtrans %}</a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <a href="{{ path("account_accept_invitation_form") }}" class="btn btn-primary"><i class="bi bi-qr-code-scan"></i>&nbsp;{% trans %}btn.invitation-accept{% endtrans %}</a>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+
 {% endblock %}

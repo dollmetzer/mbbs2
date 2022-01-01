@@ -23,7 +23,6 @@
 .phpunit.result.cache
 /phpunit.xml
 /bin/.phpunit/
-/public/img/
 
 ###> friendsofphp/php-cs-fixer ###
 /.php-cs-fixer.php

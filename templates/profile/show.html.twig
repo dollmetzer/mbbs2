@@ -1,6 +1,17 @@
+{% set nav_top = 'profile' %}
+{% set nav_sub = 'show' %}
 {% extends 'base.html.twig' %}
+{% trans_default_domain 'app' %}
+
+{% set pagetitle = 'title.profile.show'|trans %}
+{% set pagetitle = pagetitle|format(profile.displayname) %}
+
+{% block title %}{{ pagetitle }}{% endblock %}
 
 {% block content %}
+<h1>{{ pagetitle }}</h1>
+
+    {% include 'profile/_profile.html.twig' %}
 
 {% endblock %}
 

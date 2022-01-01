@@ -1,5 +1,5 @@
 {% set nav_top = 'profile' %}
-{% set nav_sub = '-' %}
+{% set nav_sub = 'own' %}
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'app' %}
 
@@ -8,54 +8,7 @@
 {% block content %}
     <h1>{% trans %}title.profile.own{% endtrans %}</h1>
 
-    <table class="table table-striped">
-        <tbody>
-            <tr>
-                <td colspan="2">
-                    {% if pictureUrl %}
-                        <img src="{{ asset(pictureUrl) }}" id="show-picture" /><br />&nbsp;
-                        <form action="{{ path('profile_picture_upload') }}" id="pictureupload" enctype="multipart/form-data" method="post">
-                            <input type="file" name="profilepicture" id="filebutton" hidden onchange="document.getElementById('pictureupload').submit();" />
-                            <label for="filebutton" class="btn btn-primary"><i class="bi-image"></i>&nbsp;{% trans %}btn.picture.change{% endtrans %}</label>
-                            <a href="{{ path('profile_picture_delete') }}" class="btn btn-danger"><i class="bi-trash"></i>&nbsp;{% trans %}btn.picture.delete{% endtrans %}</a>
-                        </form>
-                    {% else %}
-                        <form action="{{ path('profile_picture_upload') }}" id="pictureupload" enctype="multipart/form-data" method="post">
-                            <input type="file" name="profilepicture" id="filebutton" hidden onchange="document.getElementById('pictureupload').submit();" />
-                            <label for="filebutton" class="btn btn-primary"><i class="bi-image"></i>&nbsp;{% trans %}btn.picture.upload{% endtrans %}</label>
-                        </form>
-                    {% endif %}
-                </td>
-            </tr>
-            <tr>
-                <th>{% trans %}form.displayname{% endtrans %}</th>
-                <td>{{ profile.displayname }}</td>
-            </tr>
-            <tr>
-                <th>{% trans %}form.motto{% endtrans %}</th>
-                <td>{{ profile.motto }}</td>
-            </tr>
-            {% set gender = 'text.gender_' ~ profile.gender %}
-            <tr>
-                <th>{% trans %}form.gender{% endtrans %}</th>
-                <td>{{ gender|trans }}</td>
-            </tr>
-            {% set zodiac = 'text.zodiac_' ~ profile.zodiac %}
-            <tr>
-                <th>{% trans %}form.zodiac-sign{% endtrans %}</th>
-                <td>{{ zodiac|trans }}</td>
-            </tr>
-            <!-- tr>
-                <th>{% trans %}form.country{% endtrans %}</th>
-                <td>{{ profile.country }}</td>
-            </tr>
-            <tr>
-                <th>{% trans %}form.city{% endtrans %}</th>
-                <td>{{ profile.city }}</td>
-            </tr -->
-        </tbody>
-    </table>
-
+    {% include 'profile/_profile.html.twig' %}
     <a href="{{ path('profile_edit') }}" class="btn btn-primary"><i class="bi-pencil"></i>&nbsp;{% trans %}btn.edit{% endtrans %}</a>
 
 {% endblock %}

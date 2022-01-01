@@ -33,6 +33,7 @@ form:
   invitationcode: Invitation code
   remember-me: Remember Me
   register: Register
+  since: Since
 
 link:
   home: Home
@@ -85,6 +86,8 @@ text:
   zodiac_Capricornus: Capricornus
   zodiac_Aquarius: Aquarius
   zodiac_Pisces: Pisces
+  contacts:
+    empty: You don't have any contacts.
 
 title:
   index: Welcome to MBBS2
@@ -98,6 +101,7 @@ title:
   contacts: Contacts
   profile:
     own: Your Profile
+    show: Profile of %s
     edit: Edit Profile
   settings: Settings
   invitation:

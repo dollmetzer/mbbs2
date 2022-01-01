@@ -73,9 +73,16 @@ class ProfileController extends AbstractController
         $repo = $this->doctrine->getRepository(Profile::class);
         $profile = $repo->findOneBy(['id' => $id]);
 
-        return $this->render('/profile/show.html.twig',
-            ['profile' => $profile]
-        );
+        if (file_exists($this->getPicturePath($profile))) {
+            $pictureUrl = $this->getPictureURL($profile);
+        } else {
+            $pictureUrl = null;
+        }
+
+        return $this->render('/profile/show.html.twig', [
+            'profile' => $profile,
+            'pictureUrl' => $pictureUrl,
+        ]);
     }
 
     /**

@@ -33,6 +33,7 @@ form:
   invitationcode: Einladungscode
   remember-me: Angemeldet bleiben
   register: Registrieren
+  since: Seit
 
 link:
   home: Startseite
@@ -85,6 +86,8 @@ text:
   zodiac_Capricornus: Steinbock
   zodiac_Aquarius: Wassermann
   zodiac_Pisces: Fische
+  contacts:
+    empty: Du hast noch keine Kontakte
 
 title:
   index: Willkommen bei MBBS2
@@ -98,6 +101,7 @@ title:
   contacts: Kontakte
   profile:
     own: Dein Profil
+    show: Profil von %s
     edit: Profil bearbeiten
   settings: Einstellungen
   invitation:

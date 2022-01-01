@@ -11,34 +11,25 @@
 
 namespace App\EventSubscriber;
 
+use App\Entity\Contact;
 use App\Entity\Profile;
 use App\Entity\Registration;
 use App\Events\AccountCreatedEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AccountCreatedSubscriber implements EventSubscriberInterface
 {
     private EntityManagerInterface $entityManager;
 
-    private TranslatorInterface $translator;
-
-    private EventDispatcherInterface $eventDispatcher;
-
     private LoggerInterface $logger;
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        TranslatorInterface $translator,
-        EventDispatcherInterface $eventDispatcher,
         LoggerInterface $logger
     ) {
         $this->entityManager = $entityManager;
-        $this->translator = $translator;
-        $this->eventDispatcher = $eventDispatcher;
         $this->logger = $logger;
     }
 
@@ -55,14 +46,23 @@ class AccountCreatedSubscriber implements EventSubscriberInterface
         $profile->setOwner($user);
         $profile->setDisplayname($user->getUserIdentifier());
         $this->entityManager->persist($profile);
-        $this->entityManager->flush();
 
         $registrationRepo = $this->entityManager->getRepository(Registration::class);
         $registration = $registrationRepo->findOneBy(['user' => $user]);
         $registrar = $registration->getRegistrar();
 
         if (null !== $registrar) {
-            // add registrar as contact
+            $repo = $this->entityManager->getRepository(Profile::class);
+            $registrarProfile = $repo->findOneBy(['owner' => $registrar]);
+            $contact = new Contact();
+            $contact->setOriginator($registrarProfile);
+            $contact->setContact($profile);
+            $this->entityManager->persist($contact);
+            $contact2 = new Contact();
+            $contact2->setOriginator($profile);
+            $contact2->setContact($registrarProfile);
+            $this->entityManager->persist($contact2);
         }
+        $this->entityManager->flush();
     }
 }
