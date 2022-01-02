@@ -16,11 +16,18 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ProfilePicture
 {
-    public function processUpload(UploadedFile $file, string $targetFile, int $maxWidth = 256, int $maxHeight = 256): void
-    {
+    public function processUpload(
+        UploadedFile $file,
+        string $targetFile,
+        int $maxWidth = 256,
+        int $maxHeight = 256,
+        int $maxThumbWidth = 64,
+        int $maxThumbHeight = 64
+    ): void {
         $this->checkError($file);
         $this->checkMimeType($file);
         $this->getResizedPicture($file, $targetFile, $maxWidth, $maxHeight);
+        $this->processThumbnail($targetFile, $maxThumbWidth, $maxThumbHeight);
     }
 
     protected function checkMimeType(UploadedFile $file): void
@@ -83,6 +90,52 @@ class ProfilePicture
 
         if (false === \imagejpeg($targetImage, $targetFile)) {
             throw new FileUploadException(FileUploadException::ERROR_PROCESSING_FAILED);
+        }
+    }
+
+    private function processThumbnail(string $sourceFile, int $maxWidth, int $maxHeight): void
+    {
+        if (!file_exists($sourceFile)) {
+            throw new FileUploadException(FileUploadException::ERROR_PROCESSING_THUMBNAIL_FAILED);
+        }
+        $targetFile = preg_replace("/\.jpg$/", '_thumb.jpg', $sourceFile);
+
+        $size = getimagesize($sourceFile);
+
+        $originalWidth = $size[0];
+        $originalHeight = $size[1];
+
+        $scaleWidth = $originalWidth / $maxWidth;
+        $scaleHeight = $originalHeight / $maxHeight;
+
+        if ($scaleWidth > $scaleHeight) {
+            // landscape
+            $newHeight = $maxHeight;
+            $newWidth = $maxHeight;
+
+            $offsetWidth = ($originalWidth - $originalHeight) / 2;
+            $offsetHeight = 0;
+
+            $sourceWidth = $originalHeight;
+            $sourceHeight = $originalHeight;
+        } else {
+            // portait
+            $newWidth = $maxWidth;
+            $newHeight = $maxWidth;
+
+            $offsetWidth = 0;
+            $offsetHeight = ($originalHeight - $originalWidth) / 2;
+
+            $sourceWidth = $originalWidth;
+            $sourceHeight = $originalWidth;
+        }
+
+        $sourceImage = \imagecreatefromjpeg($sourceFile);
+        $targetImage = \imagecreatetruecolor($newWidth, $newHeight);
+        \imagecopyresampled($targetImage, $sourceImage, 0, 0, $offsetWidth, $offsetHeight, $newWidth, $newHeight, $sourceWidth, $sourceHeight);
+
+        if (false === \imagejpeg($targetImage, $targetFile)) {
+            throw new FileUploadException(FileUploadException::ERROR_PROCESSING_THUMBNAIL_FAILED);
         }
     }
 }

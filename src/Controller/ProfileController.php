@@ -73,15 +73,8 @@ class ProfileController extends AbstractController
         $repo = $this->doctrine->getRepository(Profile::class);
         $profile = $repo->findOneBy(['id' => $id]);
 
-        if (file_exists($this->getPicturePath($profile))) {
-            $pictureUrl = $this->getPictureURL($profile);
-        } else {
-            $pictureUrl = null;
-        }
-
         return $this->render('/profile/show.html.twig', [
             'profile' => $profile,
-            'pictureUrl' => $pictureUrl,
         ]);
     }
 
@@ -129,6 +122,12 @@ class ProfileController extends AbstractController
                     $request->files->get('profilepicture'),
                     $this->getPicturePath($profile)
                 );
+                $profile->setPicture('img/profile/'.$profile->getId().'.jpg');
+                $profile->setThumbnail('img/profile/'.$profile->getId().'_thumb.jpg');
+
+                $entityManager = $this->doctrine->getManager();
+                $entityManager->persist($profile);
+                $entityManager->flush();
             } catch (FileUploadException $e) {
                 $this->addFlash('error', $this->translator->trans($e->getMessage()));
             }
@@ -150,6 +149,15 @@ class ProfileController extends AbstractController
         if (file_exists($picturePath)) {
             unlink($picturePath);
         }
+        $thumbnailPath = $this->getPicturePath($profile, '_thumb');
+        if (file_exists($thumbnailPath)) {
+            unlink($thumbnailPath);
+        }
+        $profile->setPicture(null);
+        $profile->setThumbnail(null);
+        $entityManager = $this->doctrine->getManager();
+        $entityManager->persist($profile);
+        $entityManager->flush();
 
         return $this->redirectToRoute('profile_own');
     }
@@ -214,8 +222,8 @@ class ProfileController extends AbstractController
         return $package->getUrl('img/profile/'.$profile->getId().'.jpg');
     }
 
-    protected function getPicturePath(Profile $profile): string
+    protected function getPicturePath(Profile $profile, string $addition = ''): string
     {
-        return realpath(__DIR__.'/../../public/img/profile').'/'.$profile->getId().'.jpg';
+        return realpath(__DIR__.'/../../public/img/profile').'/'.$profile->getId().$addition.'.jpg';
     }
 }

@@ -14,7 +14,7 @@ class ContactRepository extends ServiceEntityRepository
         parent::__construct($registry, Contact::class);
     }
 
-    public function findContacts(User $user)
+    public function findContacts(User $user): array
     {
         return $this->findBy(['originator' => $user]);
     }

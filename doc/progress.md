@@ -1,5 +1,6 @@
 Progress
 ========
+* 2022-01-02 Changed, how profile picture and thumbnail are handled. Added template check to bin/check
 * 2022-01-01 Added contact list, contact profile page, contact added by invitation
 * 2021-12-30 Changed registrar column in User to separate Registration entity
 * 2021-12-30 Update LastLogin timestamp of User on login 

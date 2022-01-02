@@ -4,22 +4,25 @@
     <tr>
         <td colspan="2">
             {% if nav_sub == 'own' %}
-                {% if pictureUrl %}
-                    <img src="{{ asset(pictureUrl) }}" id="show-picture" /><br />&nbsp;
+                {% if profile.picture %}
+                    <img src="{{ asset(profile.picture) }}" id="show-picture" /><br />&nbsp;
                     <form action="{{ path('profile_picture_upload') }}" id="pictureupload" enctype="multipart/form-data" method="post">
                         <input type="file" name="profilepicture" id="filebutton" hidden onchange="document.getElementById('pictureupload').submit();" />
                         <label for="filebutton" class="btn btn-primary"><i class="bi-image"></i>&nbsp;{% trans %}btn.picture.change{% endtrans %}</label>
                         <a href="{{ path('profile_picture_delete') }}" class="btn btn-danger"><i class="bi-trash"></i>&nbsp;{% trans %}btn.picture.delete{% endtrans %}</a>
                     </form>
                 {% else %}
+                    <img src="{{ asset("img/profile.jpg") }}" id="show-picture" />
                     <form action="{{ path('profile_picture_upload') }}" id="pictureupload" enctype="multipart/form-data" method="post">
                         <input type="file" name="profilepicture" id="filebutton" hidden onchange="document.getElementById('pictureupload').submit();" />
                         <label for="filebutton" class="btn btn-primary"><i class="bi-image"></i>&nbsp;{% trans %}btn.picture.upload{% endtrans %}</label>
                     </form>
                 {% endif %}
             {% else %}
-                {% if pictureUrl %}
-                    <img src="{{ asset(pictureUrl) }}" id="show-picture" />
+                {% if profile.picture %}
+                    <img src="{{ asset(profile.picture) }}" id="show-picture" />
+                {% else %}
+                    <img src="{{ asset("img/profile.jpg") }}" id="show-picture" />
                 {% endif %}
             {% endif %}
         </td>

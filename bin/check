@@ -36,6 +36,10 @@ printf "\n\nChecking Container\n------------------\n"
 bin/console lint:container
 
 
+printf "\n\nChecking Templates\n------------------\n"
+bin/console lint:twig templates
+
+
 printf "\n\nPHP Mess Detector\n-----------------\n"
 vendor/phpmd/phpmd/src/bin/phpmd src/ text phpmd_ruleset.xml
 

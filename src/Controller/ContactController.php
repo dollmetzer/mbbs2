@@ -13,6 +13,7 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Entity\User;
+use App\Repository\ContactRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -36,6 +37,7 @@ class ContactController extends AbstractController
     {
         /** @var User $user */
         $user = $this->getUser();
+        /** @var ContactRepository $repo */
         $repo = $this->doctrine->getRepository(Contact::class);
         $contacts = $repo->findContacts($user);
 

@@ -84,6 +84,11 @@ class Profile
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
      */
+    private ?string $thumbnail = null;
+
+    /**
+     * @ORM\Column(type="string", length=128, nullable=true)
+     */
     private ?string $motto = null;
 
     /**
@@ -134,9 +139,19 @@ class Profile
         return $this->picture;
     }
 
-    public function setPicture(string $picture): void
+    public function setPicture(?string $picture): void
     {
         $this->picture = $picture;
+    }
+
+    public function getThumbnail(): ?string
+    {
+        return $this->thumbnail;
+    }
+
+    public function setThumbnail(?string $thumbnail): void
+    {
+        $this->thumbnail = $thumbnail;
     }
 
     public function getMotto(): ?string

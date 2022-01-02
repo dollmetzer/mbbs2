@@ -11,8 +11,8 @@
     <table class="table table-striped">
         <thead>
         <tr>
+            <th>&nbsp;</th>
             <th>{% trans %}form.username{% endtrans %}</th>
-            <th>{% trans %}form.since{% endtrans %}</th>
             <th>&nbsp;</th>
         </tr>
         </thead>
@@ -20,9 +20,18 @@
         {% if contacts %}
         {% for contact in contacts %}
             <tr>
-                <td>{{ contact.contact.displayname }}</td>
-                <td>{{ contact.createdOn|format_datetime('medium', 'none') }}</td>
-                <td><a href="{{ path("profile_show", {id:contact.contact.id}) }}" class="btn btn-outline-dark"><i class="bi-eye"></i></a></td>
+                <td>{% if contact.contact.thumbnail %}
+                        <img src="{{ asset(contact.contact.thumbnail) }}" />
+                    {% else %}
+                        <img src="{{ asset("img/profile_64.jpg") }}" />
+                    {% endif %}</td>
+                <td>
+                    <b>{{ contact.contact.displayname }}</b><br />
+                    {% trans %}form.since{% endtrans %}:&nbsp;{{ contact.createdOn|format_datetime('medium', 'none') }}
+                </td>
+                <td><a href="{{ path("profile_show", {id:contact.contact.id}) }}" class="btn btn-sm btn-outline-dark" style="font-size: 1.5rem;"><i class="bi-person-badge"></i></a>&nbsp;
+                    <a href="{{ path("mail_create", {to:contact.contact.id}) }}" class="btn btn-sm btn-outline-dark" style="font-size: 1.5rem;"><i class="bi-envelope-plus"></i></a>
+                </td>
             </tr>
         {% endfor %}
         {% else %}
