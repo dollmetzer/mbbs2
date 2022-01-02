@@ -26,7 +26,7 @@ class ProfilePicture
     ): void {
         $this->checkError($file);
         $this->checkMimeType($file);
-        $this->getResizedPicture($file, $targetFile, $maxWidth, $maxHeight);
+        $this->processPicture($file, $targetFile, $maxWidth, $maxHeight);
         $this->processThumbnail($targetFile, $maxThumbWidth, $maxThumbHeight);
     }
 
@@ -52,48 +52,20 @@ class ProfilePicture
         }
     }
 
-    protected function getResizedPicture(UploadedFile $file, string $targetFile, int $maxWidth, int $maxHeight): void
+    protected function processPicture(UploadedFile $file, string $targetFile, int $maxWidth, int $maxHeight): void
     {
         $size = getimagesize($file->getPathname());
-
-        $originalWidth = $size[0];
-        $originalHeight = $size[1];
-
-        $scaleWidth = $originalWidth / $maxWidth;
-        $scaleHeight = $originalHeight / $maxHeight;
-
-        if ($scaleWidth > $scaleHeight) {
-            // landscape
-            $newHeight = $maxHeight;
-            $newWidth = $maxHeight;
-
-            $offsetWidth = ($originalWidth - $originalHeight) / 2;
-            $offsetHeight = 0;
-
-            $sourceWidth = $originalHeight;
-            $sourceHeight = $originalHeight;
-        } else {
-            // portait
-            $newWidth = $maxWidth;
-            $newHeight = $maxWidth;
-
-            $offsetWidth = 0;
-            $offsetHeight = ($originalHeight - $originalWidth) / 2;
-
-            $sourceWidth = $originalWidth;
-            $sourceHeight = $originalWidth;
+        $targetImage = $this->resizePicture($size, $maxWidth, $maxHeight, $file->getPathname());
+        if (false === $targetImage) {
+            throw new FileUploadException(FileUploadException::ERROR_PROCESSING_FAILED);
         }
-
-        $sourceImage = \imagecreatefromjpeg($file->getPathname());
-        $targetImage = \imagecreatetruecolor($newWidth, $newHeight);
-        \imagecopyresampled($targetImage, $sourceImage, 0, 0, $offsetWidth, $offsetHeight, $newWidth, $newHeight, $sourceWidth, $sourceHeight);
 
         if (false === \imagejpeg($targetImage, $targetFile)) {
             throw new FileUploadException(FileUploadException::ERROR_PROCESSING_FAILED);
         }
     }
 
-    private function processThumbnail(string $sourceFile, int $maxWidth, int $maxHeight): void
+    protected function processThumbnail(string $sourceFile, int $maxWidth, int $maxHeight): void
     {
         if (!file_exists($sourceFile)) {
             throw new FileUploadException(FileUploadException::ERROR_PROCESSING_THUMBNAIL_FAILED);
@@ -101,7 +73,21 @@ class ProfilePicture
         $targetFile = preg_replace("/\.jpg$/", '_thumb.jpg', $sourceFile);
 
         $size = getimagesize($sourceFile);
+        $targetImage = $this->resizePicture($size, $maxWidth, $maxHeight, $sourceFile);
+        if (false === $targetImage) {
+            throw new FileUploadException(FileUploadException::ERROR_PROCESSING_THUMBNAIL_FAILED);
+        }
 
+        if (false === \imagejpeg($targetImage, $targetFile)) {
+            throw new FileUploadException(FileUploadException::ERROR_PROCESSING_THUMBNAIL_FAILED);
+        }
+    }
+
+    /**
+     * @return resource|false
+     */
+    protected function resizePicture(array $size, int $maxWidth, int $maxHeight, string $sourceFile)
+    {
         $originalWidth = $size[0];
         $originalHeight = $size[1];
 
@@ -132,10 +118,19 @@ class ProfilePicture
 
         $sourceImage = \imagecreatefromjpeg($sourceFile);
         $targetImage = \imagecreatetruecolor($newWidth, $newHeight);
-        \imagecopyresampled($targetImage, $sourceImage, 0, 0, $offsetWidth, $offsetHeight, $newWidth, $newHeight, $sourceWidth, $sourceHeight);
+        \imagecopyresampled(
+            $targetImage,
+            $sourceImage,
+            0,
+            0,
+            $offsetWidth,
+            $offsetHeight,
+            $newWidth,
+            $newHeight,
+            $sourceWidth,
+            $sourceHeight
+        );
 
-        if (false === \imagejpeg($targetImage, $targetFile)) {
-            throw new FileUploadException(FileUploadException::ERROR_PROCESSING_THUMBNAIL_FAILED);
-        }
+        return $targetImage;
     }
 }
