@@ -11,7 +11,6 @@
 
 namespace App\EventSubscriber;
 
-use App\Entity\Contact;
 use App\Entity\Profile;
 use App\Entity\Registration;
 use App\Events\AccountCreatedEvent;
@@ -52,16 +51,8 @@ class AccountCreatedSubscriber implements EventSubscriberInterface
         $registrar = $registration->getRegistrar();
 
         if (null !== $registrar) {
-            $repo = $this->entityManager->getRepository(Profile::class);
-            $registrarProfile = $repo->findOneBy(['owner' => $registrar]);
-            $contact = new Contact();
-            $contact->setOriginator($registrarProfile);
-            $contact->setContact($profile);
-            $this->entityManager->persist($contact);
-            $contact2 = new Contact();
-            $contact2->setOriginator($profile);
-            $contact2->setContact($registrarProfile);
-            $this->entityManager->persist($contact2);
+            $contactDomain = new \App\Domain\Contact($this->entityManager);
+            $contactDomain->create($registrar, $user);
         }
         $this->entityManager->flush();
     }

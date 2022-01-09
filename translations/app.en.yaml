@@ -65,6 +65,8 @@ message:
     accept-code: Or accept the invitation of your friend by entering the 16 digit code in the form below.
     qrcode-accepted: Found valid QR code. Jumping to the invitation.
     qrcode-denied: This is no valid invitation QR code.
+    no-selfinvite: You can't add yourself as friend.
+    accepted: You accepted the invitation. The contact was added.
 
 text:
   language_de: German
@@ -108,3 +110,6 @@ title:
     invite: Invite Somebody
     accept: Accept Invitation
     accountapplication: Create a new account
+  mail:
+    create: Neue Mail
+    read: Mail lesen

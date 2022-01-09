@@ -26,9 +26,9 @@
     <div id="form">
         <div class="input-group mb-3">
             <span class="input-group-text">{% trans %}form.invitationcode{% endtrans %}</span>
-            <input type="text" id="form_1" name="form[1]" required="required" minlength="4" maxlength="4" class="form-control" />
-            <input type="text" id="form_2" name="form[2]" required="required" minlength="4" maxlength="4" class="form-control" />
-            <input type="text" id="form_3" name="form[3]" required="required" minlength="4" maxlength="4" class="form-control" />
+            <input type="text" id="form_1" name="form[1]" required="required" minlength="4" maxlength="4" class="form-control" onkeyup="checkJumpToNextField(this)"/>
+            <input type="text" id="form_2" name="form[2]" required="required" minlength="4" maxlength="4" class="form-control" onkeyup="checkJumpToNextField(this)" />
+            <input type="text" id="form_3" name="form[3]" required="required" minlength="4" maxlength="4" class="form-control" onkeyup="checkJumpToNextField(this)" />
             <input type="text" id="form_4" name="form[4]" required="required" minlength="4" maxlength="4" class="form-control" />
         </div>
     </div>
@@ -41,6 +41,16 @@
         let scanning = false;
         let worker;
         let acceptedURL = '{{ acceptedURL }}';
+
+        function checkJumpToNextField(inputField) {
+            if (inputField.value.length == inputField.maxLength) {
+                thisId = inputField.id;
+                current = thisId.replace(/^form_/, '')
+                next = Number(current) + 1;
+                nextId = 'form_' + next
+                document.getElementById(nextId).focus();
+            }
+        }
 
         function checkForQrCode(video) {
             if (video.readyState !== video.HAVE_ENOUGH_DATA) {

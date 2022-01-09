@@ -65,6 +65,8 @@ message:
     accept-code: Oder gibt den 4x4 stelligen Einladungscode in das nachfolgende Formular ein.
     qrcode-accepted: QR Code erkannt. Springe zur Einladung.
     qrcode-denied: Das ist kein gültiger Einladungscode,
+    no-selfinvite: Du kannst Dich nicht selbst als Freund hinzufügen
+    accepted: Du hast die Einladung angenommen. Der Kontakt wurde hinzugefügt.
 
 text:
   language_de: Deutsch
@@ -108,3 +110,6 @@ title:
     invite: Jemanden einladen
     accept: Einladung annehmen
     accountapplication: Benutzerprofil anlegten
+  mail:
+    create: Create Mail
+    read: Read Mail

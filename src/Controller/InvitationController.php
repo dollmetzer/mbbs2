@@ -12,12 +12,14 @@
 namespace App\Controller;
 
 use App\Domain\Account;
+use App\Domain\Contact;
 use App\Domain\Invitation as InvitationDomain;
 use App\Entity\Invitation as InvitationEntity;
 use App\Entity\User;
 use App\Exception\InvitationException;
 use DateTimeImmutable;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ObjectManager;
 use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -158,13 +160,13 @@ class InvitationController extends AbstractController
                 return $this->redirectToRoute('account_accept_invitation_form');
             }
 
-            $this->session->set('invitedBy', $invitation->getOriginator()->getId());
             $entityManager = $this->doctrine->getManager();
-            $entityManager->remove($invitation);
-            $entityManager->persist($invitation);
-            $entityManager->flush();
 
-            return $this->redirectToRoute('account_invitation_create_account');
+            if ($user = $this->getUser()) {
+                return $this->acceptAlreadyUser($invitation, $entityManager);
+            }
+
+            return $this->acceptCreateAccount($invitation, $entityManager);
         }
 
         $acceptedURL = $this->generateUrl('account_accept_invitation_form', [], UrlGeneratorInterface::ABSOLUTE_URL);
@@ -182,6 +184,10 @@ class InvitationController extends AbstractController
      */
     public function createAccount(Request $request): Response
     {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('index_index');
+        }
+
         $invitedBy = $this->session->get('invitedBy');
         if (!$invitedBy) {
             $this->addFlash('error', $this->translator->trans('message.invitation.illegal-code', [], 'app'));
@@ -333,5 +339,41 @@ class InvitationController extends AbstractController
                 ]
             )
             ->getForm();
+    }
+
+    private function acceptAlreadyUser(InvitationEntity $invitation, ObjectManager $entityManager): Response
+    {
+        $currentUser = $this->getUser();
+        $originator = $invitation->getOriginator();
+
+        if ($currentUser == $originator) {
+            $translatedMessage = $this->translator->trans('message.invitation.no-selfinvite', [], 'app');
+            $this->addFlash('error', $translatedMessage);
+
+            return $this->redirectToRoute('index_index');
+        }
+
+        $contactDomain = new Contact($entityManager);
+        $contactDomain->create($originator, $currentUser);
+
+        $translatedMessage = $this->translator->trans('message.invitation.accepted', [], 'app');
+        $this->addFlash('error', $translatedMessage);
+
+        $entityManager->remove($invitation);
+        $entityManager->persist($invitation);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('contact_list');
+    }
+
+    private function acceptCreateAccount(InvitationEntity $invitation, ObjectManager $entityManager): Response
+    {
+        $this->session->set('invitedBy', $invitation->getOriginator()->getId());
+
+        $entityManager->remove($invitation);
+        $entityManager->persist($invitation);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('account_invitation_create_account');
     }
 }
